@@ -1,0 +1,88 @@
+﻿<div ng-controller="moneySourceAddEditCtrl" ng-init="init()">
+    <!-- BEGIN PAGE HEADER-->
+    <h3 class="page-title">
+        Money Source Add/Edit
+    </h3>
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/">Dashboard</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="/moneysource">Money Sources</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">Add/Edit</a>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
+        <strong>{{item.title}}</strong> {{item.body}}
+    </div>
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row">
+        <div class="col-md-12">
+            <form name="moneySourceForm" class="form-horizontal" novalidate>
+                <div class="form-body">
+                    <div class="form-group" ng-class="{'has-error': hasError(moneySourceForm.name, 'required')}">
+                        <label class="col-md-3 control-label">Name</label>
+                        <div class="col-md-4">
+                            <div class="input-icon right">
+                                <i class="fa fa-warning" ng-show="hasError(moneySourceForm.name, 'required')"></i>
+                                <input type="text" class="form-control" name="name" placeholder="Enter item name here" ng-model="moneySource.Name" required />
+                            </div>
+                            <span class="help-block" ng-show="hasError(moneySourceForm.name, 'required')">Money Source name is required</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{'has-error': hasError(moneySourceForm.balanceUsd, 'pattern')}">
+                        <label class="col-md-3 control-label">Balance (USD)</label>
+                        <div class="col-md-4">
+                            <div class="input-icon right">
+                                <i class="fa fa-warning" ng-show="hasError(moneySourceForm.balanceUsd, 'pattern')"></i>
+                                <input type="text" class="form-control input-medium" name="balanceUsd" ng-model="moneySource.BalanceUSD" ng-pattern="numberPattern"/>
+                            </div>
+                            <span class="help-block" ng-show="hasError(moneySourceForm.balanceUsd, 'pattern')">Invalid number</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{'has-error': hasError(moneySourceForm.balanceVnd, 'pattern')}">
+                        <label class="col-md-3 control-label">Balance (VND)</label>
+                        <div class="col-md-4">
+                            <div class="input-icon right">
+                                <i class="fa fa-warning" ng-show="hasError(moneySourceForm.balanceVnd, 'pattern')"></i>
+                                <input type="text" class="form-control input-medium" name="balanceVnd" ng-model="moneySource.BalanceVND" ng-pattern="numberPattern"/>
+                            </div>
+                            <span class="help-block" ng-show="hasError(moneySourceForm.balanceVnd, 'pattern')">Invalid number</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group last">
+                        <label class="col-md-3 control-label">Assign To</label>
+                        <div class="col-md-4">
+                            <select class="form-control" ng-options="house as house.Name for house in houses track by house.Id" ng-model="moneySource.House"></select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-4">
+                            <button type="submit" class="btn btn-primary" ng-click="submit()">Submit</button>
+                            <button type="button" class="btn default" ng-click="cancel()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT-->
+</div>
+@section AngularController{
+<script src="~/app/components/moneySource/moneySource.addedit.js"></script>
+}

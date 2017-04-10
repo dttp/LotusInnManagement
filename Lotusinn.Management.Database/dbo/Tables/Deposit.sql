@@ -1,0 +1,11 @@
+﻿CREATE TABLE [dbo].[Deposit](
+		[Id] nvarchar(15) NOT NULL,
+		[OrderId] nvarchar(15) NOT NULL,
+		[Date] DateTime NOT NULL,
+		[Amount] nvarchar(10) NOT NULL,
+		[Unit] nvarchar(3) NOT NULL
+	 CONSTRAINT [PK_Deposit] PRIMARY KEY CLUSTERED 
+	(
+		[Id] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	) ON [PRIMARY]

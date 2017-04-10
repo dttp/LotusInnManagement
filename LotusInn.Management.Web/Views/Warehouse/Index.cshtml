@@ -1,0 +1,106 @@
+﻿<div ng-controller="warehouseListCtrl" ng-init="init()">
+    <!-- BEGIN PAGE HEADER-->
+    <h3 class="page-title">
+        Warehouse Management
+    </h3>
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="\">Dashboard</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">Warehouses</a>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
+        <strong>{{item.title}}</strong> {{item.body}}
+    </div>
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary" ng-click="create()"><i class="fa fa-plus" aria-hidden="true"></i> Create</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet">
+                        @*<div class="portlet-title">
+                                <div class="caption">
+
+                                </div>
+                            </div>*@
+                        <div class="portlet-body">
+                            <div class="table-scrollable">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th style="width: 200px">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-if="warehouses.length == 0">
+                                            <td colspan="2">
+                                                There are no items
+                                            </td>
+                                        </tr>
+                                        <tr ng-repeat="warehouse in warehouses">
+                                            <td>
+                                                <a href="/warehouse/detail?id={{warehouse.Id}}">{{warehouse.Name}}</a>
+                                            </td>
+                                            <td>
+                                                <a href="javascript:;" title="Edit this warehouse" class="btn btn-icon-only blue-hoki" ng-click="edit(warehouse)">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a href="javascript:;" title="Delete this warehouse" class="btn btn-icon-only red-flamingo" ng-click="delete(warehouse)">
+                                                    <i class="fa fa-remove"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT-->
+</div>
+
+<script type="text/ng-template" id="warehouseInfo.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Warehouse Info!</h3>
+    </div>
+    <div class="modal-body">
+        <form name="warehouseForm" class="form-horizontal" novalidate>
+            <div class="form-body">
+                <div class="form-group last">
+                    <label class="col-md-3 control-label">Name</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="name" placeholder="Enter warehouse name here" ng-model="warehouse.Name" required />
+                        <span class="help-block" ng-show="warehouseForm.name.$dirty && warehouseForm.name.$error.required">Name is required</span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
+
+@section AngularController{
+
+    <script src="~/app/components/warehouse/warehouse.list.js"></script>
+}

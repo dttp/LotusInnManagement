@@ -1,0 +1,7 @@
+.page-header.navbar.navbar-fixed-top {
+    z-index: 995;
+}
+
+.page-sidebar .sidebar-toggler, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-toggler {
+    margin-bottom: 15px;
+}

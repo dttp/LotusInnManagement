@@ -1,0 +1,43 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">Discount Info!</h3>
+</div>
+<div class="modal-body">
+    <form name="discountForm" class="form-horizontal" novalidate>
+        <div class="form-body">
+            <div class="form-group" ng-class="{'has-error': hasError(discountForm.reason, 'required')}">
+                <label class="col-md-3 control-label">Reason</label>
+                <div class="col-md-8">
+                    <div class="input-icon right">
+                        <i class="fa fa-warning" ng-show="hasError(discountForm.reason, 'required')"></i>
+                        <input type="text" class="form-control" name="reason" ng-model="discount.Name" required />
+                    </div>
+                    <span class="help-block" ng-show="hasError(discountForm.reason, 'required')">Discount Reason is required</span>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error': hasError(discountForm.amount, 'required')}">
+                <label class="col-md-3 control-label">Amount</label>
+                <div class="col-md-3">
+                    <div class="input-icon right">
+                        <i class="fa fa-warning" ng-show="hasError(discountForm.amount, 'required')"></i>
+                        <input type="text" class="form-control" name="amount" ng-model="discount.Amount" required />
+                    </div>
+                    <span class="help-block" ng-show="hasError(discountForm.amount, 'required')">Amount is required</span>
+                </div>
+
+                <div class="col-md-5" style="padding-left: 0">
+                    <select class="form-control input-xsmall" ng-options="unit as unit for unit in units" ng-model="discount.Unit"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">Money Source</label>
+                <div class="col-md-8">
+                    <select class="form-control input-small" ng-options="source.Id as source.Name for source in moneySources" ng-model="discount.MoneySourceId"></select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn blue" ng-disabled="discountForm.$invalid" type="button" ng-click="ok()">Ok</button>
+    <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+</div>

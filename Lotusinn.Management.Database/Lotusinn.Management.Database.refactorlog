@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="b6927de7-ec68-488d-9e9f-0bca40a1b5f1" ChangeDateTime="03/09/2017 07:31:32">
+    <Property Name="ElementName" Value="[dbo].[MoneySource].[Method]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[MoneySource]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MethodSupport" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="881e9b18-877b-415f-b615-640599660ac6" ChangeDateTime="03/10/2017 02:52:29">
+    <Property Name="ElementName" Value="[dbo].[MoneySource].[Balance]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[MoneySource]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="BalanceVND" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c3464fe6-d046-4826-8ae0-518afe6d6b50" ChangeDateTime="03/10/2017 02:52:35">
+    <Property Name="ElementName" Value="[dbo].[MoneySource].[Unit]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[MoneySource]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="BalanceUSD" />
+  </Operation>
+</Operations>

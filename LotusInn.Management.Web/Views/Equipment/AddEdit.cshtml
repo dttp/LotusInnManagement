@@ -1,0 +1,117 @@
+﻿<div ng-controller="equipmentAddEdit" ng-init="init()">
+    <!-- BEGIN PAGE HEADER-->
+    <h3 class="page-title">
+        Equipment <small>Add/Edit</small>
+    </h3>
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/">Dashboard</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="/equipment">Equipments</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">AddEdit</a>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
+        <strong>{{item.title}}</strong> {{item.body}}
+    </div>
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row" >
+        <div class="col-md-12">
+            <form name="equipmentForm" class="form-horizontal" novalidate>
+                <div class="form-body">
+                    <div class="form-group" ng-class="{'has-error': hasError(equipmentForm.name, 'required')}">
+                        <label class="col-md-3 control-label">Name</label>
+                        <div class="col-md-4">
+                            <div class="input-icon right">
+                                <i class="fa fa-warning" ng-show="hasError(equipmentForm.name, 'required')"></i>
+                                <input type="text" class="form-control" name="name" ng-model="equipment.Name" required />
+                            </div>
+                            
+                            <span class="help-block" ng-show="hasError(equipmentForm.name, 'required')">Equipment name is required</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Category</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="category" ng-model="equipment.Category"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{'has-error': hasError(equipmentForm.quantity, 'required')}">
+                        <label class="col-md-3 control-label">Quantity</label>
+                        <div class="col-md-4">
+                            <div class="input-icon right input-small">
+                                <i class="fa fa-warning" ng-show="hasError(equipmentForm.quantity, 'required')"></i>
+                                <input type="text" class="form-control" name="quantity" ng-model="equipment.Quantity" required ng-pattern="numberPattern"/>
+                            </div>
+
+                            <span class="help-block" ng-show="hasError(equipmentForm.quantity, 'required')">Quantity is required</span>
+                            <span class="help-block" ng-show="hasError(equipmentForm.quantity, 'pattern')">Invalid number</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{'has-error': hasError(equipmentForm.price, 'required')}">
+                        <label class="col-md-3 control-label">Price</label>
+                        <div class="col-md-4">
+                            <div class="input-icon right input-small" style="float: left">
+                                <i class="fa fa-warning" ng-show="hasError(equipmentForm.price, 'required')"></i>
+                                <input type="text" class="form-control" name="price" ng-model="equipment.Price" required ng-pattern="numberPattern"/>
+                            </div>
+                            <select class="form-control input-xsmall" ng-model="equipment.Unit" ng-options="unit as unit for unit in units"></select>
+                            <span class="help-block" ng-show="hasError(equipmentForm.price, 'required')">Price is required</span>
+                            <span class="help-block" ng-show="hasError(equipmentForm.price, 'pattern')">Invalid number</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{'has-error': hasError(equipmentForm.status, 'required')}">
+                        <label class="col-md-3 control-label">Status</label>
+                        <div class="col-md-4">
+                            <div class="input-icon right">
+                                <i class="fa fa-warning" ng-show="hasError(equipmentForm.status, 'required')"></i>
+                                <input type="text" class="form-control" name="status" ng-model="equipment.Status" required/>
+                            </div>
+
+                            <span class="help-block" ng-show="hasError(equipmentForm.status, 'required')">Quantity is required</span>                            
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">House</label>
+                        <div class="col-md-4">
+                            <select class="form-control" ng-options="house as house.Name for house in houses track by house.Id" ng-model="selectedHouse" ng-change="refreshRooms()"></select>
+                        </div>
+                    </div>                 
+
+                    <div class="form-group last">
+                        <label class="col-md-3 control-label">Room</label>
+                        <div class="col-md-4">
+                            <select class="form-control" ng-options="room as room.RoomNumber for room in rooms track by room.Id" ng-model="selectedRoom" ng-change="refresh()"></select>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button type="submit" class="btn btn-primary" ng-click="submit(equipmentForm)">Submit</button>
+                            <button type="button" class="btn default" ng-click="cancel()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT-->
+</div>
+@section AngularController{                   
+<script src="~/app/components/equipment/equipment.addedit.js"></script>
+}

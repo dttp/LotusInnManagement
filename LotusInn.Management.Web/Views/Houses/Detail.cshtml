@@ -1,0 +1,164 @@
+﻿<div ng-controller="housedetail" ng-init="init()">
+    <!-- BEGIN PAGE HEADER-->
+    <h3 class="page-title">
+        Happy Houses <small>Detail information</small>
+    </h3>
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/">Dashboard</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="/houses">Houses</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">Detail</a>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
+        <strong>{{item.title}}</strong> {{item.body}}
+    </div>
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="portlet light">
+                        <div class="portlet-title">
+                            <div class="caption font-red-sunglo">
+                                <i class="icon-organization font-red-sunglo"></i>
+                                <span class="caption-subject bold uppercase">House Info</span>
+                            </div>
+                            <div class="tools">
+                                <a href="javascript:;" class="collapse" data-original-title="" title=""></a>
+                            </div>
+                            <div class="actions">
+                                <a href="javascript:;" class="btn btn-circle red-sunglo btn-sm" title="Edit house info" ng-click="edit()">
+                                    <i class="fa fa-edit"></i>
+                                    Edit
+                                </a>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <form name="houseForm" class="form-horizontal" novalidate>
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Name</label>
+                                        <div class="col-md-4">
+                                            <span class="form-control-static">{{house.Name}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group last">
+                                        <label class="col-md-3 control-label">Address</label>
+                                        <div class="col-md-4">
+                                            <span class="form-control-static">{{house.Address}}</span>
+                                        </div>
+                                    </div>
+                                </div>                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="portlet light">
+                        <div class="portlet-title">
+                            <div class="caption font-green-sharp">
+                                <i class="icon-tag font-green-sharp"></i>
+                                <span class="caption-subject bold uppercase">Room Type</span>
+                            </div>
+                            <div class="tools">
+                                <a href="javascript:;" class="collapse" data-original-title="" title=""></a>
+                            </div>
+                            <div class="actions">
+                                <a href="javascript:;" class="btn btn-circle green-sharp btn-sm" title="Manage RoomTypes for this house" ng-click="manageRoomTypes()">
+                                    <i class="fa fa-edit"></i>
+                                     Manage
+                                </a>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Price</th>                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-if="roomTypes.length == 0">
+                                    <td colspan="4">
+                                        There are no items
+                                    </td>
+                                </tr>
+                                <tr ng-if="roomTypes.length > 0" ng-repeat="roomType in roomTypes">
+                                    <td>{{roomType.Name}}</td>
+                                    <td>{{roomType.Price}} {{roomType.Unit}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet light">
+                        <div class="portlet-title">
+                            <div class="caption font-purple-studio">
+                                <i class="icon-grid font-purple-studio"></i>
+                                <span class="caption-subject bold uppercase">Rooms</span>
+                            </div>
+                            <div class="tools">
+                                <a href="javascript:;" class="collapse" data-original-title="" ></a>
+                            </div>
+                            <div class="actions">
+                                <a href="javascript:;" class="btn btn-circle purple-studio btn-sm" title="Manage rooms for this house" ng-click="manageRooms()">
+                                    <i class="fa fa-edit"></i>
+                                    Manage
+                                </a>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Number</th>
+                                        <th>Type</th>
+                                        <th>Availability</th>                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-show="rooms.length == 0">
+                                        <td colspan="3">
+                                            There are no items
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="rooms.length > 0" ng-repeat="r in rooms">
+                                        <td>{{r.RoomNumber}}</td>
+                                        <td>{{r.RoomType.Price}} - {{r.RoomType.Unit}}</td>
+                                        <td>
+                                            <span class="label" ng-class="{'bg-green-jungle': r.Status == 'Available', 'bg-yellow-crusta': r.Status == 'Reserved', 'bg-red-intense': r.Status == 'Busy'}">
+                                                {{r.Status}}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT-->
+</div>
+@section AngularController{
+    <script src="~/app/components/houses/housedetail.js"></script>
+}

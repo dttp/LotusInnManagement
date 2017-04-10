@@ -1,0 +1,123 @@
+﻿<div ng-controller="budgetAddEdit" ng-init="init()">
+    <!-- BEGIN PAGE HEADER-->
+    <h3 class="page-title">
+        Income/Expense <small>add/edit</small>
+    </h3>
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/">Dashboard</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="/budget">Income/Expense</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">AddEdit</a>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
+        <strong>{{item.title}}</strong> {{item.body}}
+    </div>
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row">
+        <div class="col-md-12">
+            <form name="budgetForm" class="form-horizontal" novalidate>
+                <div class="form-body">
+                    <!-- Name field -->
+                    <div class="form-group" ng-class="{'has-error': hasError(budgetForm.name, 'required')}">
+                        <label class="col-md-3 control-label">Name</label>
+                        <div class="col-md-4">
+                            <div class="input-icon right">
+                                <i class="fa fa-warning" ng-show="hasError(budgetForm.name, 'required')"></i>
+                                <input type="text" class="form-control" name="name" ng-model="budgetItem.Name" required/>
+                            </div>
+
+                            <span class="help-block" ng-show="hasError(budgetForm.name, 'required')">Name is required</span>
+                        </div>
+                    </div>
+
+                    <!-- Amount, Unit field -->
+                    <div class="form-group" ng-class="{'has-error': hasError(budgetForm.amount, 'invalid')}">
+                        <label class="col-md-3 control-label">Amount</label>
+                        <div style="float: left; width: 150px; padding-left: 15px;">
+                            <div class="input-icon right input-small">
+                                <i class="fa fa-warning" ng-show="hasError(budgetForm.amount, 'required')"></i>
+                                <input type="text" class="form-control" name="amount" ng-model="budgetItem.Amount" required ng-pattern="numberPattern"/>
+                            </div>
+                            <span class="help-block" ng-show="hasError(budgetForm.amount, 'required')">Amount is required</span>
+                            <span class="help-block" ng-show="hasError(budgetForm.amount, 'pattern')">Invalid number</span>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-control input-xsmall" ng-options="unit as unit for unit in units" ng-model="budgetItem.Unit"></select>
+                        </div>
+                    </div>
+
+                    <!-- Date -->
+                    <div class="form-group" >
+                        <label class="col-md-3 control-label">Date</label>
+                        <div class="col-md-4">
+                            <div class="input-group date input-medium" datepicker dp-options="datePickerOptions" ng-model='selectedDate'>
+                                <input type="text" class="form-control">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-th"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Method field -->
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Method</label>
+                        <div class="col-md-4">
+                            <select class="form-control input-small" ng-options="method as method for method in paymentMethods" ng-model="budgetItem.Method"></select>
+                        </div>
+                    </div>
+
+                    <!-- Note field -->
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Note</label>
+                        <div class="col-md-4">
+                            <textarea class="form-control" name="note" ng-model="budgetItem.Note" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- HouseId field -->
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">House</label>
+                        <div class="col-md-4">
+                            <select class="form-control" ng-options="house.Id as house.Name for house in houses" ng-model="budgetItem.HouseId"></select>
+                        </div>
+                    </div>
+
+                    <!-- Type field -->
+                    <div class="form-group last">
+                        <label class="col-md-3 control-label">Type</label>
+                        <div class="col-md-4">
+                            <select class="form-control input-small" ng-options="type as type for type in types" ng-model="budgetItem.Type"></select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button type="submit" class="btn btn-primary" ng-click="submit(budgetForm)">Submit</button>
+                            <button type="button" class="btn default" ng-click="cancel()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT-->
+    
+</div>
+@section AngularController{    
+    <script src="~/app/components/budget/budget.addedit.js"></script>
+}

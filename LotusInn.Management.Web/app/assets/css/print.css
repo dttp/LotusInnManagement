@@ -1,0 +1,71 @@
+﻿
+@page {
+    size: A4;    
+    }
+body.print-body {
+    background: white;
+}
+
+.print-container {    
+    background: white;
+}
+
+.print-logo {
+    float: left;
+    margin-left: 50px;
+    margin-top: -92px;
+}
+
+.print-header p {
+    margin-bottom: 5px;
+}
+.print-title h1 {
+    font-size: 48px;
+    font-family: serif;
+    font-weight: bold;
+}
+.print-customer-form {
+    font-size: 14px;
+}
+
+.print-customer-form .row {
+    margin-bottom: 5px;
+}
+
+.print-payment {
+    margin-top: 40px;
+}
+.print-footer {
+    font-weight: bold;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.config-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 300px;
+}
+.pm-item {
+    
+}
+.pm-item label input[type='checkbox'] {
+    margin: 0 5px;
+    padding: 0;
+}
+.pm-item label {
+    margin: 0;
+    padding: 5px 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;    
+}
+.pm-list {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+}

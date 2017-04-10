@@ -1,0 +1,72 @@
+﻿{
+  "Items": [
+    {
+      "Id": "dashboard",
+      "Name": "Dashboard",
+      "PermissionObject": "",
+      "Url": "/",
+      "Icon": "icon-home"
+    },
+    {
+      "Id": "house",
+      "Name": "Houses",
+      "PermissionObject": "House",
+      "Url": "/houses",
+      "Icon": "icon-organization",
+    },
+    {
+      "Id": "roomType",
+      "Name": "Room Type",
+      "Url": "/roomTypes",
+      "Icon": "icon-tag",
+    },
+    {
+      "Id": "room",
+      "Name": "Rooms",
+      "PermissionObject": "Room",
+      "Url": "/rooms",
+      "Icon": "icon-grid",
+    },
+    {
+      "Id": "equipment",
+      "Name": "Equipments",
+      "PermissionObject": "equipment",
+      "Url": "/equipment",
+      "Icon": "icon-list",
+    },
+    {
+      "Id": "customer",
+      "Name": "Customer",
+      "PermissionObject": "customer",
+      "Url": "/customers",
+      "Icon": "fa fa-users"
+    },
+    {
+      "Id": "user",
+      "Name": "Users",
+      "PermissionObject": "User",
+      "Url": "/users",
+      "Icon": "icon-people"
+    },
+    {
+      "Id": "warehouse",
+      "Name": "Warehouse Management",
+      "Url": "/warehouse",
+      "Icon": "icon-list"
+    },
+    {
+      "Id": "finance",
+      "Name": "Money Sources",
+      "PermissionObject": "finance",
+      "Url": "/moneysource",
+      "Icon": "icon-wallet"
+    },
+    {
+      "Id": "report",
+      "Name": "Reports",
+      "PermissionObject": "report",
+      "Url": "/report",
+      "Icon": "icon-graph"      
+    },    
+  ]
+}

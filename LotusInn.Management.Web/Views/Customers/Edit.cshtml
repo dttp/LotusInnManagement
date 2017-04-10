@@ -1,0 +1,101 @@
+﻿<div ng-controller="customerEdit" ng-init="init()">
+    <!-- BEGIN PAGE HEADER-->
+    <h3 class="page-title">
+        Customer <small> Edit</small>
+    </h3>
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/">Dashboard</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="/customers">Customers</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">Edit</a>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
+        <strong>{{item.title}}</strong> {{item.body}}
+    </div>
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row">
+        <div class="col-md-12">
+            <form name="customerForm" class="form-horizontal" novalidate>
+                <div class="form-body">
+                    <div class="form-group" ng-class="{'has-error': hasError(customerForm.name, 'required')}">
+                        <label class="col-md-3 control-label">Name</label>
+                        <div class="col-md-5">
+                            <div class="input-icon right">
+                                <i class="fa fa-warning" ng-show="hasError(customerForm.name, 'required')"></i>
+                                <input type="text" class="form-control" name="name" placeholder="Enter customer name here" ng-model="customer.Name" required />
+                            </div>
+                            <span class="help-block" ng-show="hasError(customerForm.name, 'required')">Customer name is required</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{'has-error': hasError(customerForm.passportOrId, 'required')}">
+                        <label class="col-md-3 control-label">Passport/Id</label>
+                        <div class="col-md-5">
+                            <div class="input-icon right">
+                                <i class="fa fa-warning" ng-show="hasError(customerForm.passportOrId, 'required')"></i>
+                                <input type="text" class="form-control" name="passportOrId" placeholder="Enter customer passport/id here" ng-model="customer.PassportOrId" required />
+                            </div>
+                            <span class="help-block" ng-show="hasError(customerForm.passportOrId, 'required')">Passport or Id is required</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{'has-error': hasError(customerForm.email, 'pattern')}">
+                        <label class="col-md-3 control-label">Email</label>
+                        <div class="col-md-5">
+                            <div class="input-icon right">
+                                <i class="fa fa-warning" ng-show="hasError(customerForm.email, 'pattern')"></i>
+                                <input type="text" class="form-control" name="email" placeholder="Enter customer email address here" ng-model="customer.Email" ng-pattern="emailPattern" />
+                            </div>
+                            <span class="help-block" ng-show="hasError(customerForm.email, 'pattern')">Invalid email address</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Phone</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" placeholder="Enter customer phone number here" ng-model="customer.Phone" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Address</label>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" placeholder="Enter customer address here" ng-model="customer.Address" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Country</label>
+                        <div class="col-md-5">
+                            <select class="form-control" ng-options ="country.name as country.name for country in countries" ng-model="customer.Country"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-5">
+                            <button type="submit" class="btn btn-primary" ng-click="submit(customerForm)">Submit</button>
+                            <button type="button" class="btn default" ng-click="cancel()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT-->
+</div>
+@section AngularController{    
+    <script src="~/app/components/customer/customerEdit.js"></script>
+}

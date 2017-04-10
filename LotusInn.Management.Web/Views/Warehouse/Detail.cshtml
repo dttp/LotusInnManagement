@@ -1,0 +1,133 @@
+﻿<div ng-controller="warehouseDetailCtrl" ng-init="init()">
+    <!-- BEGIN PAGE HEADER-->
+    <h3 class="page-title">
+        Warehouse Management
+    </h3>
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="\">Dashboard</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="\warehouse">Warehouses</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">Detail</a>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
+        <strong>{{item.title}}</strong> {{item.body}}
+    </div>
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption font-purple-plum">
+                        <i class="icon-speech font-purple-plum"></i>
+                        <span class="caption-subject"> Warehouse Items</span>                        
+                    </div>
+                    <div class="actions">                        
+                        <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;" data-original-title="" title="">
+                        </a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn blue" ng-click="addItem()">Add</button>
+                        </div>
+                    </div>
+                    <div class="table-scrollable">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Count</th>
+                                    <th>Condition</th>
+                                    <th style="width: 200px">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-if="items.Total == 0">
+                                    <td colspan="5">
+                                        There are no items
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="item in items.Data">
+                                    <td>{{item.Name}}</td>
+                                    <td>{{item.Description}}</td>
+                                    <td>{{item.Count}}</td>
+                                    <td>{{item.Condition}}</td>
+                                    <td>
+                                        <a href="javascript:;" title="Edit this item" class="btn btn-icon-only blue-hoki" ng-click="edit(item)">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <a href="javascript:;" title="Delete this item" class="btn btn-icon-only red-flamingo" ng-click="delete(item)">
+                                            <i class="fa fa-remove"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption font-purple-plum">
+                        <i class="icon-speech font-purple-plum"></i>
+                        <span class="caption-subject"> Warehouse Activities</span>
+                    </div>
+                    <div class="actions">
+                        <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;" data-original-title="" title="">
+                        </a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="table-scrollable">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-if="activities.Total == 0">
+                                    <td colspan="5">
+                                        There are no items
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="item in activities.Data">
+                                    <td>{{item.Name}}</td>
+                                    <td>{{item.Description}}</td>
+                                    <td>{{item.Date | date: 'dd/MM/yyyy'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT-->
+</div>
+
+@section AngularController{
+
+    <script src="~/app/components/warehouse/warehouse.detail.js"></script>
+}

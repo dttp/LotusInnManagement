@@ -1,0 +1,389 @@
+﻿<div ng-controller="orderAddEdit" ng-init="init()">
+    <!-- BEGIN PAGE HEADER-->
+    <h3 class="page-title">
+        {{getPageTitle()}}
+    </h3>
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/">Dashboard</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">{{getPageTitle()}}</a>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
+        <strong>{{item.title}}</strong> {{item.body}}
+    </div>
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption font-green-sharp">
+                        <i class="icon-share font-green-sharp"></i>
+                        <span class="caption-subject bold uppercase"> 1. Customers</span>
+                        <span class="caption-helper"></span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn blue" ng-click="newCustomer()">New Customer</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-scrollable">
+                                <table class="table table-bordered table-condensed table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Passport/Id</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Address</th>
+                                            <th>Country</th>
+                                            <th style="width: 120px;">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-if="order.Customers.length == 0">
+                                            <td colspan="7">
+                                                There are no items
+                                            </td>
+                                        </tr>
+                                        <tr ng-repeat="customer in order.Customers">
+                                            <td>
+                                                {{customer.Name}}
+                                            </td>
+                                            <td>{{customer.PassportOrId}}</td>
+                                            <td>{{customer.Email}}</td>
+                                            <td>{{customer.Phone}}</td>
+                                            <td>{{customer.Address}}</td>
+                                            <td>{{customer.Country}}</td>
+                                            <td>
+                                                <a href="javascript:;" title="Edit this customer" class="btn btn-icon-only blue-hoki" ng-click="editCustomer(customer)">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a href="javascript:;" title="Remove this customer" class="btn btn-icon-only red-flamingo" ng-click="deleteCustomer(customer)">
+                                                    <i class="fa fa-remove"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption font-yellow-gold">
+                        <i class="icon-share font-yellow-gold"></i>
+                        <span class="caption-subject bold uppercase"> 2. Order Details</span>
+                        <span class="caption-helper"></span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form name="orderDetailForm" class="form-horizontal" novalidate>
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Stay Length</label>
+                                        <div class="col-md-9">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" disabled value="{{getStartDate()}}" ng-show="mode=='checkin' || mode == 'update' || mode == 'checkin-now'">
+                                                <div datepicker class="form-control" ng-model="startDate" dp-options="datePickerOptions" on-date-changed="refreshAvailableRooms" ng-show="mode=='reserve'">
+                                                    <input type="text" value="{{startDate}}"/>
+                                                </div>
+                                                <span class="input-group-addon">to</span>
+                                                <div datepicker ng-model="endDate" dp-options="datePickerOptions" on-date-changed="refreshAvailableRooms">
+                                                    <input type="text" class="form-control" value="{{endDate}}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Rooms</label>
+                                        <div class="col-md-9" >
+                                            <p class="form-control-static" ng-show="getSelectedRooms().length == 0">No rooms selected</p>
+                                            <p class="form-control-static" ng-show="getSelectedRooms().length > 0">Room Selected:
+                                                <span class="label bg-yellow-casablanca" ng-repeat-start="r in getSelectedRooms()">{{r.RoomNumber}}</span>
+                                                <span ng-repeat-end>&nbsp;</span>
+                                            </p>
+                                            <div class="rooms-containers">
+                                                <div class="floor" ng-repeat="bucket in buckets">
+                                                    <div class="room" ng-repeat="room in bucket.items"
+                                                         ng-class="{'available': (room.Status == 'Available' || room.Status == 'Selected') && !room.Selected , 
+                                                                    'busy': room.Status == 'Busy', 
+                                                                    'selected': room.Selected}"
+                                                         ng-click="toggleSelectRoom(room)"
+                                                         ng-attr-title="{{getTooltipFoRoom(room)}}">
+                                                        {{room.RoomNumber}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Notes</label>
+                                        <div class="col-md-9">
+                                            <textarea rows="5" class="form-control" ng-model="order.Notes"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption font-red-sunglo">
+                        <i class="icon-share font-red-sunglo"></i>
+                        <span class="caption-subject bold uppercase"> 3. Payments & Discount</span>
+                        <span class="caption-helper"></span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form name="orderDetailForm" class="form-horizontal" novalidate>
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="form-group" ng-class="{'has-error': hasError(orderDetailForm.depositAmount, 'pattern')}">
+                                            <label class="col-md-3 control-label">Deposit</label>
+                                            <div class="col-md-3">
+                                                <input type="text" class="form-control" name="depositAmount" ng-model="order.Deposit.Amount" ng-pattern="numberPattern"/>
+                                                <span class="help-block" ng-show="hasError(orderDetailForm.depositAmount, 'pattern')">Invalid number</span>
+                                            </div>
+                                            <div class="col-md-6" style="padding-left: 0">
+                                                <select class="form-control input-xsmall" ng-options="unit as unit for unit in units" ng-model="order.Deposit.Unit"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Payment Cycle</label>
+                                            <div class="col-md-9">
+                                                <label class="form-control-static" style="float: left; margin-right: 5px">Make payment every </label>
+                                                <select class="form-control input-small" style="float: left; margin-right: 5px"
+                                                        ng-options="item.value as item.text for item in cycleDays" ng-model="order.PaymentCycle.Value"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn blue" ng-click="newDiscount()" ng-disabled="mode=='reserve'">New Discount</button>
+                        </div>
+                    </div>
+                    <div class="table-scrollable">
+                        <table class="table table-bordered table-condensed table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Reason</th>
+                                    <th>Amount</th>
+                                    <th>Unit</th>
+                                    <th>Date</th>
+                                    <th style="width: 120px;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-if="order.Discounts.length == 0">
+                                    <td colspan="5">
+                                        There are no items
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="discount in order.Discounts">
+                                    <td>
+                                        {{discount.Name}}
+                                    </td>
+                                    <td>
+                                        {{discount.Amount}}
+                                    </td>
+                                    <td>
+                                        {{discount.Unit}}
+                                    </td>
+                                    <td>
+                                        {{discount.Date | date: 'dd/MM/yyyy'}}
+                                    </td>
+                                    <td>
+                                        <a href="javascript:;" title="Edit this payment" class="btn btn-icon-only blue-hoki" ng-click="editDiscount(discount)">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <a href="javascript:;" title="Remove this payment" class="btn btn-icon-only red-flamingo" ng-click="deleteDiscount(discount)">
+                                            <i class="fa fa-remove"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn blue" ng-click="newPayment()" ng-disabled="mode=='reserve'">New Payment</button>
+                                </div>
+                            </div>
+                            <div class="table-scrollable">
+                                <table class="table table-bordered table-condensed table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Amount</th>
+                                            <th>Unit</th>
+                                            <th>Date</th>
+                                            <th>Method</th>
+                                            <th>Notes</th>
+                                            <th style="width: 120px;">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-if="order.Payments.length == 0">
+                                            <td colspan="8">
+                                                There are no items
+                                            </td>
+                                        </tr>
+                                        <tr ng-repeat="payment in order.Payments">
+                                            <td>
+                                                {{payment.Name}}
+                                            </td>
+                                            <td>
+                                                {{payment.Amount}}
+                                            </td>
+                                            <td>
+                                                {{payment.Unit}}
+                                            </td>
+                                            <td>
+                                                {{payment.Date | date: 'dd/MM/yyyy'}}
+                                            </td>
+                                            <td>
+                                                {{payment.Method}}
+                                            </td>
+                                            <td>
+                                                {{payment.Note}}
+                                            </td>
+                                            <td>
+                                                <a href="javascript:;" title="Edit this payment" class="btn btn-icon-only blue-hoki" ng-click="editPayment(payment)">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a href="javascript:;" title="Remove this payment" class="btn btn-icon-only red-flamingo" ng-click="deletePayment(payment)">
+                                                    <i class="fa fa-remove"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-offset-3 col-md-9">
+                <button type="button" class="btn btn-primary" ng-click="submitOrder()">Submit Order</button>
+                <button type="button" class="btn blue-chambray" ng-click="submitAndPrint()">Submit & Print Receipt</button>
+                <button type="button" class="btn default">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT-->
+
+    <script type="text/ng-template" id="customerInfoModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Customer Information!</h3>
+        </div>
+        <div class="modal-body">
+            <form name="customerForm" class="form-horizontal" novalidate>
+                <div class="form-body">
+                    <div class="form-group" ng-class="{'has-error': hasError(customerForm.name, 'required')}">
+                        <label class="col-md-3 control-label">Name</label>
+                        <div class="col-md-8">
+                            <div class="input-icon right">
+                                <i class="fa fa-warning" ng-show="hasError(customerForm.name, 'required')"></i>
+                                <input type="text" class="form-control" name="name" placeholder="Enter customer name here" ng-model="customer.Name" required />
+                            </div>
+                            <span class="help-block" ng-show="hasError(customerForm.name, 'required')">Customer name is required</span>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': hasError(customerForm.passportOrId, 'required')}">
+                        <label class="col-md-3 control-label">Passport/Id</label>
+                        <div class="col-md-8">
+                            <div class="input-icon right">
+                                <i class="fa fa-warning" ng-show="hasError(customerForm.passportOrId, 'required')"></i>
+                                <input type="text" class="form-control" name="passportOrId" placeholder="Enter customer passport/id here" ng-model="customer.PassportOrId" required />
+                            </div>
+                            <span class="help-block" ng-show="hasError(customerForm.passportOrId, 'required')">Passport or Id is required</span>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': hasError(customerForm.email, 'pattern')}">
+                        <label class="col-md-3 control-label">Email</label>
+                        <div class="col-md-8">
+                            <div class="input-icon right">
+                                <i class="fa fa-warning" ng-show="hasError(customerForm.email, 'pattern')"></i>
+                                <input type="text" class="form-control" name="email" placeholder="Enter customer email address here" ng-model="customer.Email" ng-pattern="emailPattern" />
+                            </div>
+                            <span class="help-block" ng-show="hasError(customerForm.email, 'pattern')">Invalid email address</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Phone</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" placeholder="Enter customer phone number here" ng-model="customer.Phone" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Address</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" placeholder="Enter customer address here" ng-model="customer.Address" />
+                        </div>
+                    </div>
+                    <div class="form-group last">
+                        <label class="col-md-3 control-label">Country</label>
+                        <div class="col-md-5">
+                            <select class="form-control" ng-options="country.name as country.name for country in countries" ng-model="customer.Country"></select>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn blue" ng-disabled="customerForm.$invalid" type="button" ng-click="ok()">Ok</button>
+            <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+    
+</div>
+@section AngularController{
+    <script src="~/app/components/orders/orderAddedit.js"></script>
+}

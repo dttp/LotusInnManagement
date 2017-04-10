@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>Lotusinn.Management.Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{bee52b83-6a50-4c3f-9238-49d613d8ed95}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>Lotusinn.Management.Database</RootNamespace>
+    <AssemblyName>Lotusinn.Management.Database</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <AutoCreateStatisticsIncremental>True</AutoCreateStatisticsIncremental>
+    <GenerateCreateScript>True</GenerateCreateScript>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="Scripts\" />
+    <Folder Include="dbo\Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\House.sql" />
+    <Build Include="dbo\Tables\Role.sql" />
+    <Build Include="dbo\Tables\User.sql" />
+    <Build Include="dbo\Tables\RolePermission.sql" />
+    <Build Include="dbo\Tables\RoomType.sql" />
+    <Build Include="dbo\Tables\Customer.sql" />
+    <Build Include="dbo\Tables\BookingOrder.sql" />
+    <Build Include="dbo\Tables\OrderCustomer.sql" />
+    <Build Include="dbo\Tables\OrderRoom.sql" />
+    <Build Include="dbo\Tables\Deposit.sql" />
+    <Build Include="dbo\Tables\Room.sql" />
+    <Build Include="dbo\Tables\Equipment.sql" />
+    <Build Include="dbo\Stored Procedures\UserGetByName.sql" />
+    <Build Include="dbo\Stored Procedures\UserGetById.sql" />
+    <Build Include="dbo\Stored Procedures\HouseGetAll.sql" />
+    <Build Include="dbo\Stored Procedures\HouseGetById.sql" />
+    <Build Include="dbo\Stored Procedures\HouseInsert.sql" />
+    <Build Include="dbo\Stored Procedures\HouseUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\HouseDelete.sql" />
+    <Build Include="dbo\Stored Procedures\UserGetAll.sql" />
+    <Build Include="dbo\Stored Procedures\UserInsert.sql" />
+    <Build Include="dbo\Stored Procedures\UserUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\UserUpdateStatus.sql" />
+    <Build Include="dbo\Stored Procedures\UserDelete.sql" />
+    <Build Include="dbo\Stored Procedures\UserChangePassword.sql" />
+    <Build Include="dbo\Stored Procedures\RoleGetAll.sql" />
+    <Build Include="dbo\Stored Procedures\RoomTypeGetAll.sql" />
+    <Build Include="dbo\Stored Procedures\RoomTypeGetById.sql" />
+    <Build Include="dbo\Stored Procedures\RoomTypeInsert.sql" />
+    <Build Include="dbo\Stored Procedures\RoomTypeUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\RoomTypeDelete.sql" />
+    <Build Include="dbo\Stored Procedures\CustomerSelect.sql" />
+    <Build Include="dbo\Stored Procedures\CustomerGetById.sql" />
+    <Build Include="dbo\Stored Procedures\CustomerInsert.sql" />
+    <Build Include="dbo\Stored Procedures\CustomerUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\CustomerDelete.sql" />
+    <Build Include="dbo\Stored Procedures\CustomerIsUsingInOrder.sql" />
+    <Build Include="dbo\Stored Procedures\CustomerSelectCheckoutByDate.sql" />
+    <Build Include="dbo\Stored Procedures\CustomerSelectActive.sql" />
+    <Build Include="dbo\Stored Procedures\CustomerSelectReserved.sql" />
+    <Build Include="dbo\Stored Procedures\RoomGetAll.sql" />
+    <Build Include="dbo\Stored Procedures\RoomGetById.sql" />
+    <Build Include="dbo\Stored Procedures\RoomInsert.sql" />
+    <Build Include="dbo\Stored Procedures\RoomUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\RoomDelete.sql" />
+    <Build Include="dbo\Stored Procedures\RoomGetAvailable.sql" />
+    <Build Include="dbo\Stored Procedures\RoomSelectWithStatus.sql" />
+    <Build Include="dbo\Stored Procedures\DepositInsert.sql" />
+    <Build Include="dbo\Stored Procedures\OrderCustomerInsert.sql" />
+    <Build Include="dbo\Stored Procedures\OrderRoomInsert.sql" />
+    <Build Include="dbo\Stored Procedures\OrderInsert.sql" />
+    <Build Include="dbo\Stored Procedures\OrderUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\OrderDelete.sql" />
+    <Build Include="dbo\Stored Procedures\OrderGetAll.sql" />
+    <Build Include="dbo\Stored Procedures\OrderGetById.sql" />
+    <Build Include="dbo\Stored Procedures\EquipmentSelectAll.sql" />
+    <Build Include="dbo\Stored Procedures\EquipmentGetById.sql" />
+    <Build Include="dbo\Stored Procedures\EquipmentInsert.sql" />
+    <Build Include="dbo\Stored Procedures\EquipmentUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\EquipmentDelete.sql" />
+    <None Include="Scripts\ScriptsIgnoredOnImport.sql" />
+    <Build Include="dbo\Tables\Notification.sql" />
+    <Build Include="dbo\Stored Procedures\OrderSelectInRange.sql" />
+    <Build Include="dbo\Stored Procedures\NotificationInsert.sql" />
+    <Build Include="dbo\Stored Procedures\NotificationGetToday.sql" />
+    <Build Include="dbo\Stored Procedures\NotificationDeleteByOrderId.sql" />
+    <Build Include="dbo\Stored Procedures\DepositUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\CustomerGetCount.sql" />
+    <Build Include="dbo\Tables\Warehouse.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Build>
+    <Build Include="dbo\Stored Procedures\WarehouseInsert.sql" />
+    <Build Include="dbo\Stored Procedures\WarehouseUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\WarehouseDelete.sql" />
+    <Build Include="dbo\Tables\WarehouseItem.sql" />
+    <Build Include="dbo\Tables\WarehouseActivity.sql" />
+    <Build Include="dbo\Stored Procedures\WarehouseItemInsert.sql" />
+    <Build Include="dbo\Stored Procedures\WarehouseItemUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\WarehouseItemDelete.sql" />
+    <Build Include="dbo\Stored Procedures\WarehouseGetAll.sql" />
+    <Build Include="dbo\Stored Procedures\WarehouseItemSelect.sql" />
+    <Build Include="dbo\Stored Procedures\WarehouseActivitySelect.sql" />
+    <Build Include="dbo\Stored Procedures\WarehouseItemGetById.sql" />
+    <Build Include="dbo\Stored Procedures\WarehouseActivityInsert.sql" />
+    <Build Include="dbo\Tables\MoneySource.sql" />
+    <Build Include="dbo\Stored Procedures\MoneySourceInsert.sql" />
+    <Build Include="dbo\Stored Procedures\MoneySourceUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\MoneySourceDelete.sql" />
+    <Build Include="dbo\Stored Procedures\MoneySourceGetAll.sql" />
+    <Build Include="dbo\Stored Procedures\MoneySourceGetById.sql" />
+    <Build Include="dbo\Tables\PaymentRecord.sql" />
+    <Build Include="dbo\Stored Procedures\PaymentRecordInsert.sql" />
+    <Build Include="dbo\Stored Procedures\PaymentRecordUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\PaymentRecordDelete.sql" />
+    <Build Include="dbo\Stored Procedures\PaymentRecordGetByOrderId.sql" />
+    <Build Include="dbo\Stored Procedures\PaymentRecordSelect.sql" />
+    <Build Include="dbo\Stored Procedures\PaymentRecordGetById.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="dbo\Data\Script.PostDeployment1.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Lotusinn.Management.Database.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="Lotusinn.Management.Database.refactorlog" />
+  </ItemGroup>
+</Project>

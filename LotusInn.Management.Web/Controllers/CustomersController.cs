@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using LotusInn.Management.Web.Filter;
+
+namespace LotusInn.Management.Web.Controllers
+{
+    public class CustomersController : Controller
+    {
+        [Authorization]
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [Authorization]
+        public ActionResult Edit()
+        {
+            return View();
+        }
+    }
+}

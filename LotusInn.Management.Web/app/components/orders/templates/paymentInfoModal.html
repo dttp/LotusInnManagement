@@ -1,0 +1,57 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">Payment Info!</h3>
+</div>
+<div class="modal-body">
+    <form name="paymentForm" class="form-horizontal" novalidate>
+        <div class="form-body">
+            <div class="form-group" ng-class="{'has-error': hasError(paymentForm.name, 'required')}">
+                <label class="col-md-3 control-label">Name</label>
+                <div class="col-md-8">
+                    <div class="input-icon right">
+                        <i class="fa fa-warning" ng-show="hasError(paymentForm.name, 'required')"></i>
+                        <input type="text" class="form-control" name="name" ng-model="payment.Name" required />
+                    </div>
+                    <span class="help-block" ng-show="hasError(paymentForm.name, 'required')">Name is required</span>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error': hasError(paymentForm.amount, 'required')}">
+                <label class="col-md-3 control-label">Amount</label>
+                <div class="col-md-3">
+                    <div class="input-icon right">
+                        <i class="fa fa-warning" ng-show="hasError(paymentForm.amount, 'required')"></i>
+                        <input type="text" class="form-control" name="amount" ng-model="payment.Amount" required />
+                    </div>
+                    <span class="help-block" ng-show="hasError(paymentForm.amount, 'required')">Amount is required</span>
+                </div>
+
+                <div class="col-md-5" style="padding-left: 0">
+                    <select class="form-control input-xsmall" ng-options="unit as unit for unit in units" ng-model="payment.Unit"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">Method</label>
+                <div class="col-md-8">
+                    <select class="form-control input-small" ng-options="method as method for method in paymentMethods" ng-model="payment.Method"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label">Money Source</label>
+                <div class="col-md-8">
+                    <select class="form-control input-small" ng-options="source.Id as source.Name for source in moneySources" ng-model="payment.MoneySourceId"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label">Notes</label>
+                <div class="col-md-8">
+                    <textarea class="form-control" rows="3" ng-model="payment.Note"></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn blue" ng-disabled="paymentForm.$invalid" type="button" ng-click="ok()">Ok</button>
+    <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+</div>

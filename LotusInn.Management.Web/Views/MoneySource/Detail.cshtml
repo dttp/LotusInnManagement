@@ -1,0 +1,249 @@
+﻿<div ng-controller="moneySourceDetailCtrl" ng-init="init()">
+    <!-- BEGIN PAGE HEADER-->
+    <h3 class="page-title">
+        Money Source Detail
+    </h3>
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="\">Dashboard</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="\moneysource">Money Sources</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">Detail</a>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
+        <strong>{{item.title}}</strong> {{item.body}}
+    </div>
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row">
+        <div class="col-md-12">
+            <form action="#" class="form-horizontal">
+                <div class="form-body">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Name</label>
+                        <div class="col-md-4">
+                            <p class="form-control-static">
+                                {{moneySource.Name}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Balance (USD)</label>
+                        <div class="col-md-4">
+                            <p class="form-control-static">
+                                {{moneySource.BalanceUSD | currency : "$" : 2}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Balance (VND)</label>
+                        <div class="col-md-4">
+                            <p class="form-control-static">
+                                {{moneySource.BalanceVND | currency : "VND" : 0}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption font-green-sharp">
+                        <i class="icon-speech font-green-sharp"></i>
+                        <span class="caption-subject bold uppercase"> Detail Transactions</span>
+                        <span class="caption-helper"></span>
+                    </div>
+                    <div class="actions">
+                        <div class="date-range">
+                            <label class="control-label dr-label">From</label>
+                            <div class="input-group date input-medium dr-control" datepicker dp-options="datePickerOptions" ng-model='dtRange.startDate'>
+                                <input type="text" class="form-control">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-th"></i>
+                                </span>
+                            </div>
+                            <label class="control-label dr-label">To</label>
+                            <div class="input-group date input-medium dr-control" datepicker dp-options="datePickerOptions" ng-model='dtRange.endDate'>
+                                <input type="text" class="form-control">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-th"></i>
+                                </span>
+                            </div>
+                            <label class="control-label dr-label error">{{dtRange.message}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn blue" ng-click="create()"><i class="fa fa-plus"></i> Create</button>
+                        </div>
+                    </div>
+                    <div class="table-scrollable">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Amount</th>
+                                    <th>Unit</th>
+                                    <th>Date</th>
+                                    <th>Method</th>
+                                    <th>Note</th>
+                                    <th style="width: 180px">Type</th>
+                                    <th style="width: 120px">Actions</th>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>
+                                        <select class="form-control" ng-options="type for type in paymentTypes" ng-model="selectedType" ng-change="refresh()"></select>
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-show="payments.Total == 0">
+                                    <td colspan="8">
+                                        There are no items
+                                    </td>
+                                </tr>
+                                <tr ng-if="payments.Total > 0" ng-repeat="item in payments.Data">
+                                    <td>
+                                        {{item.Name}}
+                                    </td>
+                                    <td style="text-align: right">
+                                        {{item.Amount | currency : "" : 0}}
+                                    </td>
+                                    <td>
+                                        {{item.Unit}}
+                                    </td>
+                                    <td>
+                                        {{item.Date | date: 'dd/MM/yyyy'}}
+                                    </td>
+                                    <td>
+                                        {{item.Method}}
+                                    </td>
+                                    <td>
+                                        {{item.Note}}
+                                    </td>
+                                    <td>
+                                        <span class="label pm-label"
+                                              ng-class="{'bg-green-jungle': item.Type == 'Income', 
+                                                         'bg-yellow': item.Type == 'Expense', 
+                                                         'bg-green-meadow': item.Type == 'Order-Payment',
+                                                         'bg-yellow-crusta': item.Type == 'Order-Discount'}">
+                                            {{item.Type}}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-icon-only blue-hoki" ng-click="edit(item)" ng-disabled="item.Type == 'Order-Payment' || item.Type == 'Order-Discount'">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-icon-only red-flamingo" ng-click="delete(item)" ng-disabled="item.Type == 'Order-Payment' || item.Type == 'Order-Discount'">
+                                            <i class="fa fa-remove"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- END PAGE CONTENT-->
+<script type="text/ng-template" id="paymentModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Payment Info!</h3>
+        </div>
+        <div class="modal-body">
+            <form name="paymentForm" class="form-horizontal" novalidate>
+                <div class="form-body">
+                    <div class="form-group" ng-class="{'has-error': hasError(paymentForm.name, 'required')}">
+                        <label class="col-md-3 control-label">Name</label>
+                        <div class="col-md-8">
+                            <div class="input-icon right">
+                                <i class="fa fa-warning" ng-show="hasError(paymentForm.name, 'required')"></i>
+                                <input type="text" class="form-control" name="name" ng-model="payment.Name" required />
+                            </div>
+                            <span class="help-block" ng-show="hasError(paymentForm.name, 'required')">Name is required</span>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': hasError(paymentForm.amount, 'required')}">
+                        <label class="col-md-3 control-label">Amount</label>
+                        <div class="col-md-3">
+                            <div class="input-icon right">
+                                <i class="fa fa-warning" ng-show="hasError(paymentForm.amount, 'required')"></i>
+                                <input type="text" class="form-control" name="amount" ng-model="payment.Amount" required />
+                            </div>
+                            <span class="help-block" ng-show="hasError(paymentForm.amount, 'required')">Amount is required</span>
+                        </div>
+
+                        <div class="col-md-5" style="padding-left: 0">
+                            <select class="form-control input-xsmall" ng-options="unit as unit for unit in units" ng-model="payment.Unit"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Method</label>
+                        <div class="col-md-8">
+                            <select class="form-control input-small" ng-options="method as method for method in paymentMethods" ng-model="payment.Method"></select>
+                        </div>
+                    </div>
+                    <!-- Date -->
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Date</label>
+                        <div class="col-md-4">
+                            <div class="input-group date input-medium" datepicker dp-options="datePickerOptions" ng-model='selectedDate'>
+                                <input type="text" class="form-control">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-th"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Notes</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" rows="3" ng-model="payment.Note"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Type</label>
+                        <div class="col-md-8">
+                            <select class="form-control input-medium" ng-options="type for type in paymentTypes" ng-model="payment.Type"></select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn blue" ng-disabled="paymentForm.$invalid" type="button" ng-click="ok()">Ok</button>
+            <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+</div>
+
+@section AngularController{
+    <script src="~/app/components/moneySource/moneySource.detail.js"></script>
+}

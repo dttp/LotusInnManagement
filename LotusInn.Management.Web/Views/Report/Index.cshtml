@@ -1,0 +1,54 @@
+﻿<div ng-controller="reportListCtrl" ng-init="init()">
+    <!-- BEGIN PAGE HEADER-->
+    <h3 class="page-title">
+        Report
+    </h3>
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="\">Dashboard</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">Report</a>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
+        <strong>{{item.title}}</strong> {{item.body}}
+    </div>
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row">
+        <div class="col-md-12" ng-show="houses.length == 0">
+            There are no houses. Please click <a href="/houses">here </a>to add new house.
+        </div>
+        <div class="col-md-12" ng-show="houses.length > 0">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <form name="housesDropdownForm" class="form-horizontal" novalidate>
+                        <div class="form-body">
+                            <div class="form-group last">
+                                <label class="control-label" style="float: left; margin-left: 15px">Report Type</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" ng-model="report.reportId" ng-options="r.Id as r.Name for r in reportTypes" ng-change="buildReport()"></select>
+                                </div>
+                                <label class="control-label" style="float: left; margin-left: 15px">House</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" ng-model="report.houseId" ng-options="h.Id as h.Name for h in houses" ng-change="buildReport()"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT-->
+</div>
+@section AngularController{
+    <script src="~/app/components/report/report.list.js"></script>
+}

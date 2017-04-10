@@ -1,0 +1,62 @@
+﻿<div ng-controller="houseAddEdit" ng-init="init()">
+    <!-- BEGIN PAGE HEADER-->
+    <h3 class="page-title">
+        Happy Houses <small>Add/Edit</small>
+    </h3>
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/">Dashboard</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="/houses">Houses</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">AddEdit</a>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
+        <strong>{{item.title}}</strong> {{item.body}}
+    </div>
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row" >
+        <div class="col-md-12">
+            <form name="houseForm" class="form-horizontal" novalidate>
+                <div class="form-body">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Name</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="name" placeholder="Enter house name here" ng-model="house.Name" required />
+                            <span class="help-block" ng-show="houseForm.name.$dirty && houseForm.name.$error.required">House name is required</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group last">
+                        <label class="col-md-3 control-label">Address</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" placeholder="Enter house address here" ng-model="house.Address" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button type="submit" class="btn btn-primary" ng-click="submit(houseForm)">Submit</button>
+                            <button type="button" class="btn default" ng-click="cancel()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT-->
+</div>
+@section AngularController{    
+    <script src="~/app/components/houses/houseAddEdit.js"></script>    
+}

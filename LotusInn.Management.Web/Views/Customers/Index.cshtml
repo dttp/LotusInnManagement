@@ -1,0 +1,352 @@
+﻿<div ng-controller="customerList" ng-init="init()">
+    <!-- BEGIN PAGE HEADER-->
+    <h3 class="page-title">
+        Customers <small>manage customers for house</small>
+    </h3>
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="\">Dashboard</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">Customers</a>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
+        <strong>{{item.title}}</strong> {{item.body}}
+    </div>
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row">
+        
+        <div class="col-md-12" ng-show="houses.length == 0">
+            There are no houses. Please click <a href="/houses">here </a>to add new house.
+        </div>
+        <div class="col-md-12" ng-show="houses.length > 0">
+            <div class="row">
+                <div class="col-md-12">
+                    <form name="housesDropdownForm" class="form-horizontal" novalidate>
+                        <div class="form-body">
+                            <div class="form-group last">
+                                <label class="control-label" style="float: left; margin-left: 15px">House</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" ng-options="house as house.Name for house in houses track by house.Id" ng-model="house" ng-change="refreshCustomers('full')"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn yellow-casablanca" ng-click="checkin()"><i class="fa fa-user-plus" aria-hidden="true"></i> Checkin</button>
+                    <button type="button" class="btn yellow-lemon" ng-click="reserve()"><i class="fa fa-user-plus" aria-hidden="true"></i> Reserve</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tabbable-line">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#tab-active" data-toggle="tab" aria-expanded="true">
+                                    <i class="font-yellow-casablanca fa fa-users"></i>
+                                    <span class="caption-subject bold uppercase">Active Customers</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#tab-reserved" data-toggle="tab" aria-expanded="true">
+                                    <i class="fa fa-users font-yellow-saffron"></i>
+                                    <span class="caption-subject bold uppercase">Reserved Customers</span>
+                                </a>
+                            </li>  
+                            @*<li>
+                                <a href="#tab-all" data-toggle="tab" aria-expanded="true">
+                                    <i class="fa fa-users font-yellow"></i>
+                                    <span class="caption-subject bold uppercase">All Customers</span>
+                                </a>
+                            </li>*@                            
+                        </ul>
+                        <div class="tab-content">
+                            <!-- BEGIN TAB CUSTOMER -->
+                            <div class="tab-pane active" id="tab-active">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="pageFilter">
+                                            <label style="float: right;">
+                                                Page Size
+                                                <select class="form-control input-inline" ng-options="ps as ps for ps in pageSizeOptions" ng-model="activePageFilter.pageSize" ng-change="refreshCustomers('active')"></select>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-scrollable">
+                                    <table class="table table-bordered table-hover table-condensed table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>PassportOrId</th>
+                                                <th>Email</th>
+                                                <th>Rooms</th>
+                                                <th>Checkin Date</th>
+                                                <th>Checkout Date</th>
+                                                <th style="width: 220px">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" class="form-control" placeholder="Type here to filter by Name" ng-model="activePageFilter.name" ng-model-options="{ debounce: 1000 }" ng-change="refreshCustomers('active')" /></td>
+                                                <td><input type="text" class="form-control" placeholder="Type here to filter by Passport/Id" ng-model="activePageFilter.passportOrId" ng-model-options="{ debounce: 1000 }" ng-change="refreshCustomers('active')" /></td>
+                                                <td><input type="text" class="form-control" placeholder="Type here to filter by Email" ng-model="activePageFilter.email" ng-model-options="{ debounce: 1000 }" ng-change="refreshCustomers('active')" /></td>
+                                                <td><input type="text" class="form-control" placeholder="Type here to filter by Room" ng-model="activePageFilter.room" ng-model-options="{ debounce: 1000 }" ng-change="refreshCustomers('active')" /></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr ng-show="activeCustomers.Data.length == 0">
+                                                <td colspan="7">
+                                                    There are no items
+                                                </td>
+                                            </tr>
+                                            <tr ng-show="activeCustomers.Data.length > 0" ng-repeat="c in activeCustomers.Data">
+                                                <td>
+                                                    {{c.Name}}
+                                                </td>
+                                                <td>
+                                                    {{c.PassportOrId}}
+                                                </td>
+                                                <td>
+                                                    {{c.Email}}
+                                                </td>
+                                                <td>
+                                                    <span class="label bg-purple-studio" ng-repeat-start="r in c.Rooms">#{{r.RoomNumber}} - {{r.RoomType.Price}}{{r.RoomType.Unit}}</span>
+                                                    <span ng-repeat-end>&nbsp;</span>
+                                                </td>
+                                                <td>
+                                                    {{c.CheckinDate | date: 'dd/MM/yyyy'}}
+                                                </td>
+                                                <td>
+                                                    {{c.CheckoutDate | date: 'dd/MM/yyyy'}}
+                                                </td>
+                                                <td>
+                                                    <a href="javascript:;" class="btn btn-sm blue-hoki" ng-click="updateOrder(c)" title="Edit order for this customer">
+                                                        Update Order
+                                                    </a>
+                                                    <a href="javascript:;" class="btn btn-sm red-intense" ng-click="checkout(c)" title="Checkout">
+                                                        Checkout
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div paging
+                                             page="activePageFilter.pageIndex"
+                                             page-size="activePageFilter.pageSize"
+                                             total="activeCustomers.Total"
+                                             hide-if-empty="false"
+                                             disabled="true"
+                                             show-prev-next="true"
+                                             paging-action="refreshCustomers('active')" style="float: right">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!-- END TAB CUSTOMER -->
+
+                            <div class="tab-pane" id="tab-reserved">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="pageFilter">
+                                            <label style="float: right;">
+                                                Page Size
+                                                <select class="form-control input-inline" ng-options="ps as ps for ps in pageSizeOptions" ng-model="reservedPageFilter.pageSize" ng-change="refreshCustomers('reserved')"></select>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-scrollable">
+                                    <table class="table table-bordered table-hover table-condensed table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>PassportOrId</th>
+                                                <th>Email</th>
+                                                <th>Rooms</th>
+                                                <th>Checkin Date</th>
+                                                <th>Checkout Date</th>
+                                                <th style="width: 220px">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" class="form-control" placeholder="Type here to filter by Name" ng-model="reservedPageFilter.name" ng-model-options="{ debounce: 1000 }" ng-change="refreshCustomers('reserved')" /></td>
+                                                <td><input type="text" class="form-control" placeholder="Type here to filter by Passport/Id" ng-model="reservedPageFilter.passportOrId" ng-model-options="{ debounce: 1000 }" ng-change="refreshCustomers('reserved')" /></td>
+                                                <td><input type="text" class="form-control" placeholder="Type here to filter by Email" ng-model="reservedPageFilter.email" ng-model-options="{ debounce: 1000 }" ng-change="refreshCustomers('reserved')" /></td>
+                                                <td><input type="text" class="form-control" placeholder="Type here to filter by Room" ng-model="reservedPageFilter.room" ng-model-options="{ debounce: 1000 }" ng-change="refreshCustomers('reserved')" /></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr ng-show="reservedCustomers.Data.length == 0">
+                                                <td colspan="7">
+                                                    There are no items
+                                                </td>
+                                            </tr>
+                                            <tr ng-show="reservedCustomers.Data.length > 0" ng-repeat="c in reservedCustomers.Data">
+                                                <td>
+                                                    {{c.Name}}
+                                                </td>
+                                                <td>
+                                                    {{c.PassportOrId}}
+                                                </td>
+                                                <td>
+                                                    {{c.Email}}
+                                                </td>
+                                                <td>
+                                                    <span class="label bg-purple-studio" ng-repeat-start="r in c.Rooms">#{{r.RoomNumber}} - {{r.RoomType.Price}}{{r.RoomType.Unit}}</span>
+                                                    <span ng-repeat-end>&nbsp;</span>
+                                                </td>
+                                                <td>
+                                                    {{c.CheckinDate | date: 'dd/MM/yyyy'}}
+                                                </td>
+                                                <td>
+                                                    {{c.CheckoutDate | date: 'dd/MM/yyyy'}}
+                                                </td>
+                                                <td>                                                    
+                                                    <a href="javascript:;" class="btn btn-sm yellow-casablanca" ng-click="checkinReserve(c)" title="Checkin now">
+                                                        Checkin
+                                                    </a>
+
+                                                    <a href="javascript:;" class="btn btn-sm red-sunglo" ng-click="cancelReserve(c)" title="Cancel this order">
+                                                        Cancel
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div paging
+                                             page="reservedPageFilter.pageIndex"
+                                             page-size="reservedPageFilter.pageSize"
+                                             total="reservedCustomers.Total"
+                                             hide-if-empty="false"
+                                             disabled="true"
+                                             show-prev-next="true"
+                                             paging-action="refreshCustomers('reserved')" style="float: right">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*<div class="tab-pane" id="tab-all">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="pageFilter">
+                                            <label style="float: right;">
+                                                Page Size
+                                                <select class="form-control input-inline" ng-options="ps as ps for ps in pageSizeOptions" ng-model="pageFilter.pageSize" ng-change="refreshCustomers('all')"></select>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-scrollable">
+                                    <table class="table table-bordered table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>PassportOrId</th>
+                                                <th>Email</th>
+                                                <th>Phone</th>
+                                                <th>Address</th>
+                                                <th>Country</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" class="form-control" placeholder="Type here to filter by Name" ng-model="pageFilter.name" ng-model-options="{ debounce: 1000 }" ng-change="refreshCustomers('all')" /></td>
+                                                <td><input type="text" class="form-control" placeholder="Type here to filter by Passport/Id" ng-model="pageFilter.passportOrId" ng-model-options="{ debounce: 1000 }" ng-change="refreshCustomers('all')" /></td>
+                                                <td><input type="text" class="form-control" placeholder="Type here to filter by Email" ng-model="pageFilter.email" ng-model-options="{ debounce: 1000 }" ng-change="refreshCustomers('all')" /></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr ng-show="customers.length == 0">
+                                                <td colspan="7">
+                                                    There are no items
+                                                </td>
+                                            </tr>
+                                            <tr ng-show="customers.Data.length > 0" ng-repeat="c in customers.Data">
+                                                <td>
+                                                    {{c.Name}}
+                                                </td>
+                                                <td>
+                                                    {{c.PassportOrId}}
+                                                </td>
+                                                <td>
+                                                    {{c.Email}}
+                                                </td>
+                                                <td>
+                                                    {{c.Phone}}
+                                                </td>
+                                                <td>
+                                                    {{c.Address}}
+                                                </td>
+                                                <td>
+                                                    {{c.Country}}
+                                                </td>
+                                                <td>
+                                                    <a href="javascript:;" class="btn btn-icon-only blue-hoki" ng-click="edit(c)">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                   
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div paging
+                                             page="pageFilter.pageIndex"
+                                             page-size="pageFilter.pageSize"
+                                             total="customers.Total"
+                                             hide-if-empty="false"
+                                             disabled="true"
+                                             show-prev-next="true"
+                                             paging-action="refreshCustomers('all')" style="float: right">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT-->
+</div>
+@section AngularController{    
+    <script src="~/app/components/customer/customerList.js"></script>
+}

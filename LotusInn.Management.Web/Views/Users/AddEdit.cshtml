@@ -1,0 +1,86 @@
+﻿<div ng-controller="userAddEdit" ng-init="init()">
+    <!-- BEGIN PAGE HEADER-->
+    <h3 class="page-title">
+        User <small>Add/Edit</small>
+    </h3>
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/">Dashboard</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="/users">Users</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">AddEdit</a>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
+        <strong>{{item.title}}</strong> {{item.body}}
+    </div>
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row">
+        <div class="col-md-12">
+            <form name="userForm" class="form-horizontal" novalidate>
+                <div class="form-body">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Username</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="name" placeholder="Enter user name here" ng-model="user.Username" required />
+                            <span class="help-block" ng-show="userForm.name.$dirty && userForm.name.$error.required">Username is required</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Email</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="email" placeholder="Enter email address here" ng-model="user.Email" required ng-pattern="emailPattern"/>
+                            <span class="help-block" ng-show="userForm.email.$dirty && userForm.email.$error.required">Email is required</span>
+                            <span class="help-block" ng-show="userForm.email.$dirty && userForm.email.$error.pattern">Invalid email address</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Phone</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" placeholder="Enter your phone number here" ng-model="user.Phone"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Role</label>
+                        <div class="col-md-4">
+                            <select class="form-control" ng-options="role as role.Name for role in roles track by role.Id"  ng-model="user.Role"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group last" ng-if="user.Role.Id != 'r-admin'">
+                        <label class="col-md-3 control-label">House</label>
+                        <div class="col-md-4">
+                            <select class="form-control" ng-options="house as house.Name for house in houses track by house.Id" ng-model="user.House"></select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button type="submit" class="btn btn-primary" ng-click="submit(userForm)">Submit</button>
+                            <button type="button" class="btn default" ng-click="cancel()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT-->
+</div>
+@section AngularController{    
+<script src="~/app/components/users/userAddEdit.js"></script>
+}

@@ -1,0 +1,19 @@
+﻿<p>
+    Dear <b>{0}</b>,<br/>
+    Welcome to LotusInn Management System!<br /><br />
+
+    Your user name is below. Note that it is in the form of an email address:<br /><br />
+
+    User name: <b>{0}</b><br/><br />    
+    
+	Please click on the following link to activate your account: <a href={1} target="_blank">{1}</a>    
+    <br />
+    You'll be asked to set a password when you first log in.<br />
+    Passwords are case sensitive.<br />
+        
+    If click the link doesn't work, you can copy and paste the link into the browser's address window or retype it there.<br />
+        
+	You have any questions, please contact your administrator.<br /><br />
+    Thank you!<br />
+    LotusInn.        
+</p>

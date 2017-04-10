@@ -1,0 +1,127 @@
+﻿<div ng-controller="equipmentList" ng-init="init()">
+    <!-- BEGIN PAGE HEADER-->
+    <h3 class="page-title">
+        Equipments 
+    </h3>
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="\">Dashboard</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">Equipments</a>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
+        <strong>{{item.title}}</strong> {{item.body}}
+    </div>
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row" >
+       
+        <script type="text/ng-template" id="copyList.html">
+            <div class="modal-header">
+                <h3 class="modal-title">Copy Equipment List</h3>
+            </div>
+            <div class="modal-body">
+                <div>Select rooms to copy the equipment list to</div>
+                <ul class="roomListModal">
+                    <li ng-repeat="room in roomList">
+                        <input type="checkbox" icheck ng-model="room.Checked" skin="minimal-blue" /> {{room.RoomNumber}} - {{room.RoomType.Price}}{{room.RoomType.Unit}}
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" type="button" ng-click="ok()">Ok</button>
+                <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+        <div class="col-md-12" ng-show="houses.length == 0">
+            There are no houses. Please click <a href="/houses">here </a>to add new house.
+        </div>
+        <div class="col-md-12" ng-show="houses.length > 0">
+            <div class="row">
+                <div class="col-md-12">
+                    <form name="housesDropdownForm" class="form-horizontal" novalidate>
+                        <div class="form-body">
+                            <div class="form-group last">
+                                <label class="control-label" style="float: left; margin-left: 15px">House</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" ng-options="house as house.Name for house in houses track by house.Id" ng-model="selectedHouse" ng-change="refreshRooms()"></select>
+                                </div>
+                                <label class="control-label" style="float: left; margin-left: 15px">Room</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" ng-options="room as room.RoomNumber for room in rooms track by room.Id" ng-model="selectedRoom" ng-change="refresh()">
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                        </div>                        
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary" ng-click="create()"><i class="fa fa-plus" aria-hidden="true"></i> Create</button>
+                    <button type="button" class="btn green-meadow" ng-click="copy()"><i class="fa fa-copy" aria-hidden="true"></i> Copy equipment list</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet">
+                        <div class="portlet-body">
+                            <div class="table-scrollable">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Quantity</th>                                        
+                                        <th>Status</th>
+                                        <th>Price</th>
+                                        <th>Created Date</th>                                        
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-show="equipments.length == 0">
+                                        <td colspan="7">
+                                            There are no items
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="equipments.length > 0" ng-repeat="item in equipments">
+                                        <td>
+                                            {{item.Name}}
+                                        </td>
+                                        <td>{{item.Category}}</td>
+                                        <td>{{item.Quantity}}</td>
+                                        <td>{{item.Status}}</td>
+                                        <td>{{item.Price}} - {{item.Unit}}</td>
+                                        <td>{{item.CreatedDate | date : 'dd/MM/yyyy'}}</td>
+                                        <td>
+                                            <a href="javascript:;" class="btn btn-icon-only blue-hoki" ng-click="edit(item)">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <a href="javascript:;" class="btn btn-icon-only red-flamingo" ng-click="delete(item)">
+                                                <i class="fa fa-remove"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT-->
+</div>
+@section AngularController{        
+    <script src="~/app/components/equipment/equipment.list.js"></script>
+}

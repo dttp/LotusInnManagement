@@ -1,0 +1,93 @@
+﻿<div ng-controller="userDetail" ng-init="init()">
+    <!-- BEGIN PAGE HEADER-->
+    <h3 class="page-title">
+        User detail
+    </h3>
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/">Dashboard</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="/users">Users</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">Detail</a>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
+        <strong>{{item.title}}</strong> {{item.body}}
+    </div>
+
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row">
+        <div class="col-md-12">
+            <form name="userForm" class="form-horizontal" novalidate>
+                <div class="form-body">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Username</label>
+                        <div class="col-md-4">
+                            <p class="form-control-static">{{user.Username}}</p>                          
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Email</label>
+                        <div class="col-md-4">
+                            <p class="form-control-static">{{user.Email}}</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Phone</label>
+                        <div class="col-md-4">
+                            <p class="form-control-static">{{user.Phone}}</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Role</label>
+                        <div class="col-md-4">
+                            <p class="form-control-static">{{user.Role.Name}}</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group " ng-if="user.Role.Id != 'r-admin'">
+                        <label class="col-md-3 control-label">House</label>
+                        <div class="col-md-4">
+                            <p class="form-control-static">{{user.House.Name}}</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group last">
+                        <label class="col-md-3 control-label">Status</label>
+                        <div class="col-md-4">
+                            <p class="form-control-static"><span class="label" ng-class="{'label-success': user.Status == 'Verified', 'label-warning': user.Status == 'NotVerified', 'bg-grey-gallery': user.Status=='Disabled'}">{{user.Status}}</span></p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button ng-if="currentUser.Role.Id == 'r-admin' && user.Id != 'u-admin'" type="button" class="btn yellow-crusta" ng-click="resetPassword()"><i class="fa fa-refresh"></i> Reset password</button>
+                            <button ng-if="currentUser.Role.Id == 'r-admin' && user.Id != 'u-admin'" type="button" class="btn blue-hoki" ng-click="edit()"><i class="fa fa-edit"></i> Edit</button>
+                            <button ng-if="currentUser.Role.Id == 'r-admin' && user.Id != 'u-admin'" type="button" class="btn red-flamingo" ng-click="delete()"><i class="fa fa-remove"></i> Delete</button>
+                            <button type="button" class="btn btn-default" ng-click="back()">Back</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT-->
+</div>
+@section AngularController{
+    <script src="~/app/components/users/userdetail.js"></script>
+}

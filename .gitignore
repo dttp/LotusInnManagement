@@ -243,3 +243,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/Lotusinn.Management.Database/Lotusinn.Management.Database.jfm
