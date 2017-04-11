@@ -124,9 +124,9 @@
             var room = _.find(h.Rooms, { Id: r.RoomId });
             return "<b>#" + room.RoomNumber + "</b> - " +
                             room.RoomType.Square + "m2<br/>" +
-                            room.RoomType.Price + room.RoomType.Unit + "/m<br/>" +
-                            room.RoomType.PricePerWeek + room.RoomType.UnitPerWeek + "/w<br/>" +
-                            room.RoomType.PricePerNight + room.RoomType.PricePerNight + room.RoomType.UnitPerNight + "/n";
+                            room.RoomType.Price  + "$/m - " +
+                            room.RoomType.PricePerWeek + "$/w - " +
+                            room.RoomType.PricePerNight + "$/n";
         }
         
 
