@@ -1,43 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System.Collections.Generic;
 using LotusInn.Management.Core;
+using LotusInn.Management.Data;
 using LotusInn.Management.Model;
 
 namespace LotusInn.Management.Services
 {
     public class UserService
     {
-        public const string SP_GET_USER_BY_NAME = "UserGetByName";
-        public const string SP_GET_USER_BY_ID = "UserGetById";
-        private const string SP_GET_ALL_USERS = "UserGetAll";
-        private const string SP_USER_INSERT = "UserInsert";
-        private const string SP_USER_UPDATE = "UserUpdate";
-        private const string SP_USER_UPDATE_STATUS = "UserUpdateStatus";
-        private const string SP_USER_DELETE = "UserDelete";
-        private const string SP_USER_CHANGE_PASSWORD = "UserChangePassword";
-
+        
+        private static readonly UserDataAdapter _adapter = new UserDataAdapter();
 
         public static User GetUserByName(string username)
         {
-            var users = SqlHelper.ExecuteReader(ConfigManager.ConnectionString, CommandType.StoredProcedure, SP_GET_USER_BY_NAME,
-                new[] {new SqlParameter {ParameterName = "@username", Value = username}}, ParseUser);
-            if (users == null || users.Count != 1) 
-                throw new Exception($"Cannot find user '{username}'");
-            return users[0];
+            return _adapter.GetByName(username);
         }
 
         public static User GetUserById(string id)
         {
-            var users = SqlHelper.ExecuteReader(ConfigManager.ConnectionString, CommandType.StoredProcedure, SP_GET_USER_BY_ID,
-                new[] { new SqlParameter { ParameterName = "@id", Value = id } }, ParseUser);
-            if (users == null || users.Count != 1)
-                throw new Exception($"Cannot find user with id = '{id}'");
-            return users[0];
+            return _adapter.GetById(id);
         }
-
-        
 
         public static bool VerifyPassword(User user, string password)
         {
@@ -45,38 +26,23 @@ namespace LotusInn.Management.Services
             return user.Password == encodedPass;
         }
 
-        public static List<User> GetUsers()
+        public static List<User> GetAll()
         {
-            var users = SqlHelper.ExecuteReader(ConfigManager.ConnectionString, CommandType.StoredProcedure, SP_GET_ALL_USERS,
-                null, ParseUser);
-            return users;
+            return _adapter.GetAll();
         }
 
         public static User AddUser(User user)
         {
-            var id = IdHelper.Generate();
-            user.Id = "u-" + id;
-            user.Password = IdHelper.Generate();
-            SqlHelper.ExecuteNonQuery(ConfigManager.ConnectionString, CommandType.StoredProcedure, SP_USER_INSERT,
-                new[]
-                {
-                   new SqlParameter("@id", user.Id),
-                   new SqlParameter("@username", user.Username),
-                   new SqlParameter("@password", user.Password),
-                   new SqlParameter("@email", user.Email),
-                   new SqlParameter("@phone", user.Phone),
-                   new SqlParameter("@houseId", user.House != null ? user.House.Id : ""),
-                   new SqlParameter("@roleId", user.Role.Id),
-                });
+            user = _adapter.Insert(user);
 
-            var code = IdHelper.Encode(new ResetCode {UserId = id}.SerializeToJson());
+            var code = IdHelper.Encode(new ResetCode { UserId = user.Id }.SerializeToJson());
             var link = $"{ConfigManager.LMSDomain}users/reset?code={code}";
             var emailBodyFmt = EmailService.LoadTemplate("WelcomeUser.txt");
             var emailBody = string.Format(emailBodyFmt, user.Username, link);
 
             EmailService.SendMail(new MailInfo
             {
-                To = new string[] {user.Email},
+                To = new string[] { user.Email },
                 Body = emailBody,
                 IsBodyHtml = true,
                 Subject = "Welcome to LotusInn Management System"
@@ -122,78 +88,22 @@ namespace LotusInn.Management.Services
 
         public static void UpdateUser(User user)
         {
-            SqlHelper.ExecuteNonQuery(ConfigManager.ConnectionString, CommandType.StoredProcedure, SP_USER_UPDATE,
-                new[]
-                {
-                    new SqlParameter("@id", user.Id),
-                    new SqlParameter("@username", user.Username),
-                    new SqlParameter("@email", user.Email),
-                    new SqlParameter("@phone", user.Phone),
-                    new SqlParameter("@houseId", user.House != null ? user.House.Id : ""),
-                    new SqlParameter("@roleId", user.Role.Id),
-                });
+            _adapter.Update(user);
         }
 
         public static void DeleteUser(string id)
         {
-            SqlHelper.ExecuteNonQuery(ConfigManager.ConnectionString, CommandType.StoredProcedure, SP_USER_DELETE,
-                new[]
-                {
-                    new SqlParameter("@id", id)                    
-                });
+            _adapter.Delete(id);
         }
 
         public static void ChangePassword(string id, string newpass)
         {
-            SqlHelper.ExecuteNonQuery(ConfigManager.ConnectionString, CommandType.StoredProcedure, SP_USER_CHANGE_PASSWORD,
-                new[]
-                {
-                    new SqlParameter("@id", id),
-                    new SqlParameter("@password", newpass)
-                });
+            _adapter.ChangePassword(id, newpass);
         }
 
         public static void UpdateStatus(string id, string status)
         {
-            SqlHelper.ExecuteNonQuery(ConfigManager.ConnectionString, CommandType.StoredProcedure, SP_USER_UPDATE_STATUS,
-                new[]
-                {
-                    new SqlParameter("@id", id),
-                    new SqlParameter("@status", status)
-                });
-        }
-
-        private static List<User> ParseUser(SqlDataReader reader)
-        {
-            var result = new List<User>();
-            while (reader.Read())
-            {
-                var user = new User
-                {
-                    Id = reader["Id"].ToString(),
-                    Email = reader["Email"]?.ToString() ?? "",
-                    Phone = reader["Phone"]?.ToString() ?? "",                    
-                    Password = reader["Password"].ToString(),
-                    Username = reader["Username"].ToString(),
-                    Role = new Role
-                    {
-                        Id = reader["RoleId"].ToString(),
-                        Name = reader["RoleName"].ToString()
-                    },
-                    Status = reader["Status"]?.ToString() ?? ""
-                };
-                if (reader["HouseId"] != null)
-                {
-                    user.House = new House
-                    {
-                        Id = reader["HouseId"].ToString(),
-                        Name = reader["HouseName"].ToString(),
-                        Address = reader["HouseAddress"]?.ToString() ?? ""
-                    };
-                }
-                result.Add(user);
-            }
-            return result;
+            _adapter.UpdateStatus(id, status);
         }
     }
 }

@@ -120,13 +120,17 @@
             return a.length;
         }
 
-        $scope.getRoomInfo = function(r, h) {
+        $scope.getRoom = function(r, h) {
             var room = _.find(h.Rooms, { Id: r.RoomId });
-            return "<b>#" + room.RoomNumber + "</b> - " +
-                            room.RoomType.Square + "m2<br/>" +
-                            room.RoomType.Price  + "$/m - " +
-                            room.RoomType.PricePerWeek + "$/w - " +
-                            room.RoomType.PricePerNight + "$/n";
+            return room;
+        }
+
+        $scope.getRoomPrice = function(r, h) {
+            var room = _.find(h.Rooms, { Id: r.RoomId });
+            var symbol = { 'USD': '$', 'VND': 'đ' };
+            return room.RoomType.Price + symbol[room.RoomType.Unit] + "/m - " +
+                room.RoomType.PricePerWeek + symbol[room.RoomType.UnitPerWeek] + "/w - " +
+                room.RoomType.PricePerNight + symbol[room.RoomType.UnitPerNight] + "/n";
         }
         
 

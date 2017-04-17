@@ -39,6 +39,8 @@ namespace LotusInn.Management.Web.ApiControllers
             return Execute(session =>
             {
                 var svc = new MoneySourceService();
+                source.Owner = session.User;
+
                 return svc.Insert(source);
             });
         }

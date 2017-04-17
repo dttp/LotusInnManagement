@@ -67,6 +67,10 @@
       <Project>{F34A34C3-64A8-42BB-A850-E9F59DA2004B}</Project>
       <Name>LotusInn.Management.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LotusInn.Management.Data\LotusInn.Management.Data.csproj">
+      <Project>{20466b36-edef-4ab3-8372-0a36a4df39f7}</Project>
+      <Name>LotusInn.Management.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LotusInn.Management.Model\LotusInn.Management.Model.csproj">
       <Project>{AD873FEC-0D21-4221-BF4A-BD715B411883}</Project>
       <Name>LotusInn.Management.Model</Name>

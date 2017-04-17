@@ -53,6 +53,7 @@ namespace LotusInn.Management.Services
                 new SqlParameter("@name", moneySource.Name),
                 new SqlParameter("@balanceUSD", moneySource.BalanceUSD),
                 new SqlParameter("@balanceVND", moneySource.BalanceVND),
+                new SqlParameter("@ownerId", moneySource.Owner.Id),
             };
             return param;            
         }
@@ -233,11 +234,16 @@ namespace LotusInn.Management.Services
                     Id = reader["Id"].ToString(),
                     Name = reader["Name"].ToString(),                    
                     BalanceUSD = Convert.ToSingle(reader["BalanceUSD"]),
-                    BalanceVND = Convert.ToSingle(reader["BalanceVND"])
+                    BalanceVND = Convert.ToSingle(reader["BalanceVND"]),
+                    Owner = new User
+                    {
+                        Id = reader["OwnerId"].ToString()
+                    }
                 };
                 var houseId = reader["HouseId"].ToString();
                 if (!string.IsNullOrEmpty(houseId))
                     item.House = HouseService.GetById(houseId);
+                item.Owner = UserService.GetUserById(item.Owner.Id);
                 list.Add(item);
             }
 

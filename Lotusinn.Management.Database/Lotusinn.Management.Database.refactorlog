@@ -21,4 +21,32 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="BalanceUSD" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="f3cbc093-b9a8-4b00-9a16-6c6f2672df2b" ChangeDateTime="04/14/2017 07:31:01">
+    <Property Name="ElementName" Value="[dbo].[PermissionSets].[Object]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[PermissionSets]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ObjectName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="5df97d80-ace0-4352-8ffb-336c37b47d37" ChangeDateTime="04/14/2017 08:01:57">
+    <Property Name="ElementName" Value="[dbo].[ObjectPermission].[PermissionName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ObjectPermission]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Permissions" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f8906cd5-efa8-47ec-ae52-a17731287687" ChangeDateTime="04/14/2017 08:46:21">
+    <Property Name="ElementName" Value="[dbo].[MoneySourcePermission].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[MoneySourcePermission]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MoneySourceId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="cc450e9c-4fba-410d-84c4-765d9ee59d21" ChangeDateTime="04/17/2017 07:57:16">
+    <Property Name="ElementName" Value="[dbo].[ObjectPermission].[PermissionSetId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ObjectPermission]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PermissionSetsId" />
+  </Operation>
 </Operations>

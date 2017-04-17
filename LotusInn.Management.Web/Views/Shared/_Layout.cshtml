@@ -26,11 +26,11 @@
     <link href="~/app/assets/plugins/angular-toastr/angular-toastr.min.css" rel="stylesheet" />
 
     <!-- BEGIN THEME STYLES -->
-    <link href="~/app/assets/global/css/components.css" rel="stylesheet" type="text/css"/>
-    <link href="~/app/assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
-    <link href="~/app/assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
-    <link href="~/app/assets/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
-    <link href="~/app/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <link href="~/app/assets/m4.7/global/css/components.min.css" rel="stylesheet" />
+    <link href="~/app/assets/m4.7/global/css/plugins.min.css" rel="stylesheet" />
+    <link href="~/app/assets/m4.7/layouts/layout/css/layout.min.css" rel="stylesheet" />
+    <link href="~/app/assets/m4.7/layouts/layout/css/themes/light.min.css" rel="stylesheet" />
+    <link href="~/app/assets/m4.7/layouts/layout/css/custom.min.css" rel="stylesheet" />
     <link href="~/app/assets/css/lotusinn.css" rel="stylesheet" />
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="favicon.ico"/>
@@ -46,193 +46,201 @@
 <!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
 <!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
 <!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
-<body class="page-header-fixed page-quick-sidebar-over-content " ng-app="lotusinn.app" ng-controller="core" ng-init="init()">
+<body class="page-header-fixed page-content-white" ng-app="lotusinn.app" ng-controller="core" ng-init="init()">
 
 <!-- BEGIN HEADER -->
-<div class="page-header navbar navbar-fixed-top">
-    <!-- BEGIN HEADER INNER -->
-    <div class="page-header-inner">
-        <!-- BEGIN LOGO -->
-        <div class="page-logo">
-            <a href="/" class="logo-wrapper">
-                <img src="~/app/assets/images/logo.png"alt="logo" class="logo"/>
-                <span class="logo1">LOTUS</span> <span class="logo2">INN</span>
+    <div class="page-header navbar navbar-fixed-top">
+        <!-- BEGIN HEADER INNER -->
+        <div class="page-header-inner">
+            <!-- BEGIN LOGO -->
+            <div class="page-logo">
+                <a href="/" class="logo-wrapper">
+                    <img src="~/app/assets/images/logo.png"alt="logo" class="logo"/>
+                    <span class="logo1">LOTUS</span> <span class="logo2">INN</span>
+                </a>
+                <div class="menu-toggler sidebar-toggler">
+                    <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+                    <span></span>
+                </div>
+            </div>
+            <!-- END LOGO -->
+            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                <span></span>
             </a>
-            <div class="menu-toggler sidebar-toggler hide">
-                <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+            <!-- END RESPONSIVE MENU TOGGLER -->
+            <!-- BEGIN TOP NAVIGATION MENU -->
+            <div class="top-menu">
+                <ul class="nav navbar-nav pull-right">
+                    <!-- BEGIN USER LOGIN DROPDOWN -->
+                    <li class="dropdown dropdown-user">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <span class="username">
+                                    {{currentUser.Username}}
+                                </span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="extra_profile.html">
+                                    <i class="icon-user"></i> My Profile
+                                </a>
+                            </li>
+                            <li class="divider">
+                            </li>
+                            <li>
+                                <a href="javascript:;" ng-click="logout()">
+                                    <i class="icon-key"></i> Log Out
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END USER LOGIN DROPDOWN -->
+                    <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                    <li class="dropdown dropdown-quick-sidebar-toggler">
+                        <a href="javascript:;" class="dropdown-toggle" ng-click="logout()">
+                            <i class="icon-logout"></i>
+                        </a>
+                    </li>
+                    <!-- END QUICK SIDEBAR TOGGLER -->
+                </ul>
+            </div>
+            <!-- END TOP NAVIGATION MENU -->
+        </div>
+        <!-- END HEADER INNER -->
+    </div>
+    <!-- END HEADER -->
+    <div class="clearfix">
+    </div>
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container">
+
+
+        <!-- BEGIN SIDEBAR -->
+        <div class="page-sidebar-wrapper">
+            <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+            <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+            <div class="page-sidebar navbar-collapse collapse">
+                <!-- BEGIN SIDEBAR MENU -->
+                <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+                    <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                    @*<li class="sidebar-toggler-wrapper">
+                        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                        <div class="sidebar-toggler">
+                        </div>
+                        <!-- END SIDEBAR TOGGLER BUTTON -->
+                    </li>*@
+
+                    <li ng-repeat="item in sidebarMenu.Items"
+                        ng-class="{'active': item.Selected, 'open': item.Opened, 'heading': item.Type == 'Heading', 'nav-item': item.Type != 'Heading'}">
+                        <h3 class="upercase" ng-if="item.Type == 'Heading'">{{item.Name}}</h3>
+                        <a href="javascript:;"
+                           class="nav-link nav-toggle"
+                           ng-click="item.Opened = !item.Opened"
+                           ng-if="item.Items.length > 0">
+                            <i class="{{item.Icon}}"></i>
+                            <span class="title">{{item.Name}}</span>
+                            <span class="arrow" ng-class="{'open': item.Opened}"></span>
+                            <span class="selected" ng-if="item.Selected"></span>
+                        </a>
+                        <a href="{{item.Url}}" class="nav-link" ng-if="item.Type != 'Heading' && (!item.Items || item.Items.length == 0) ">
+                            <i class="{{item.Icon}}"></i>
+                            <span class="title">{{item.Name}}</span>
+                            <span class="selected" ng-if="item.Selected"></span>
+                        </a>
+                        <ul ng-if="item.Items.length > 0"
+                            class="sub-menu"
+                            ng-style="item.Opened ? {'display': 'block'} : {'display': 'none'}">
+                            <li class="nav-item">
+                                <a href="{{item.Url}}" class="nav-link">
+                                    <i class="{{item.Icon}}"></i>
+                                    <span class="title">{{item.Name}}</span>
+                                    <span class="selected" ng-if="item.Selected"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li> 
+
+                    @*<li>
+                <a href="javascript:;">
+                    <i class="icon-puzzle"></i>
+                    <span class="title">UI Components</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="components_pickers.html">
+                            Pickers
+                        </a>
+                    </li>
+                </ul>
+            </li>*@
+                </ul>
+                <!-- END SIDEBAR MENU -->
             </div>
         </div>
-        <!-- END LOGO -->
-        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-        </a>
-        <!-- END RESPONSIVE MENU TOGGLER -->
-        <!-- BEGIN TOP NAVIGATION MENU -->
-        <div class="top-menu">
-            <ul class="nav navbar-nav pull-right">
-                <!-- BEGIN USER LOGIN DROPDOWN -->
-                <li class="dropdown dropdown-user">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                        <span class="username">
-                                {{currentUser.Username}}
-                            </span>
-                        <i class="fa fa-angle-down"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="extra_profile.html">
-                                <i class="icon-user"></i> My Profile
-                            </a>
-                        </li>
-                        <li class="divider">
-                        </li>
-                        <li>
-                            <a href="javascript:;" ng-click="logout()">
-                                <i class="icon-key"></i> Log Out
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- END USER LOGIN DROPDOWN -->
-                <!-- BEGIN QUICK SIDEBAR TOGGLER -->
-                <li class="dropdown dropdown-quick-sidebar-toggler">
-                    <a href="javascript:;" class="dropdown-toggle" ng-click="logout()">
-                        <i class="icon-logout"></i>
-                    </a>
-                </li>
-                <!-- END QUICK SIDEBAR TOGGLER -->
-            </ul>
+        <!-- END SIDEBAR -->
+        <!-- BEGIN CONTENT -->
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                @RenderBody()
+            </div>
         </div>
-        <!-- END TOP NAVIGATION MENU -->
+        <!-- END CONTENT -->
     </div>
-    <!-- END HEADER INNER -->
-</div>
-<!-- END HEADER -->
-<div class="clearfix">
-</div>
-<!-- BEGIN CONTAINER -->
-<div class="page-container">
+    <!-- END CONTAINER -->
 
-
-    <!-- BEGIN SIDEBAR -->
-    <div class="page-sidebar-wrapper">
-        <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-        <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-        <div class="page-sidebar navbar-collapse collapse">
-            <!-- BEGIN SIDEBAR MENU -->
-            <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
-                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
-                <li class="sidebar-toggler-wrapper">
-                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-                    <div class="sidebar-toggler">
-                    </div>
-                    <!-- END SIDEBAR TOGGLER BUTTON -->
-                </li>
-
-                <li ng-class="{'active': item.Selected}" ng-repeat="item in sidebarMenu.Items">
-                    <a href="{{item.Url}}">
-                        <i class="{{item.Icon}}"></i>
-                        <span class="title">{{item.Name}}</span>
-                        <span class="selected" ng-if="item.Selected"></span>
-                        <span class="arrow" ng-if="item.Items && item.Items.length > 0" ng-class="{}"></span>
-                    </a>
-                    <ul ng-if="item.Items && item.Items.length > 0" class="sub-menu">
-                        <li ng-repeat="subitem in item.Items" ng-class="{'active': subitem.Selected}">
-                            <a href="{{subitem.Url}}">
-                                <i class="{{subitem.Icon}}"></i>
-                                {{subitem.Name}}
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                @*<li>
-                    <a href="javascript:;">
-                        <i class="icon-puzzle"></i>
-                        <span class="title">UI Components</span>
-                        <span class="arrow "></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li>
-                            <a href="components_pickers.html">
-                                Pickers
-                            </a>
-                        </li>                        
-                    </ul>
-                </li>*@
-            </ul>
-            <!-- END SIDEBAR MENU -->
+    <!-- BEGIN FOOTER -->
+    <div class="page-footer">
+        <div class="page-footer-inner">
+            2016 - LotusInn Management &copy; GVCompany.com.
+        </div>
+        <div class="page-footer-tools">
+            <span class="go-top">
+                <i class="fa fa-angle-up"></i>
+            </span>
         </div>
     </div>
-    <!-- END SIDEBAR -->
-    <!-- BEGIN CONTENT -->
-    <div class="page-content-wrapper">
-        <div class="page-content">
-            @RenderBody()
-        </div>
-    </div>
-    <!-- END CONTENT -->
-</div>
-<!-- END CONTAINER -->
-
-<!-- BEGIN FOOTER -->
-<div class="page-footer">
-    <div class="page-footer-inner">
-        2016 - LotusInn Management &copy; GVCompany.com.
-    </div>
-    <div class="page-footer-tools">
-        <span class="go-top">
-                    <i class="fa fa-angle-up"></i>
-                </span>
-    </div>
-</div>
-<!-- END FOOTER -->
-<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
-<!-- BEGIN CORE PLUGINS -->
-<script src="~/app/assets/plugins/jquery-2.2.4/jquery.js"></script>
-<script src="~/app/assets/plugins/bootstrap-3.3.6/js/bootstrap.min.js"></script>
-<script src="~/app/assets/plugins/angularjs-1.5.x/angular.min.js"></script>
-    <script src="~/app/assets/plugins/angularjs-1.5.x/angular-sanitize.1.6.4.min.js"></script>
-<script src="~/app/assets/js/Base64.js"></script>
-<script src="~/app/assets/js/Util.js"></script>
-<script src="~/app/assets/plugins/lodash-4.13.1/lodash.js"></script>
-<!-- END CORE PLUGINS -->
-<!-- BEGIN PAGE LEVEL PLUGINS -->
-<script src="~/app/assets/plugins/momentjs-2.14.1/moment.min.js"></script>
-<script src="~/app/assets/plugins/icheck/js/icheck.min.js"></script>
-<script src="~/app/assets/plugins/icheck/icheck.js"></script>
-<script src="~/app/assets/plugins/angular-cookie/angular-cookie.min.js"></script>
-<script src="~/app/assets/plugins/UI Bootstrap/ui-bootstrap-tpls-1.3.3.min.js"></script>
-<script src="~/app/assets/plugins/angular-loading-bar/loading-bar.min.js"></script>
-<script src="~/app/assets/plugins/angular-paging/paging.min.js"></script>
-<script src="~/app/assets/plugins/date-picker/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<script src="~/app/assets/plugins/date-picker/ng-eternicode-datepicker.js"></script>
-<script src="~/app/assets/plugins/angular-chart/ChartJs/Chart.min.js"></script>
-<script src="~/app/assets/plugins/angular-chart/angular-chart.min.js"></script>
+    <!-- END FOOTER -->
+    <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+    <!-- BEGIN CORE PLUGINS -->
+    <script src="~/app/assets/plugins/jquery-2.2.4/jquery.js"></script>
+    <script src="~/app/assets/plugins/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script src="~/app/assets/plugins/angularjs-1.5.x/angular.min.js"></script>
+    <script src="~/app/assets/js/Base64.js"></script>
+    <script src="~/app/assets/js/Util.js"></script>
+    <script src="~/app/assets/plugins/lodash-4.13.1/lodash.js"></script>
+    <!-- END CORE PLUGINS -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="~/app/assets/plugins/momentjs-2.14.1/moment.min.js"></script>
+    <script src="~/app/assets/plugins/icheck/js/icheck.min.js"></script>
+    <script src="~/app/assets/plugins/icheck/icheck.js"></script>
+    <script src="~/app/assets/plugins/angular-cookie/angular-cookie.min.js"></script>
+    <script src="~/app/assets/plugins/UI Bootstrap/ui-bootstrap-tpls-1.3.3.min.js"></script>
+    <script src="~/app/assets/plugins/angular-loading-bar/loading-bar.min.js"></script>
+    <script src="~/app/assets/plugins/angular-paging/paging.min.js"></script>
+    <script src="~/app/assets/plugins/date-picker/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/app/assets/plugins/date-picker/ng-eternicode-datepicker.js"></script>
+    <script src="~/app/assets/plugins/angular-chart/ChartJs/Chart.min.js"></script>
+    <script src="~/app/assets/plugins/angular-chart/angular-chart.min.js"></script>
     <script src="~/app/assets/plugins/ui.bootstrap.contextmenu/contextMenu.js"></script>
     <script src="~/app/assets/plugins/angular-toastr/angular-toastr.tpls.min.js"></script>
-<!-- END PAGE LEVEL PLUGINS -->
-<!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="~/app/assets/global/scripts/metronic.js" type="text/javascript"></script>
-<script src="~/app/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
-<script src="~/app/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME GLOBAL SCRIPTS -->
+    <script src="~/app/assets/m4.7/global/scripts/app.js"></script>
+    <!-- END THEME GLOBAL SCRIPTS -->
 
-<script src="~/app/services/alertService.js"></script>
-<script src="~/app/services/xhttpService.js"></script>
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+
+    <script src="~/app/services/alertService.js"></script>
+    <script src="~/app/services/xhttpService.js"></script>
     <script src="~/app/services/lotusinn.modal.js"></script>
-<script src="~/app/app.js"></script>
-
-<script src="~/app/components/core/core.js"></script>
-@RenderSection("AngularController", required: false)
-<!-- END PAGE LEVEL SCRIPTS -->
-<script>
-    jQuery(document).ready(function() {
-        Metronic.init(); // init metronic core componets
-        Layout.init(); // init layout
-        QuickSidebar.init(); // init quick sidebar
-    });
-</script>
-<!-- END JAVASCRIPTS -->
+    <script src="~/app/app.js"></script>
+    <script src="~/app/components/core/core.js"></script>
+    @RenderSection("AngularController", required: false)
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <script src="~/app/assets/m4.7/layouts/layout/scripts/layout.js"></script>
+    <!-- END JAVASCRIPTS -->
     <script type="text/ng-template" id="confirmModal.html">
         <div class="modal-header">
             <h3 class="modal-title">Confirmation!</h3>

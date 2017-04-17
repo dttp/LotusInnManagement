@@ -69,7 +69,6 @@
     <Build Include="dbo\Tables\House.sql" />
     <Build Include="dbo\Tables\Role.sql" />
     <Build Include="dbo\Tables\User.sql" />
-    <Build Include="dbo\Tables\RolePermission.sql" />
     <Build Include="dbo\Tables\RoomType.sql" />
     <Build Include="dbo\Tables\Customer.sql" />
     <Build Include="dbo\Tables\BookingOrder.sql" />
@@ -163,6 +162,10 @@
     <Build Include="dbo\Stored Procedures\PaymentRecordGetByOrderId.sql" />
     <Build Include="dbo\Stored Procedures\PaymentRecordSelect.sql" />
     <Build Include="dbo\Stored Procedures\PaymentRecordGetById.sql" />
+    <Build Include="dbo\Tables\PermissionSets.sql" />
+    <Build Include="dbo\Tables\ObjectPermission.sql" />
+    <Build Include="dbo\Tables\MoneySourcePermission.sql" />
+    <Build Include="dbo\Stored Procedures\MoneySourcePermissionsGetByMoneySourceId.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="dbo\Data\Script.PostDeployment1.sql" />

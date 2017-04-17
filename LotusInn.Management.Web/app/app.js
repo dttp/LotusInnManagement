@@ -188,8 +188,7 @@ angular.module('lotusinn.app.dashboard',
     'ui.bootstrap',
     'fk.eternicode-datepicker',
     'ui.bootstrap.contextMenu',
-    'toastr',
-    'ngSanitize'
+    'toastr'
 ]);
 
 angular.module('lotusinn.app.dashboard').config(function (toastrConfig) {

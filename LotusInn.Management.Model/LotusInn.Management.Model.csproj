@@ -52,10 +52,12 @@
     <Compile Include="LoginSession.cs" />
     <Compile Include="MailInfo.cs" />
     <Compile Include="MoneySource.cs" />
+    <Compile Include="MoneySourcePermission.cs" />
     <Compile Include="Notification.cs" />
     <Compile Include="PaginationResult.cs" />
     <Compile Include="PaymentCycle.cs" />
     <Compile Include="PaymentRecord.cs" />
+    <Compile Include="PermissionSets.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResetCode.cs" />
     <Compile Include="Role.cs" />

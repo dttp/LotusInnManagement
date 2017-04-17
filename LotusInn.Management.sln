@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LotusInn.Management.Web", "LotusInn.Management.Web\LotusInn.Management.Web.csproj", "{10E4E209-5D57-4294-8843-6874B9EC809C}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LotusInn.Management.Core", "LotusInn.Management.Core\LotusInn.Management.Core.csproj", "{F34A34C3-64A8-42BB-A850-E9F59DA2004B}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Lotusinn.Management.Database", "Lotusinn.Management.Database\Lotusinn.Management.Database.sqlproj", "{BEE52B83-6A50-4C3F-9238-49D613D8ED95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LotusInn.Management.Data", "LotusInn.Management.Data\LotusInn.Management.Data.csproj", "{20466B36-EDEF-4AB3-8372-0A36A4DF39F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{BEE52B83-6A50-4C3F-9238-49D613D8ED95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEE52B83-6A50-4C3F-9238-49D613D8ED95}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BEE52B83-6A50-4C3F-9238-49D613D8ED95}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{20466B36-EDEF-4AB3-8372-0A36A4DF39F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20466B36-EDEF-4AB3-8372-0A36A4DF39F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20466B36-EDEF-4AB3-8372-0A36A4DF39F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20466B36-EDEF-4AB3-8372-0A36A4DF39F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

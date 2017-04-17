@@ -4,6 +4,7 @@
     [HouseId] NVARCHAR(15) NULL, 
     [BalanceVND] FLOAT NOT NULL, 
     [BalanceUSD] FLOAT NOT NULL, 
+    [OwnerId] NVARCHAR(15) NOT NULL, 
     CONSTRAINT [PK_MoneySource] PRIMARY KEY ([Id]) 
 	
 )

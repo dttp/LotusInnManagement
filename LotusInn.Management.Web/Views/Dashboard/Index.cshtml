@@ -164,22 +164,31 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="" style="width: 1450px; max-width: 100%; overflow-x: scroll">
+                        <div class="" style="max-width: 100%; overflow-x: scroll">
                             <h3>Room availability <small>From {{dtRange.startDate | date : 'dd/MM/yyyy'}} to {{dtRange.endDate | date : 'dd/MM/yyyy'}}</small>
                             </h3>
                             <table class="table table-bordered table-hover table-striped">
                                 <thead>
-                                <tr>
-                                    <th rowspan="2">Room</th>
-                                    <th ng-repeat="state in house.RoomsState[0].States">{{state.Date |date : 'EEE'}}</th>
-                                </tr>
+                                    <tr>
+                                        <th rowspan="2">Room</th>
+                                        <th rowspan="2">Square</th>
+                                        <th rowspan="2">PPM</th>
+                                        <th rowspan="2">PPW</th>
+                                        <th rowspan="2">PPN</th>
+                                        <th ng-repeat="state in house.RoomsState[0].States">{{state.Date |date : 'EEE'}}</th>
+                                    </tr>
+
                                 <tr>
                                     <th style="font-size: 11px;" ng-repeat="state in house.RoomsState[0].States">{{state.Date |date : 'd/M'}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="r in house.RoomsState">
-                                    <td ng-bind-html="getRoomInfo(r, house)"></td>
+                                    <td><strong>#{{getRoom(r, house).RoomNumber}}</strong></td>
+                                    <td>{{getRoom(r, house).RoomType.Square}}m<sup>2</sup></td>
+                                    <td>{{getRoom(r, house).RoomType.Price}}$</td>
+                                    <td>{{getRoom(r, house).RoomType.PricePerWeek}}$</td>
+                                    <td>{{getRoom(r, house).RoomType.PricePerNight}}$</td>
                                     <td ng-repeat="state in r.States" class="roomstate {{state.Availability.toLowerCase()}}" >
                                         <div ng-if="state.Availability == 'Busy'" context-menu="busyContextMenu">v</div>
                                         <div ng-if="state.Availability == 'Available'" context-menu="availableContextMenu">0</div>
@@ -187,7 +196,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Total</td>
+                                    <td colspan="5">Total</td>
                                     <td ng-repeat="state in house.RoomsState[0].States" class="roomstate">
                                         {{getCount(house.RoomsState, state)}}
                                     </td>

@@ -12,7 +12,7 @@ namespace LotusInn.Management.Web.ApiControllers
         [AcceptVerbs("GET")]
         public List<User> GetUsers()
         {
-            return Execute(session => UserService.GetUsers());
+            return Execute(session => UserService.GetAll());
         }
 
         [AcceptVerbs("GET")]
