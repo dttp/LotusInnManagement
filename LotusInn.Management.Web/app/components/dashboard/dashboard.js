@@ -1,6 +1,5 @@
 ﻿angular.module('lotusinn.app.dashboard')
-    .controller('dashboardCtrl', function ($scope, $xhttp, ipCookie, alertSvc, toastr, $q, $liModal) {
-        $scope.alertSvc = alertSvc;
+    .controller('dashboardCtrl', function ($scope, $xhttp, ipCookie, toastr, $q, $liModal) {
 
         $scope.datePickerOptions = {
             autoclose: true,

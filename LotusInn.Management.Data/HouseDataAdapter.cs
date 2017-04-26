@@ -10,7 +10,7 @@ using LotusInn.Management.Model;
 
 namespace LotusInn.Management.Data
 {
-    public class HouseDataAdapter
+    public class HouseDataAdapter : IObjectDataAdapter<House>
     {
         private const string SP_GET_HOUSES = "HouseGetAll";
         private const string SP_GET_BY_ID = "HouseGetById";
@@ -20,7 +20,7 @@ namespace LotusInn.Management.Data
 
         public House Insert(House house)
         {
-            house.Id = "h-" + IdHelper.Generate();
+            house.Id = IdHelper.Generate();
             SqlHelper.ExecuteNonQuery(SP_ADD_NEW_HOUSE,
                 new[]
                 {

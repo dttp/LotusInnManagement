@@ -1,7 +1,6 @@
 ﻿var module = angular.module('lotusinn.app.moneysource.detail');
 
-module.controller('moneySourceDetailCtrl', function($scope, $xhttp, alertSvc, $uibModal, $liModal) {
-    $scope.alertSvc = alertSvc;
+module.controller('moneySourceDetailCtrl', function($scope, $xhttp, $uibModal, $liModal) {
 
     $scope.moneySource = {};
 
@@ -120,8 +119,6 @@ module.controller('paymentModalCtrl', function($scope, $uibModalInstance, item) 
     $scope.paymentTypes = [
         'Expense',
         'Income',
-        'Order-Payment',
-        'Order-Discount'
     ];
 
     $scope.payment = {

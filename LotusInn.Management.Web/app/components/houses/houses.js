@@ -1,7 +1,6 @@
 ﻿angular.module('lotusinn.app.houses.list')
-    .controller('houseList', function($scope, $xhttp, ipCookie, $liModal, alertSvc) {
+    .controller('houseList', function($scope, $xhttp, ipCookie, $liModal) {
         $scope.houses = [];
-        $scope.alertSvc = alertSvc;
 
         $scope.create = function() {
             window.location.href = "/houses/addedit";
@@ -9,6 +8,14 @@
 
         $scope.edit = function(house) {
             window.location.href = "/houses/addedit?id=" + house.Id;
+        }
+
+        $scope.manageRoomTypes = function(house) {
+            window.location.href = '/roomtypes?houseid=' + house.Id;
+        }
+
+        $scope.manageRooms = function (house) {
+            window.location.href = '/rooms?houseid=' + house.Id;
         }
 
         $scope.delete = function(house) {

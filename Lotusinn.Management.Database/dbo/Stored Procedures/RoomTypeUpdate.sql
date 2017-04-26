@@ -13,6 +13,14 @@ CREATE PROCEDURE [dbo].[RoomTypeUpdate]
 AS
 BEGIN
 	UPDATE RoomType
-	SET Name = @name, HouseId = @houseId, Price = @price, Unit = @unit, PricePerWeek = @pricePerWeek, UnitPerWeek = @unitPerWeek, PricePerNight = @pricePerNight, UnitPerNight = @unitPerNight, Square = @square
+	SET Name = @name, 
+		HouseId = @houseId, 
+		Price = @price, 
+		Unit = @unit, 
+		PricePerWeek = @pricePerWeek, 
+		UnitPerWeek = @unitPerWeek, 
+		PricePerNight = @pricePerNight, 
+		UnitPerNight = @unitPerNight, 
+		Square = @square
 	WHERE Id = @id
 END

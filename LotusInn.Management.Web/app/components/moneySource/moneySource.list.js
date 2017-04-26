@@ -1,8 +1,6 @@
 ﻿var module = angular.module('lotusinn.app.moneysource.list');
 
-module.controller('moneysourceCtrl', function($scope, $xhttp, alertSvc, $liModal) {
-
-    $scope.alertSvc = alertSvc;
+module.controller('moneysourceCtrl', function($scope, $xhttp, $liModal) {
 
     $scope.moneySources = [];
 

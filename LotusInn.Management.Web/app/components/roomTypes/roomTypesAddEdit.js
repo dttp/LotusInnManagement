@@ -1,8 +1,8 @@
 ﻿angular.module('lotusinn.app.roomTypes.addedit')
-    .controller('roomTypeAddEdit', function ($scope, $xhttp, alertSvc) {
-        $scope.alertSvc = alertSvc;
+    .controller('roomTypeAddEdit', function ($scope, $xhttp) {
 
         $scope.units = ['USD', 'VND'];
+        $scope.house = {};
 
         $scope.roomType = {
             Id: '',
@@ -34,12 +34,16 @@
         }
 
         $scope.cancel = function() {
-            window.location.href = "/roomTypes";
+            window.location.href = "/roomTypes?houseid=" + $scope.house.Id;
         }
 
         $scope.init = function () {            
             var id = Utils.getParameterByName('id');
-            $scope.roomType.HouseId = Utils.getParameterByName("houseId");
+            $scope.roomType.HouseId = Utils.getParameterByName("houseid");
+            $xhttp.get('/api/houses/getbyid?id=' + $scope.roomType.HouseId).then(function(response) {
+                $scope.house = response.data;
+            });
+
             if (id) {
                 $xhttp.get('/api/roomTypes/getbyid?id=' + id).then(function (response) {
                     $scope.roomType = response.data;

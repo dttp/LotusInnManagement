@@ -61,7 +61,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResetCode.cs" />
     <Compile Include="Role.cs" />
-    <Compile Include="RolePermission.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="RoomState.cs" />
     <Compile Include="RoomType.cs" />

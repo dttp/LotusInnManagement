@@ -15,19 +15,6 @@
       "Icon": "icon-organization",
     },
     {
-      "Id": "roomType",
-      "Name": "Room Type",
-      "Url": "/roomTypes",
-      "Icon": "icon-tag",
-    },
-    {
-      "Id": "room",
-      "Name": "Rooms",
-      "PermissionObject": "Room",
-      "Url": "/rooms",
-      "Icon": "icon-grid",
-    },
-    {
       "Id": "equipment",
       "Name": "Equipments",
       "PermissionObject": "equipment",
@@ -42,11 +29,30 @@
       "Icon": "fa fa-users"
     },
     {
-      "Id": "user",
-      "Name": "Users",
-      "PermissionObject": "User",
-      "Url": "/users",
-      "Icon": "icon-people"
+      "Id": "manage-users",
+      "Name": "Manage Users",      
+      "Url": "",
+      "Icon": "icon-people",
+      "Items": [
+        {
+          "Id": "users",
+          "Name": "Users",
+          "Url": "/users",
+          "Icon": "icon-people"
+        },
+        {
+          "Id": "role",
+          "Name": "Roles",
+          "Url": "/role",
+          "Icon": "icon-people"
+        },
+        {
+          "Id": "permissionsets",
+          "Name": "Permission Sets",
+          "Url": "/permissionsets",
+          "Icon": "icon-people"
+        }
+      ]
     },
     {
       "Id": "warehouse",

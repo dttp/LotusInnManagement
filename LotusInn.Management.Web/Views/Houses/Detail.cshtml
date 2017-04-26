@@ -1,8 +1,6 @@
 ﻿<div ng-controller="housedetail" ng-init="init()">
     <!-- BEGIN PAGE HEADER-->
-    <h3 class="page-title">
-        Happy Houses <small>Detail information</small>
-    </h3>
+
     <div class="page-bar">
         <ul class="page-breadcrumb">
             <li>
@@ -15,10 +13,14 @@
                 <i class="fa fa-angle-right"></i>
             </li>
             <li>
-                <a href="#">Detail</a>
+                <span>{{house.Name}}</span>
             </li>
         </ul>
     </div>
+
+    <h3 class="page-title">
+        {{house.Name}} <small>Detail information</small>
+    </h3>
     <!-- END PAGE HEADER-->
     <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
@@ -84,7 +86,7 @@
                             </div>
                         </div>
                         <div class="portlet-body">
-                            <table class="table table-bordered table-hover table-striped">
+                            <table class="table table-bordered table-hover table-striped table-condensed">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -126,7 +128,7 @@
                             </div>
                         </div>
                         <div class="portlet-body">
-                            <table class="table table-bordered table-hover table-striped">
+                            <table class="table table-bordered table-hover table-striped table-condensed">
                                 <thead>
                                     <tr>
                                         <th>Number</th>

@@ -1,18 +1,15 @@
 ﻿angular.module('lotusinn.app.roomTypes.list')
-    .controller('roomTypeList', function($scope, $xhttp, ipCookie, $liModal, alertSvc) {
+    .controller('roomTypeList', function($scope, $xhttp, ipCookie, $liModal) {
         $scope.roomTypes = [];
-        $scope.alertSvc = alertSvc;
 
-        $scope.houses = [];
-
-        $scope.selectedHouse = {}
+        $scope.house = {}
 
         $scope.create = function() {
-            window.location.href = "/roomTypes/addedit?houseId=" + $scope.selectedHouse.Id;
+            window.location.href = "/roomTypes/addedit?houseId=" + $scope.house.Id;
         }
 
         $scope.edit = function(roomType) {
-            window.location.href = "/roomTypes/addedit?houseId=" + $scope.selectedHouse.Id + "&id=" + roomType.Id;
+            window.location.href = "/roomTypes/addedit?houseId=" + $scope.house.Id + "&id=" + roomType.Id;
         }
 
         $scope.delete = function(roomType) {
@@ -26,7 +23,7 @@
         }
 
         function refreshRoomTypeList() {
-            $xhttp.get('/api/roomTypes/getroomTypes?houseId=' + $scope.selectedHouse.Id).then(function(response) {
+            $xhttp.get('/api/roomTypes/getroomTypes?houseId=' + $scope.house.Id).then(function(response) {
                 $scope.roomTypes = response.data;
             });
         }
@@ -36,20 +33,12 @@
         }
 
         $scope.init = function() {
-            var houseId = Utils.getParameterByName("houseId");
+            var houseId = Utils.getParameterByName("houseid");
 
-            $xhttp.get('/api/houses/gethouses')
+            $xhttp.get('/api/houses/getbyid?id=' + houseId)
                 .then(function(response) {
-                    $scope.houses = response.data;
-                    if (houseId) {
-                        $scope.selectedHouse = _.find($scope.houses, { Id: houseId });
-                        refreshRoomTypeList();
-                    } else {
-                        if ($scope.houses.length > 0) {
-                            $scope.selectedHouse = $scope.houses[0];
-                            refreshRoomTypeList();
-                        }
-                    }
+                    $scope.house = response.data;
+                    refreshRoomTypeList();
                 });
         }
     });

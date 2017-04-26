@@ -1,8 +1,6 @@
 ﻿<div ng-controller="moneySourceDetailCtrl" ng-init="init()">
     <!-- BEGIN PAGE HEADER-->
-    <h3 class="page-title">
-        Money Source Detail
-    </h3>
+
     <div class="page-bar">
         <ul class="page-breadcrumb">
             <li>
@@ -11,15 +9,18 @@
                 <i class="fa fa-angle-right"></i>
             </li>
             <li>
-                <i class="fa fa-home"></i>
                 <a href="\moneysource">Money Sources</a>
                 <i class="fa fa-angle-right"></i>
             </li>
             <li>
-                <a href="#">Detail</a>
+                <span>{{moneySource.Name}}</span>
             </li>
         </ul>
     </div>
+
+    <h3 class="page-title">
+        {{moneySource.Name}} <small>Detail information</small>
+    </h3>
     <!-- END PAGE HEADER-->
     <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
@@ -50,7 +51,7 @@
                         <label class="col-md-3 control-label">Balance (VND)</label>
                         <div class="col-md-4">
                             <p class="form-control-static">
-                                {{moneySource.BalanceVND | currency : "VND" : 0}}
+                                {{moneySource.BalanceVND | currency : "đ" : 0}}
                             </p>
                         </div>
                     </div>
@@ -94,7 +95,7 @@
                         </div>
                     </div>
                     <div class="table-scrollable">
-                        <table class="table table-bordered table-hover table-striped">
+                        <table class="table table-bordered table-hover table-striped table-condensed">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -104,7 +105,7 @@
                                     <th>Method</th>
                                     <th>Note</th>
                                     <th style="width: 180px">Type</th>
-                                    <th style="width: 120px">Actions</th>
+                                    <th style="width: 200px">Actions</th>
                                 </tr>
                                 <tr>
                                     <th></th>
@@ -145,7 +146,7 @@
                                         {{item.Note}}
                                     </td>
                                     <td>
-                                        <span class="label pm-label"
+                                        <span class="label"
                                               ng-class="{'bg-green-jungle': item.Type == 'Income', 
                                                          'bg-yellow': item.Type == 'Expense', 
                                                          'bg-green-meadow': item.Type == 'Order-Payment',
@@ -154,11 +155,13 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <button class="btn btn-icon-only blue-hoki" ng-click="edit(item)" ng-disabled="item.Type == 'Order-Payment' || item.Type == 'Order-Discount'">
+                                        <button class="btn btn-outline btn-xs  blue-hoki" ng-click="edit(item)" ng-disabled="item.Type == 'Order-Payment' || item.Type == 'Order-Discount'">
                                             <i class="fa fa-edit"></i>
+                                            Edit
                                         </button>
-                                        <button class="btn btn-icon-only red-flamingo" ng-click="delete(item)" ng-disabled="item.Type == 'Order-Payment' || item.Type == 'Order-Discount'">
+                                        <button class="btn btn-outline btn-xs  red-flamingo" ng-click="delete(item)" ng-disabled="item.Type == 'Order-Payment' || item.Type == 'Order-Discount'">
                                             <i class="fa fa-remove"></i>
+                                            Delete
                                         </button>
                                     </td>
                                 </tr>

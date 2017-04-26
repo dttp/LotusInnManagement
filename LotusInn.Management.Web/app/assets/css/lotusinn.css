@@ -185,14 +185,6 @@ div[class*='icheckbox_'], div[class*='iradio_'] {
     color: white;
 }
 
-.pm-label {
-    display: inline-block;
-    margin-top: 5px;
-    margin-left: 8px;
-    padding: 5px 8px;
-    text-transform: capitalize;
-}
-
 .r-number {
     display: block;
     font-weight: bold;
@@ -200,4 +192,8 @@ div[class*='icheckbox_'], div[class*='iradio_'] {
 .r-price {
     display: block;
     font-weight: bold;
+}
+
+.page-header.navbar.navbar-fixed-top, .page-header.navbar.navbar-static-top {
+    z-index: 1000;
 }

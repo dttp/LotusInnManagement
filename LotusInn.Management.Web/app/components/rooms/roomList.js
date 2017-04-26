@@ -1,9 +1,6 @@
 ﻿angular.module('lotusinn.app.rooms.list')
-    .controller('roomList', function($scope, $xhttp, ipCookie, $liModal, alertSvc) {
+    .controller('roomList', function($scope, $xhttp, ipCookie, $liModal) {
         $scope.rooms = [];
-        $scope.alertSvc = alertSvc;
-
-        $scope.houses = [];
 
         $scope.house = {}
 
@@ -31,20 +28,10 @@
         }
 
         $scope.init = function () {
-            var houseId = Utils.getParameterByName("houseId");
-
-            $xhttp.get('/api/houses/gethouses')
-                .then(function(response) {
-                    $scope.houses = response.data;
-                    if (houseId) {
-                        $scope.house = _.find($scope.houses, { Id: houseId });
-                        $scope.refreshRooms();
-                    } else {
-                        if ($scope.houses.length > 0) {
-                            $scope.house = $scope.houses[0];
-                            $scope.refreshRooms();
-                        }
-                    }
-                });
+            var houseId = Utils.getParameterByName("houseid");
+            $xhttp.get('/api/houses/getbyid?id=' + houseId).then(function(response) {
+                $scope.house = response.data;
+                $scope.refreshRooms();
+            });
         }
     });

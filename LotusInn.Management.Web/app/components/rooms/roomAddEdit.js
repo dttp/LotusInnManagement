@@ -1,6 +1,5 @@
 ﻿angular.module('lotusinn.app.rooms.addedit')
-    .controller('roomAddEdit', function ($scope, $xhttp, ipCookie, alertSvc) {
-        $scope.alertSvc = alertSvc;
+    .controller('roomAddEdit', function ($scope, $xhttp) {
 
         $scope.room = {
             Id: '',
@@ -13,6 +12,7 @@
                 Unit: ''
             }
         };
+        $scope.house = {};
 
         $scope.numberPattern = Utils.getNumberPattern();
 
@@ -44,12 +44,16 @@
 
         $scope.init = function () {            
             var id = Utils.getParameterByName('id');
-            var houseId = Utils.getParameterByName("houseId");
+            var houseId = Utils.getParameterByName("houseid");
+
+            $xhttp.get('/api/houses/getbyid?id=' + houseId).then(function(response) {
+                $scope.house = response.data;
+            });
             $xhttp.get('/api/roomTypes/getroomTypes?houseId=' + houseId)
                 .then(function(response) {
                     $scope.roomTypes = response.data;
                     if ($scope.roomTypes.length === 0) {
-                        alertSvc.addError("There are no room types. Please add some room types first.");
+                        $scope.alertSvc.addError("There are no room types. Please add some room types first.");
                     }
                     if (!id && $scope.roomTypes.length > 0) {
                         $scope.room.RoomType = $scope.roomTypes[0];
@@ -64,6 +68,6 @@
             } else {
                 $scope.room.HouseId = houseId;
             }
-            alertSvc.addInfo("You can add multiple rooms at once. For example: 101,201,301");
+            $scope.alertSvc.addInfo("You can add multiple rooms at once. For example: 101,201,301");
         }
     });

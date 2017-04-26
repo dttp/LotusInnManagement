@@ -1,8 +1,6 @@
 ﻿<div ng-controller="moneySourceAddEditCtrl" ng-init="init()">
     <!-- BEGIN PAGE HEADER-->
-    <h3 class="page-title">
-        Money Source Add/Edit
-    </h3>
+
     <div class="page-bar">
         <ul class="page-breadcrumb">
             <li>
@@ -15,10 +13,13 @@
                 <i class="fa fa-angle-right"></i>
             </li>
             <li>
-                <a href="#">Add/Edit</a>
+                <span >Add/Edit</span>
             </li>
         </ul>
     </div>
+    <h3 class="page-title">
+        Money Source <small>Add/Edit money source </small>
+    </h3>
     <!-- END PAGE HEADER-->
     <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
@@ -34,7 +35,7 @@
                         <div class="col-md-4">
                             <div class="input-icon right">
                                 <i class="fa fa-warning" ng-show="hasError(moneySourceForm.name, 'required')"></i>
-                                <input type="text" class="form-control" name="name" placeholder="Enter item name here" ng-model="moneySource.Name" required />
+                                <input type="text" class="form-control" name="name" placeholder="Enter money source name here" ng-model="moneySource.Name" required />
                             </div>
                             <span class="help-block" ng-show="hasError(moneySourceForm.name, 'required')">Money Source name is required</span>
                         </div>

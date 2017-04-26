@@ -1,7 +1,6 @@
 ﻿var module = angular.module('lotusinn.app.moneysource.addedit');
 
-module.controller('moneySourceAddEditCtrl', function($scope, $xhttp, alertSvc) {
-    $scope.alertSvc = alertSvc;
+module.controller('moneySourceAddEditCtrl', function($scope, $xhttp) {
 
     $scope.moneySource = {};
 
@@ -24,7 +23,7 @@ module.controller('moneySourceAddEditCtrl', function($scope, $xhttp, alertSvc) {
         }
 
         $xhttp.post(url, $scope.moneySource).then(function () {
-            alertSvc.addSuccess(msg);
+            $scope.alertSvc.addSuccess(msg);
 
             setTimeout(function() {
                 $scope.cancel();

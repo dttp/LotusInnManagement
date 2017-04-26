@@ -1460,8 +1460,6 @@
     <Content Include="app\assets\plugins\simple-line-icons-2.3.2\fonts\Simple-Line-Icons.svg" />
     <Content Include="app\assets\plugins\UI Bootstrap\ui-bootstrap-tpls-1.3.3.min.js" />
     <Content Include="app\assets\plugins\ui.bootstrap.contextmenu\contextMenu.js" />
-    <Content Include="app\components\budget\budget.addedit.js" />
-    <Content Include="app\components\budget\budget.list.js" />
     <Content Include="app\components\core\core.js" />
     <Content Include="app\components\customer\customerEdit.js" />
     <Content Include="app\components\customer\customerList.js" />

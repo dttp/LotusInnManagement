@@ -4,8 +4,8 @@
 	@endDate DateTime
 AS
 BEGIN
-	SELECT r.*, rt.Name as RoomTypeName, rt.Price as RoomTypePrice, rt.Unit as RoomTypeUnit
-	FROM Room r INNER JOIN RoomType rt ON r.RoomTypeId = rt.Id
+	SELECT r.*	
+	FROM Room r 
 	WHERE r.HouseId = @houseId AND 
 		  r.Id NOT IN 
 			(SELECT odr.RoomId 

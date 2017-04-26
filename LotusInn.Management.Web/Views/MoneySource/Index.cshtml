@@ -1,8 +1,6 @@
 ﻿<div ng-controller="moneysourceCtrl" ng-init="init()">
     <!-- BEGIN PAGE HEADER-->
-    <h3 class="page-title">
-        Money Source Management
-    </h3>
+
     <div class="page-bar">
         <ul class="page-breadcrumb">
             <li>
@@ -11,10 +9,14 @@
                 <i class="fa fa-angle-right"></i>
             </li>
             <li>
-                <a href="#">Money Sources</a>
+                <span>Money Sources</span>
             </li>
         </ul>
     </div>
+    <h3 class="page-title">
+        Money Sources
+        <small>Manage money soures</small>
+    </h3>
     <!-- END PAGE HEADER-->
     <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
@@ -39,7 +41,7 @@
                             </div>*@
                         <div class="portlet-body">
                             <div class="table-scrollable">
-                                <table class="table table-bordered table-hover table-striped">
+                                <table class="table table-bordered table-hover table-striped table-condensed">
                                     <thead>
                                         <tr>
                                             <th>Name</th>
@@ -69,12 +71,14 @@
                                                 {{moneySource.BalanceVND}}
                                             </td>
                                             <td>
-                                                <a href="javascript:;" title="Edit this warehouse" class="btn btn-icon-only blue-hoki" ng-click="edit(moneySource)">
+                                                <button title="Edit this money source" class="btn btn-outline btn-xs blue-hoki" ng-click="edit(moneySource)">
                                                     <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a href="javascript:;" title="Delete this warehouse" class="btn btn-icon-only red-flamingo" ng-click="delete(moneySource)">
+                                                    Edit
+                                                </button>
+                                                <button title="Delete this money source" class="btn btn-outline btn-xs red-flamingo" ng-click="delete(moneySource)">
                                                     <i class="fa fa-remove"></i>
-                                                </a>
+                                                    Delete
+                                                </button>
                                             </td>
                                         </tr>
                                     </tbody>

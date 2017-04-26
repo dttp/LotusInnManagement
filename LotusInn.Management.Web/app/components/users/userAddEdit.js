@@ -1,6 +1,5 @@
 ﻿angular.module('lotusinn.app.users.addedit')
-    .controller('userAddEdit', function ($scope, $xhttp, alertSvc) {
-        $scope.alertSvc = alertSvc;
+    .controller('userAddEdit', function ($scope, $xhttp) {
 
         $scope.user = {
             Id: '',
@@ -38,7 +37,7 @@
                         });
                 }
             } else {
-                alertSvc.addError('Please correct all the errors below in order to submit this form');
+                $scope.alertSvc.addError('Please correct all the errors below in order to submit this form');
             }
         }
 

@@ -9,7 +9,7 @@ namespace LotusInn.Management.Core
     public class IdHelper
     {
         private const string Alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJJKLMNOPQRSTUVWXYZ0123456789";        
-        public static string Generate(int maxSize = 13)
+        public static string Generate(int maxSize = 15)
         {            
             var chars = Alphabet.ToCharArray();
             byte[] data = new byte[1];

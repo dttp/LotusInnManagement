@@ -136,7 +136,7 @@
                         <h3 class="upercase" ng-if="item.Type == 'Heading'">{{item.Name}}</h3>
                         <a href="javascript:;"
                            class="nav-link nav-toggle"
-                           ng-click="item.Opened = !item.Opened"
+                           ng-click="toggleItem(item)"
                            ng-if="item.Items.length > 0">
                             <i class="{{item.Icon}}"></i>
                             <span class="title">{{item.Name}}</span>
@@ -151,11 +151,11 @@
                         <ul ng-if="item.Items.length > 0"
                             class="sub-menu"
                             ng-style="item.Opened ? {'display': 'block'} : {'display': 'none'}">
-                            <li class="nav-item">
-                                <a href="{{item.Url}}" class="nav-link">
-                                    <i class="{{item.Icon}}"></i>
-                                    <span class="title">{{item.Name}}</span>
-                                    <span class="selected" ng-if="item.Selected"></span>
+                            <li class="nav-item" ng-repeat="subitem in item.Items">
+                                <a href="{{subitem.Url}}" class="nav-link">
+                                    <i class="{{subitem.Icon}}"></i>
+                                    <span class="title">{{subitem.Name}}</span>
+                                    <span class="selected" ng-if="subitem.Selected"></span>
                                 </a>
                             </li>
                         </ul>

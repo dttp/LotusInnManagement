@@ -1,8 +1,6 @@
 ﻿<div ng-controller="roomAddEdit" ng-init="init()">
     <!-- BEGIN PAGE HEADER-->
-    <h3 class="page-title">
-        Room <small>Add/Edit</small>
-    </h3>
+
     <div class="page-bar">
         <ul class="page-breadcrumb">
             <li>
@@ -11,14 +9,25 @@
                 <i class="fa fa-angle-right"></i>
             </li>
             <li>
-                <a href="/rooms">Rooms</a>
+                <a href="/houses">Houses</a>
                 <i class="fa fa-angle-right"></i>
             </li>
             <li>
-                <a href="#">AddEdit</a>
+                <a href="/houses/detail?id={{house.Id}}">{{house.Name}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="/rooms?houseId={{house.Id}}">Rooms</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <span href="#">AddEdit</span>
             </li>
         </ul>
     </div>
+    <h3 class="page-title">
+        Room <small>Add/Edit room for {{house.Name}}</small>
+    </h3>
     <!-- END PAGE HEADER-->
     <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
@@ -32,7 +41,7 @@
                     <div class="form-group" ng-class="{'has-error': hasError(roomForm.roomNumber, 'required') || hasError(roomForm.roomNumber, 'pattern')}">
                         <label class="col-md-3 control-label">Room Number</label>
                         <div class="col-md-4">
-                            <div class="input-icon right input-medium">
+                            <div class="input-icon right">
                                 <i class="fa fa-warning" ng-show="hasError(roomForm.roomNumber, 'required') "></i>
                                 <input type="text" class="form-control" name="roomNumber" ng-model="room.RoomNumber" required  />
                             </div>

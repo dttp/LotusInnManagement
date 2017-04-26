@@ -1,27 +1,28 @@
 ﻿<div ng-controller="dashboardCtrl" ng-init="init()">
     <!-- BEGIN PAGE HEADER-->
-    <h3 class="page-title">
-        Dashboard
-    </h3>
+
     <div class="page-bar">
         <div class="date-range">
             <label class="control-label dr-label">From</label>
             <div class="input-group date input-medium dr-control" datepicker dp-options="datePickerOptions" ng-model='dtRange.startDate'>
                 <input type="text" class="form-control">
                 <span class="input-group-addon">
-                    <i class="glyphicon glyphicon-th"></i>
-                </span>
+                        <i class="glyphicon glyphicon-th"></i>
+                    </span>
             </div>
             <label class="control-label dr-label">To</label>
             <div class="input-group date input-medium dr-control" datepicker dp-options="datePickerOptions" ng-model='dtRange.endDate'>
                 <input type="text" class="form-control">
                 <span class="input-group-addon">
-                    <i class="glyphicon glyphicon-th"></i>
-                </span>
+                        <i class="glyphicon glyphicon-th"></i>
+                    </span>
             </div>
             <label class="control-label dr-label error">{{dtRange.message}}</label>
         </div>
     </div>
+    <h3 class="page-title">
+        Dashboard
+    </h3>
     <!-- END PAGE HEADER-->
     <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
@@ -128,7 +129,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h3>Customers checkout today</h3>
-                            <table class="table table-bordered table-hover table-striped">
+                            <table class="table table-bordered table-hover table-striped table-condensed">
                                 <thead>
                                 <tr>
                                     <th>Name</th>
@@ -167,7 +168,7 @@
                         <div class="" style="max-width: 100%; overflow-x: scroll">
                             <h3>Room availability <small>From {{dtRange.startDate | date : 'dd/MM/yyyy'}} to {{dtRange.endDate | date : 'dd/MM/yyyy'}}</small>
                             </h3>
-                            <table class="table table-bordered table-hover table-striped">
+                            <table class="table table-bordered table-hover table-striped table-condensed">
                                 <thead>
                                     <tr>
                                         <th rowspan="2">Room</th>

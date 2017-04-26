@@ -8,7 +8,13 @@
             ipCookie.remove('AuthId');
             window.location.href = '/login';
         }
-
+        $scope.toggleItem = function(item) {
+            if (item.Opened) {
+                item.Opened = false;
+            } else {
+                item.Opened = true;
+            }
+        }
         $scope.init = function () {
             try {
                 $scope.currentUser = JSON.parse(Base64.decode(ipCookie("AuthId"))).User;

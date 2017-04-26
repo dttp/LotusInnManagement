@@ -12,5 +12,6 @@ CREATE PROCEDURE [dbo].[RoomTypeInsert]
 	@square nvarchar(5)
 AS
 BEGIN
-	INSERT RoomType(Id, Name, HouseId, Price, Unit, PricePerWeek, UnitPerWeek, PricePerNight, UnitPerNight, Square) VALUES(@id, @name, @houseId, @price, @unit, @pricePerWeek, @unitPerWeek, @pricePerNight, @unitPerNight, @square)
+	INSERT RoomType(Id, Name, HouseId, Price, Unit, PricePerWeek, UnitPerWeek, PricePerNight, UnitPerNight, Square) 
+	VALUES(@id, @name, @houseId, @price, @unit, @pricePerWeek, @unitPerWeek, @pricePerNight, @unitPerNight, @square)
 END

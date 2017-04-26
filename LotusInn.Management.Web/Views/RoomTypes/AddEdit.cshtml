@@ -1,8 +1,6 @@
 ﻿<div ng-controller="roomTypeAddEdit" ng-init="init()">
     <!-- BEGIN PAGE HEADER-->
-    <h3 class="page-title">
-        Room Type <small>Add/Edit</small>
-    </h3>
+
     <div class="page-bar">
         <ul class="page-breadcrumb">
             <li>
@@ -11,14 +9,25 @@
                 <i class="fa fa-angle-right"></i>
             </li>
             <li>
-                <a href="/roomtypes">Room Types</a>
+                <a href="/houses">Houses</a>
                 <i class="fa fa-angle-right"></i>
             </li>
             <li>
-                <a href="#">AddEdit</a>
+                <a href="/houses/detail?id={{house.Id}}">{{house.Name}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="/roomtypes?houseId={{house.Id}}">Room Types</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <span href="#">AddEdit</span>
             </li>
         </ul>
     </div>
+    <h3 class="page-title">
+        Room Type <small>Add/Edit room type for {{house.Name}}</small>
+    </h3>
     <!-- END PAGE HEADER-->
     <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>

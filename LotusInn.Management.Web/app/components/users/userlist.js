@@ -1,6 +1,5 @@
 ﻿angular.module('lotusinn.app.users.list')
-    .controller('userList', function($scope, $xhttp, alertSvc, $liModal) {
-        $scope.alertSvc = alertSvc;
+    .controller('userList', function($scope, $xhttp, $liModal) {
 
         $scope.users = [];
 
@@ -16,7 +15,7 @@
             $liModal.showConfirm('Are you sure you want to reset password for this user?')
                 .then(function() {
                     $xhttp.post('/api/users/resetpassword?id=' + user.Id, null).then(function(response) {
-                        alertSvc.addSuccess("You have successfully reset password for an user");
+                        $scope.alertSvc.addSuccess("You have successfully reset password for an user");
                     });
                 });
         }

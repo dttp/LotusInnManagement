@@ -15,7 +15,10 @@
     </div>
     
     <h3 class="page-title">
-        Happy Houses
+        Houses
+        <small>
+            Manage houses information
+        </small>
     </h3>
 
     <!-- END PAGE HEADER-->
@@ -42,12 +45,12 @@
                             </div>*@
                         <div class="portlet-body">
                             <div class="table-scrollable">
-                                <table class="table table-bordered table-hover table-striped">
+                                <table class="table table-bordered table-hover table-condensed table-striped table-condensed">
                                     <thead>
                                         <tr>
-                                            <th style="width: 30%">Name</th>
-                                            <th style="width: 60%">Address</th>
-                                            <th>Actions</th>
+                                            <th>Name</th>
+                                            <th>Address</th>
+                                            <th style="width: 350px">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -62,12 +65,20 @@
                                             </td>
                                             <td>{{house.Address}}</td>
                                             <td>
-                                                <a href="javascript:;" class="btn btn-icon-only blue-hoki" ng-click="edit(house)">
+                                                <button class="btn btn-outline btn-xs blue-chambray" ng-click="manageRoomTypes(house)">
+                                                    Room Types
+                                                </button>
+                                                <button class="btn btn-outline btn-xs blue-ebonyclay" ng-click="manageRooms(house)">
+                                                    Rooms
+                                                </button>
+                                                <button class="btn btn-outline btn-xs blue-hoki" ng-click="edit(house)">
                                                     <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a href="javascript:;" class="btn btn-icon-only red-flamingo" ng-click="delete(house)">
+                                                    Edit
+                                                </button>
+                                                <button class="btn btn-outline btn-xs red-flamingo" ng-click="delete(house)">
                                                     <i class="fa fa-remove"></i>
-                                                </a>
+                                                    Delete
+                                                </button>
                                             </td>
                                         </tr>
                                     </tbody>

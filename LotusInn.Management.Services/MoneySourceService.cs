@@ -6,76 +6,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LotusInn.Management.Core;
+using LotusInn.Management.Data;
 using LotusInn.Management.Model;
 
 namespace LotusInn.Management.Services
 {
     public class MoneySourceService
     {
-        private const string SP_MONEYSOURCE_GETALL = "MoneySourceGetAll";
-        private const string SP_MONEYSOURCE_GETBYID = "MoneySourceGetById";
-        private const string SP_MONEYSOURCE_INSERT = "MoneySourceInsert";
-        private const string SP_MONEYSOURCE_UPDATE = "MoneySourceUpdate";
-        private const string SP_MONEYSOURCE_DELETE = "MoneySourceDelete";
+        private readonly MoneySourceDataAdapter _adapter = new MoneySourceDataAdapter();
         public List<MoneySource> GetAll()
         {
-            return SqlHelper.ExecuteReader(SP_MONEYSOURCE_GETALL, null, Read);
+            return _adapter.GetAll();
         }
 
         public MoneySource Insert(MoneySource moneySource)
         {
-            moneySource.Id = "m-" + IdHelper.Generate();
-            var param = CreateParams(moneySource);
-
-            SqlHelper.ExecuteNonQuery(SP_MONEYSOURCE_INSERT, param);
-            return moneySource;
+            return _adapter.Insert(moneySource);
         }
 
         public void Update(MoneySource moneySource, SqlConnection con = null, SqlTransaction trans = null)
         {
-            var param = CreateParams(moneySource);
-            if (con == null)
-            {
-                SqlHelper.ExecuteNonQuery(SP_MONEYSOURCE_UPDATE, param);
-            }
-            else
-            {
-                SqlHelper.ExecuteCommand(con, trans, CommandType.StoredProcedure, SP_MONEYSOURCE_UPDATE, param);
-            }            
-        }
-
-        private SqlParameter[] CreateParams(MoneySource moneySource)
-        {
-            var param = new[]
-            {
-                new SqlParameter("@id", moneySource.Id),
-                new SqlParameter("@houseId", moneySource.House?.Id),
-                new SqlParameter("@name", moneySource.Name),
-                new SqlParameter("@balanceUSD", moneySource.BalanceUSD),
-                new SqlParameter("@balanceVND", moneySource.BalanceVND),
-                new SqlParameter("@ownerId", moneySource.Owner.Id),
-            };
-            return param;            
+            _adapter.Update(moneySource, con, trans);
         }
 
         public void Delete(string id)
         {
-            var param = new[]
-            {
-                new SqlParameter("@id", id),
-            };
-
-            SqlHelper.ExecuteNonQuery(SP_MONEYSOURCE_DELETE, param);
+            _adapter.Delete(id);
         }
 
         public MoneySource GetById(string id)
         {
-            var param = new[]
-            {
-                new SqlParameter("@id", id),
-            };
-
-            return SqlHelper.ExecuteReader(SP_MONEYSOURCE_GETBYID, param, reader => Read(reader).FirstOrDefault());
+            return _adapter.GetById(id);
         }
 
         public PaymentRecord CreatePayment(PaymentRecord payment, SqlConnection con, SqlTransaction trans)
@@ -105,8 +66,7 @@ namespace LotusInn.Management.Services
             {
                 payment = ps.Insert(payment, con, trans);
 
-                var param = CreateParams(source);
-                SqlHelper.ExecuteCommand(con, trans, CommandType.StoredProcedure, SP_MONEYSOURCE_UPDATE, param);
+                _adapter.Update(source, con, trans);
             }
             else
             {
@@ -114,8 +74,7 @@ namespace LotusInn.Management.Services
                 {
                     payment = ps.Insert(payment, connection, transaction);
 
-                    var param = CreateParams(source);
-                    SqlHelper.ExecuteCommand(connection, transaction, CommandType.StoredProcedure, SP_MONEYSOURCE_UPDATE, param);
+                    _adapter.Update(source, con, trans);
                 });
             }
             return payment;
@@ -166,8 +125,7 @@ namespace LotusInn.Management.Services
             {
                 ps.Update(payment, con, trans);
 
-                var param = CreateParams(source);
-                SqlHelper.ExecuteCommand(con, trans, CommandType.StoredProcedure, SP_MONEYSOURCE_UPDATE, param);
+                _adapter.Update(source, con, trans);
             }
             else
             {
@@ -175,8 +133,7 @@ namespace LotusInn.Management.Services
                 {
                     ps.Update(payment, connection, transaction);
 
-                    var param = CreateParams(source);
-                    SqlHelper.ExecuteCommand(connection, transaction, CommandType.StoredProcedure, SP_MONEYSOURCE_UPDATE, param);
+                    _adapter.Update(source, con, trans);
                 });
             }
         }
@@ -209,8 +166,7 @@ namespace LotusInn.Management.Services
             {
                 ps.Delete(id, con, trans);
 
-                var param = CreateParams(source);
-                SqlHelper.ExecuteCommand(con, trans, CommandType.StoredProcedure, SP_MONEYSOURCE_UPDATE, param);
+                _adapter.Update(source, con, trans);
             }
             else
             {
@@ -218,36 +174,11 @@ namespace LotusInn.Management.Services
                 {
                     ps.Delete(id, connection, transaction);
 
-                    var param = CreateParams(source);
-                    SqlHelper.ExecuteCommand(connection, transaction, CommandType.StoredProcedure, SP_MONEYSOURCE_UPDATE, param);
+                    _adapter.Update(source, con, trans);
                 });
             }
         }
 
-        private List<MoneySource> Read(IDataReader reader)
-        {
-            var list = new List<MoneySource>();
-            while (reader.Read())
-            {
-                var item = new MoneySource
-                {
-                    Id = reader["Id"].ToString(),
-                    Name = reader["Name"].ToString(),                    
-                    BalanceUSD = Convert.ToSingle(reader["BalanceUSD"]),
-                    BalanceVND = Convert.ToSingle(reader["BalanceVND"]),
-                    Owner = new User
-                    {
-                        Id = reader["OwnerId"].ToString()
-                    }
-                };
-                var houseId = reader["HouseId"].ToString();
-                if (!string.IsNullOrEmpty(houseId))
-                    item.House = HouseService.GetById(houseId);
-                item.Owner = UserService.GetUserById(item.Owner.Id);
-                list.Add(item);
-            }
-
-            return list;
-        } 
+        
     }
 }

@@ -11,12 +11,13 @@ namespace LotusInn.Management.Model
         public string Id { get; set; }
 
         public string Name { get; set; }
+        public List<ObjectPermission> ObjectPermissions { get; set; } 
 
     }
 
     public class ObjectPermission
     {
-        public string PermissionSetId { get; set; }
+        public string PermissionSetsId { get; set; }
         public string ObjectName { get; set; }
 
         public Dictionary<PermissionName, bool> Permissions { get; set; } 

@@ -8,19 +8,16 @@ angular.module('lotusinn.app.houses.list',
     [
         'ipCookie',
         'ui.bootstrap',
-        'ngAlert'
     ]);
 
 angular.module('lotusinn.app.houses.addedit',
     [
         'ipCookie',
-        'ngAlert'
     ]);
 
 angular.module('lotusinn.app.houses.detail',
     [
         'ipCookie',
-        'ngAlert'
     ]);
 
 angular.module('lotusinn.app.houses',
@@ -32,17 +29,14 @@ angular.module('lotusinn.app.houses',
 /*--------------------- WAREHOUSE MODULES ---------------------*/
 angular.module('lotusinn.app.warehouse.list',
 [
-    'ngAlert',
     'lotusinn.app.services'
 ]);
 angular.module('lotusinn.app.warehouse.detail',
 [
-    'ngAlert',
     'lotusinn.app.services'
 ]);
 angular.module('lotusinn.app.warehouse.itemaddedit',
 [
-    'ngAlert',
     'lotusinn.app.services'
 ]);
 angular.module('lotusinn.app.warehouses',
@@ -57,13 +51,11 @@ angular.module('lotusinn.app.roomTypes.list',
     [
         'ipCookie',
         'ui.bootstrap',
-        'ngAlert'
     ]);
 
 angular.module('lotusinn.app.roomTypes.addedit',
     [
         'lotusinn.app.services',
-        'ngAlert'
     ]);
 
 angular.module('lotusinn.app.roomTypes',
@@ -77,13 +69,11 @@ angular.module('lotusinn.app.rooms.list',
     [
         'ipCookie',
         'ui.bootstrap',
-        'ngAlert'
     ]);
 
 angular.module('lotusinn.app.rooms.addedit',
     [
         'ipCookie',
-        'ngAlert'
     ]);
 
 angular.module('lotusinn.app.rooms',
@@ -97,26 +87,22 @@ angular.module('lotusinn.app.users.list',
 [
     'ipCookie',
     'ui.bootstrap',
-    'ngAlert'
 ]);
 
 angular.module('lotusinn.app.users.addedit',
 [
     'ipCookie',
-    'ngAlert'
 ]);
 
 angular.module('lotusinn.app.users.detail',
 [
     'ipCookie',
     'ui.bootstrap',
-    'ngAlert'
 ]);
 
 angular.module('lotusinn.app.users.myprofile',
 [
     'ipCookie',
-    'ngAlert'
 ]);
 
 angular.module('lotusinn.app.users',
@@ -132,7 +118,6 @@ angular.module('lotusinn.app.orders.addedit',
 [
     'lotusinn.app.services',
     'ui.bootstrap',
-    'ngAlert',
     'fk.eternicode-datepicker',
     'icheck.directives'
 ]);
@@ -141,14 +126,12 @@ angular.module('lotusinn.app.orders.checkout',
 [
     'lotusinn.app.services',
     'ui.bootstrap',
-    'ngAlert',
     'icheck.directives'
 ]);
 
 angular.module('lotusinn.app.orders.receipt',
 [
     'lotusinn.app.services',
-    'ngAlert'
 ]);
 
 angular.module('lotusinn.app.orders',
@@ -163,13 +146,11 @@ angular.module('lotusinn.app.customers.list',
 [
     'lotusinn.app.services',
     'ui.bootstrap',
-    'ngAlert',
     'bw.paging'
 ]);
 
 angular.module('lotusinn.app.customers.edit',
 [        
-    'ngAlert',
     'lotusinn.app.services'
 ]);
 
@@ -183,7 +164,6 @@ angular.module('lotusinn.app.customers',
 /*--------------------- DASHBOARD MODULES ---------------------*/
 angular.module('lotusinn.app.dashboard',
 [
-    'ngAlert',
     'ipCookie',
     'ui.bootstrap',
     'fk.eternicode-datepicker',
@@ -209,7 +189,6 @@ angular.module('lotusinn.app.dashboard').config(function (toastrConfig) {
 /*--------------------- EQUIPMENT MODULES ---------------------*/
 angular.module('lotusinn.app.equipment.list',
 [
-    'ngAlert',
     'lotusinn.app.services',
     'ui.bootstrap',
     'icheck.directives'
@@ -217,7 +196,6 @@ angular.module('lotusinn.app.equipment.list',
 
 angular.module('lotusinn.app.equipment.addedit',
 [
-    'ngAlert',
     'lotusinn.app.services'
 ]);
 
@@ -227,35 +205,16 @@ angular.module('lotusinn.app.equipments',
     'lotusinn.app.equipment.addedit'
 ]);
 
-/*--------------------- BUDGET MODULES ---------------------*/
-angular.module('lotusinn.app.budget.list', [
-    'ngAlert',
-    'lotusinn.app.services',
-    'lotusinnModalService',
-]);
-angular.module('lotusinn.app.budget.addedit', [
-    'ngAlert',
-    'lotusinn.app.services',
-    'ui.bootstrap'
-]);
-angular.module('lotusinn.app.budget', [
-    'lotusinn.app.budget.list',
-    'lotusinn.app.budget.addedit'
-]);
-
 /*--------------------- MONEY SOURCE MODULES ---------------------*/
 angular.module('lotusinn.app.moneysource.list', [
-    'ngAlert',
     'lotusinn.app.services',
     'lotusinnModalService',
 ]);
 angular.module('lotusinn.app.moneysource.addedit', [
-    'ngAlert',
     'lotusinn.app.services',
     'ui.bootstrap'
 ]);
 angular.module('lotusinn.app.moneysource.detail', [
-    'ngAlert',
     'lotusinn.app.services',
     'ui.bootstrap'
 ]);
@@ -268,7 +227,7 @@ angular.module('lotusinn.app.moneysource', [
 
 /*--------------------- REPORT MODULES ---------------------*/
 angular.module('lotusinn.app.report.list', [
-    'ngAlert',
+    
     'lotusinn.app.services',
     'ui.bootstrap',
     'chart.js'
@@ -281,6 +240,7 @@ angular.module('lotusinn.app.report', [
 
 angular.module('lotusinn.app',
 [
+    'ngAlert',
     'lotusinn.app.core',
     'lotusinn.app.houses',
     'lotusinn.app.users',
@@ -291,7 +251,6 @@ angular.module('lotusinn.app',
     'angular-loading-bar',
     'lotusinn.app.dashboard',
     'lotusinn.app.equipments',
-    'lotusinn.app.budget',
     'lotusinn.app.report',
     'lotusinn.app.warehouses',
     'lotusinn.app.moneysource'
@@ -304,8 +263,9 @@ angular.module('lotusinn.app')
         }
     ]);
 
-angular.module('lotusinn.app').run(function ($rootScope) {
+angular.module('lotusinn.app').run(function ($rootScope, alertSvc) {
 
+    $rootScope.alertSvc = alertSvc;
     $rootScope.hasError = function (field, errorType) {
         switch (errorType) {
             case 'required':
