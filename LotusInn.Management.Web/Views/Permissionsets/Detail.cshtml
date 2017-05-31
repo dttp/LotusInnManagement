@@ -1,0 +1,59 @@
+﻿<div ng-controller="permissionSetsDetailCtrl" ng-init="init()">
+    <!-- BEGIN PAGE HEADER-->
+
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="\">Dashboard</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="\permissionsets">Permission Sets</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <span>{{permissionSets.Name}}</span>
+            </li>
+        </ul>
+    </div>
+    <h3 class="page-title">
+        {{permissionSets.Name}}
+    </h3>
+    <!-- END PAGE HEADER-->
+    <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
+        <strong>{{item.title}}</strong> {{item.body}}
+    </div>
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row">
+        <div class="col-md-6" ng-repeat="chunk in permissionObjectList">
+            <div class="row" ng-repeat="item in chunk">
+                <div class="col-md-12">
+                    <h4 class="bold">{{item}}</h4>
+                    <div style="display: flex; align-items: center; justify-content: flex-start">
+                        <label ng-repeat="p in permissionName" class="permission">
+                            <input type="checkbox" icheck skin="minimal-blue" ng-model="ObjectPermission[item].Permission[p]"/>
+                            {{p}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="well">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-4">
+                <button type="submit" class="btn btn-primary" ng-click="submit()">Save</button>
+                <button type="button" class="btn default" ng-click="cancel()">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT-->
+</div>
+
+
+@section AngularController{
+    <script src="~/app/components/permissionsets/permissionsets.detail.js"></script>
+}

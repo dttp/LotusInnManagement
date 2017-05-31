@@ -4,7 +4,7 @@
 	@email nvarchar(50),
 	@phone nvarchar(20),
 	@houseId nvarchar(15),
-	@roleId NVARCHAR(15)
+	@roleId nvarchar(15)
 AS
 BEGIN
 	UPDATE [dbo].[User]
@@ -12,6 +12,6 @@ BEGIN
 		Email=@email,
 		Phone=@phone,
 		HouseId=@houseId,
-		RoleId=@roleId
+		RoleId = @roleId
 	WHERE Id=@id
 END

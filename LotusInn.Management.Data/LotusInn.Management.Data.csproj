@@ -44,9 +44,10 @@
     <Compile Include="HouseDataAdapter.cs" />
     <Compile Include="IObjectDataAdapter.cs" />
     <Compile Include="MoneySourceDataAdapter.cs" />
-    <Compile Include="MoneySourcePermissionsDataAdapter.cs" />
-    <Compile Include="PermissionSetsDataAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleDataAdapter.cs" />
+    <Compile Include="UserObjectPermissionDataAdapter.cs" />
+    <Compile Include="RoleObjectPermissionDataAdapter.cs" />
     <Compile Include="RoomDataAdapter.cs" />
     <Compile Include="RoomTypeDataAdapter.cs" />
     <Compile Include="UserDataAdapter.cs" />

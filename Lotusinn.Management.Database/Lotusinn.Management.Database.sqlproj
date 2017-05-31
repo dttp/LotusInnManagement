@@ -162,19 +162,22 @@
     <Build Include="dbo\Stored Procedures\PaymentRecordGetByOrderId.sql" />
     <Build Include="dbo\Stored Procedures\PaymentRecordSelect.sql" />
     <Build Include="dbo\Stored Procedures\PaymentRecordGetById.sql" />
-    <Build Include="dbo\Tables\PermissionSets.sql" />
-    <Build Include="dbo\Tables\ObjectPermission.sql" />
-    <Build Include="dbo\Tables\MoneySourcePermission.sql" />
-    <Build Include="dbo\Stored Procedures\MoneySourcePermissionsGetByMoneySourceId.sql" />
-    <Build Include="dbo\Stored Procedures\PermissionSetsInsert.sql" />
-    <Build Include="dbo\Stored Procedures\PermissionSetsUpdate.sql" />
-    <Build Include="dbo\Stored Procedures\PermissionSetsDelete.sql" />
-    <Build Include="dbo\Stored Procedures\PermissionSetsGetById.sql" />
-    <Build Include="dbo\Stored Procedures\ObejctPermissionInsert.sql" />
-    <Build Include="dbo\Stored Procedures\ObjectPermissionUpdate.sql" />
-    <Build Include="dbo\Stored Procedures\ObjectPermissionDelete.sql" />
-    <Build Include="dbo\Stored Procedures\ObjectPermissionGetByPermissionSetsId.sql" />
-    <Build Include="dbo\Stored Procedures\PermissionSetsGetAll.sql" />
+    <Build Include="dbo\Tables\RoleObjectPermission.sql" />
+    <Build Include="dbo\Tables\UserObjectPermission.sql" />
+    <Build Include="dbo\Stored Procedures\RoleInsert.sql" />
+    <Build Include="dbo\Stored Procedures\RoleUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\RoleDelete.sql" />
+    <Build Include="dbo\Stored Procedures\RoleGetByid.sql" />
+    <Build Include="dbo\Stored Procedures\RoleObjectPermissionInsert.sql" />
+    <Build Include="dbo\Stored Procedures\RoleObjectPermissionUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\RoleObjectPermissionDelete.sql" />
+    <Build Include="dbo\Stored Procedures\RoleObjectPermissionGetById.sql" />
+    <Build Include="dbo\Stored Procedures\RoleObjectPermissionGetByRoleId.sql" />
+    <Build Include="dbo\Stored Procedures\UserObjectPermissionInsert.sql" />
+    <Build Include="dbo\Stored Procedures\UserObjectPermissionUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\UserObjectPermissionDelete.sql" />
+    <Build Include="dbo\Stored Procedures\UserObjectPermissionGetById.sql" />
+    <Build Include="dbo\Stored Procedures\UserObjectPermissionGetByUserId.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="dbo\Data\Script.PostDeployment1.sql" />

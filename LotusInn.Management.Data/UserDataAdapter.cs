@@ -117,7 +117,7 @@ namespace LotusInn.Management.Data
         {
             var result = new List<User>();
             var houseDA = new HouseDataAdapter();
-            
+            var roleDA = new RoleDataAdapter();
             while (reader.Read())
             {
                 var user = new User
@@ -130,7 +130,6 @@ namespace LotusInn.Management.Data
                     Role = new Role
                     {
                         Id = reader["RoleId"].ToString(),
-                        Name = reader["RoleName"].ToString()
                     },
                     Status = reader["Status"]?.ToString() ?? "",
                     House = new House
@@ -142,6 +141,7 @@ namespace LotusInn.Management.Data
                 {
                     user.House = houseDA.GetById(user.House.Id);
                 }
+                user.Role = roleDA.GetById(user.Role.Id);
                 result.Add(user);
             }
             return result;

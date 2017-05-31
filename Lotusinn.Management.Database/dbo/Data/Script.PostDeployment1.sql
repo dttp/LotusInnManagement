@@ -10,14 +10,9 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
-IF ((SELECT COUNT(1) FROM [PermissionSets] WHERE Id='super-admin') = 0)
-BEGIN
-	INSERT INTO [dbo].[PermissionSets] (Id, Name) VALUES ('super-admin', 'Super Adminsitrator')
-END
-
 IF ((SELECT COUNT(1) FROM [Role] WHERE Id='super-admin') = 0)
 BEGIN
-	INSERT INTO [dbo].[Role] (Id, Name, PermissionSetsId) VALUES ('super-admin','Super Administrator', 'super-admin')
+	INSERT INTO [dbo].[Role] (Id, Name, Type) VALUES ('super-admin','Super Administrator', 'System')
 END
 
 IF ((SELECT COUNT(1) FROM [User] WHERE Id='admin') = 0)
@@ -26,50 +21,39 @@ BEGIN
 			VALUES ('admin', 'admin@lotusinn.vn', '', 'd9VudzcDjFxnIo3s82tdLF7MTwgU4XfmDUVGuQw', 'super-admin', 'Verified', 'admin')
 END
 
---IF ((SELECT Count(1) FROM [Role] WHERE Id='r-admin') = 0)
---BEGIN
---	INSERT INTO [dbo].[Role] (Id, Name) VALUES ('r-admin', 'Administrator')
---END
---GO
+IF ((SELECT COUNT(1) FROM RoleObjectPermission WHERE RoleId='super-admin' AND [Object] = 'House') = 0)
+BEGIN
+	INSERT INTO RoleObjectPermission(Id, RoleId, Object, Permission)
+	VALUES ('1', 'super-admin', 'House', 15)
+END
 
---IF ((SELECT Count(1) FROM [Role] WHERE Id='r-manager') = 0)
---BEGIN
---	INSERT INTO [dbo].[Role] (Id, Name) VALUES ('r-manager', 'Manager')
---END
---GO
+IF ((SELECT COUNT(1) FROM RoleObjectPermission WHERE RoleId='super-admin' AND [Object] = 'User') = 0)
+BEGIN
+	INSERT INTO RoleObjectPermission(Id, RoleId, Object, Permission)
+	VALUES ('2', 'super-admin', 'User', 15)
+END
 
---IF ((SELECT Count(1) FROM [Role] WHERE Id='r-user') = 0)
---BEGIN
---	INSERT INTO [dbo].[Role] (Id, Name) VALUES ('r-user', 'Standard User')
---END
---GO
+IF ((SELECT COUNT(1) FROM RoleObjectPermission WHERE RoleId='super-admin' AND [Object] = 'Role') = 0)
+BEGIN
+	INSERT INTO RoleObjectPermission(Id, RoleId, Object, Permission)
+	VALUES ('3', 'super-admin', 'Role', 15)
+END
 
---IF ((SELECT Count(1) FROM [User] WHERE Id='u-admin') = 0)
---BEGIN
---	INSERT INTO [dbo].[User] (Id, Username, Phone, Email, HouseId, RoleId, Status, Password) VALUES ('u-admin', 'admin', '', 'admin@lotusinn.vn', '', 'r-admin','Verified', 'd9VudzcDjFxnIo3s82tdLF7MTwgU4XfmDUVGuQw')
---END
---GO
+IF ((SELECT COUNT(1) FROM RoleObjectPermission WHERE RoleId='super-admin' AND [Object] = 'Warehouse') = 0)
+BEGIN
+	INSERT INTO RoleObjectPermission(Id, RoleId, Object, Permission)
+	VALUES ('4', 'super-admin', 'Warehouse', 15)
+END
 
---IF ((SELECT Count(1) FROM [RolePermission] WHERE RoleId='r-admin' AND [Object]='House') = 0)
---BEGIN
---	INSERT INTO [dbo].[RolePermission] (RoleId, Object, Permission) VALUES ('r-admin', 'House', 'RW')
---END
---GO
 
---IF ((SELECT Count(1) FROM [RolePermission] WHERE RoleId='r-admin' AND [Object]='Role') = 0)
---BEGIN
---	INSERT INTO [dbo].[RolePermission] (RoleId, Object, Permission) VALUES ('r-admin', 'Role', 'RW')
---END
---GO
+IF ((SELECT COUNT(1) FROM RoleObjectPermission WHERE RoleId='super-admin' AND [Object] = 'MoneySource') = 0)
+BEGIN
+	INSERT INTO RoleObjectPermission(Id, RoleId, Object, Permission)
+	VALUES ('5', 'super-admin', 'MoneySource', 15)
+END
 
---IF ((SELECT Count(1) FROM [RolePermission] WHERE RoleId='r-admin' AND [Object]='User') = 0)
---BEGIN
---	INSERT INTO [dbo].[RolePermission] (RoleId, Object, Permission) VALUES ('r-admin', 'User', 'RW')
---END
---GO
-
---IF ((SELECT Count(1) FROM [RolePermission] WHERE RoleId='r-manager' AND [Object]='House') = 0)
---BEGIN
---	INSERT INTO [dbo].[RolePermission] (RoleId, Object, Permission) VALUES ('r-manager', 'House', 'R')
---END
---GO
+IF ((SELECT COUNT(1) FROM RoleObjectPermission WHERE RoleId='super-admin' AND [Object] = 'Order') = 0)
+BEGIN
+	INSERT INTO RoleObjectPermission(Id, RoleId, Object, Permission)
+	VALUES ('6', 'super-admin', 'Order', 15)
+END

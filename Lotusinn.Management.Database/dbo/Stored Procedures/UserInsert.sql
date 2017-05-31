@@ -5,7 +5,7 @@
 	@email nvarchar(50),
 	@phone nvarchar(20),
 	@houseId nvarchar(15),
-	@roleId NVARCHAR(15)
+	@roleId nvarchar(15)
 AS
 BEGIN
 	INSERT INTO [dbo].[User](Id, Username, Password, Email, Phone, HouseId, RoleId, Status)

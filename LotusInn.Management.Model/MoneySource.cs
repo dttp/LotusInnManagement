@@ -15,6 +15,5 @@ namespace LotusInn.Management.Model
         public float BalanceUSD { get; set; }
         public float BalanceVND { get; set; }
         public User Owner { get; set; }
-        public List<MoneySourcePermission> UsersPermissions { get; set; }
     }
 }

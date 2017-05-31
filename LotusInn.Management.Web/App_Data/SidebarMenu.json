@@ -30,30 +30,22 @@
     },
     {
       "Id": "manage-users",
-      "Name": "Manage Users",      
-      "Url": "",
+      "Name": "Manage Users",
+      "Url": "/users",
       "Icon": "icon-people",
-      "Items": [
-        {
-          "Id": "users",
-          "Name": "Users",
-          "Url": "/users",
-          "Icon": "icon-people"
-        },
-        {
-          "Id": "role",
-          "Name": "Roles",
-          "Url": "/role",
-          "Icon": "icon-people"
-        },
-        {
+    },
+    {
+      "Id": "role",
+      "Name": "Roles",
+      "Url": "/role",
+      "Icon": "icon-people"
+    },
+    {
           "Id": "permissionsets",
           "Name": "Permission Sets",
           "Url": "/permissionsets",
           "Icon": "icon-people"
-        }
-      ]
-    },
+        },
     {
       "Id": "warehouse",
       "Name": "Warehouse Management",

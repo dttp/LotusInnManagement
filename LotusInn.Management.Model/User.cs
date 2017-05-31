@@ -1,4 +1,6 @@
-﻿namespace LotusInn.Management.Model
+﻿using System.Collections.Generic;
+
+namespace LotusInn.Management.Model
 {
     public class User
     {
@@ -7,8 +9,8 @@
         public string Password { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public House House { get; set; }
-        public Role Role { get; set; }
+        public House House { get; set; }        
         public string Status { get; set; }
+        public Role Role { get; set; }
     }
 }

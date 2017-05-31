@@ -224,6 +224,16 @@ angular.module('lotusinn.app.moneysource', [
     'lotusinn.app.moneysource.addedit',
     'lotusinn.app.moneysource.detail'
 ]);
+/*--------------------- ROLE MODULES ---------------------*/
+angular.module('lotusinn.app.role.list', [
+]);
+
+angular.module('lotusinn.app.role.detail', []);
+
+angular.module('lotusinn.app.role', [
+    'lotusinn.app.role.list',
+    'lotusinn.app.role.detail'
+]);
 
 /*--------------------- REPORT MODULES ---------------------*/
 angular.module('lotusinn.app.report.list', [
@@ -241,6 +251,7 @@ angular.module('lotusinn.app.report', [
 angular.module('lotusinn.app',
 [
     'ngAlert',
+    'tp',
     'lotusinn.app.core',
     'lotusinn.app.houses',
     'lotusinn.app.users',
@@ -253,7 +264,8 @@ angular.module('lotusinn.app',
     'lotusinn.app.equipments',
     'lotusinn.app.report',
     'lotusinn.app.warehouses',
-    'lotusinn.app.moneysource'
+    'lotusinn.app.moneysource',
+    'lotusinn.app.role'
 ]);
 
 angular.module('lotusinn.app')

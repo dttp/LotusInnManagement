@@ -48,8 +48,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http" />
@@ -1475,6 +1475,7 @@
     <Content Include="app\components\orders\templates\discountModal.html" />
     <Content Include="app\components\orders\templates\paymentInfoModal.html" />
     <Content Include="app\components\report\report.list.js" />
+    <Content Include="app\components\roles\role.detail.js" />
     <Content Include="app\components\rooms\roomList.js" />
     <Content Include="app\components\rooms\roomAddEdit.js" />
     <Content Include="app\components\roomTypes\roomTypesAddEdit.js" />
@@ -1526,7 +1527,9 @@
     <Compile Include="Controllers\EquipmentController.cs" />
     <Compile Include="Controllers\MoneySourceController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\PermissionSetsController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\RoomsController.cs" />
     <Compile Include="Controllers\RoomTypesController.cs" />
     <Compile Include="Controllers\HousesController.cs" />
@@ -1582,6 +1585,7 @@
     <Content Include="app\assets\plugins\angular-chart\angular-chart.min.js.map" />
     <Content Include="app\components\warehouse\warehouse.list.js" />
     <Content Include="app\assets\m4.7\global\img\social\Thumbs.db" />
+    <Content Include="app\components\roles\role.list.js" />
     <None Include="Properties\PublishProfiles\LotusInnManagementSystem.pubxml" />
     <Content Include="Views\Equipment\AddEdit.cshtml" />
     <Content Include="Views\Equipment\Index.cshtml" />
@@ -1595,6 +1599,10 @@
     <Content Include="Views\MoneySource\Detail.cshtml" />
     <Content Include="Views\MoneySource\Index.cshtml" />
     <Content Include="Views\MoneySource\AddEdit.cshtml" />
+    <Content Include="Views\Permissionsets\Index.cshtml" />
+    <Content Include="Views\Permissionsets\Detail.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\Detail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
