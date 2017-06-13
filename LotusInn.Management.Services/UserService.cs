@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using LotusInn.Management.Core;
 using LotusInn.Management.Data;
 using LotusInn.Management.Model;
@@ -104,6 +105,55 @@ namespace LotusInn.Management.Services
         public static void UpdateStatus(string id, string status)
         {
             _adapter.UpdateStatus(id, status);
+        }
+
+        public static UserPermissions GetPermissions(string userId)
+        {
+            var userObjectPermDA = new UserObjectPermissionDataAdapter();
+            var list = userObjectPermDA.GetByUserId(userId);
+            if (list != null && list.Count > 0)
+            {
+                return new UserPermissions
+                {
+                    Permissions = list,
+                    InheriteFromRole = false
+                };
+
+            }
+
+            var user = GetUserById(userId);
+            var roleSvc = new RoleService();
+            var rolePermissionList = roleSvc.GetPermissions(user.Role.Id);
+            var result = rolePermissionList.Select(item => new UserObjectPermission()
+            {
+                Id = item.Id, Object = item.Object, User = user, Permission = item.Permission
+            }).ToList();
+
+            return new UserPermissions
+            {
+                InheriteFromRole = true,
+                Permissions = result
+            };
+        }
+
+        public static void SetPermissions(string userId, UserPermissions permissions)
+        {
+            var userObjectPermDA = new UserObjectPermissionDataAdapter();
+            if (permissions.InheriteFromRole)
+            {
+                var list = userObjectPermDA.GetByUserId(userId);
+                foreach (var item in list)
+                {
+                    userObjectPermDA.Delete(item.Id);
+                }
+            }
+            else
+            {
+                foreach (var item in permissions.Permissions)
+                {
+                    userObjectPermDA.Insert(item);
+                }
+            }
         }
     }
 }

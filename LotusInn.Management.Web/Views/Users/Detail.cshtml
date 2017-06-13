@@ -18,7 +18,7 @@
         </ul>
     </div>
     <h3 class="page-title">
-        {{user.Username}} <small>Detail information</small>
+        {{user.Username}}
     </h3>
     <!-- END PAGE HEADER-->
     <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
@@ -29,62 +29,110 @@
     <!-- BEGIN PAGE CONTENT-->
     <div class="row">
         <div class="col-md-12">
-            <form name="userForm" class="form-horizontal" novalidate>
-                <div class="form-body">
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Username</label>
-                        <div class="col-md-4">
-                            <p class="form-control-static">{{user.Username}}</p>                          
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Email</label>
-                        <div class="col-md-4">
-                            <p class="form-control-static">{{user.Email}}</p>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Phone</label>
-                        <div class="col-md-4">
-                            <p class="form-control-static">{{user.Phone}}</p>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Role</label>
-                        <div class="col-md-4">
-                            <p class="form-control-static">{{user.Role.Name}}</p>
-                        </div>
-                    </div>
-
-                    <div class="form-group " ng-if="user.Role.Id != 'r-admin'">
-                        <label class="col-md-3 control-label">House</label>
-                        <div class="col-md-4">
-                            <p class="form-control-static">{{user.House.Name}}</p>
-                        </div>
-                    </div>
-
-                    <div class="form-group last">
-                        <label class="col-md-3 control-label">Status</label>
-                        <div class="col-md-4">
-                            <p class="form-control-static"><span class="label" ng-class="{'label-success': user.Status == 'Verified', 'label-warning': user.Status == 'NotVerified', 'bg-grey-gallery': user.Status=='Disabled'}">{{user.Status}}</span></p>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="form-actions">
-                    <div class="row">
-                        <div class="col-md-offset-3 col-md-9">
-                            <button ng-if="currentUser.Role.Id == 'r-admin' && user.Id != 'u-admin'" type="button" class="btn yellow-crusta" ng-click="resetPassword()"><i class="fa fa-refresh"></i> Reset password</button>
-                            <button ng-if="currentUser.Role.Id == 'r-admin' && user.Id != 'u-admin'" type="button" class="btn blue-hoki" ng-click="edit()"><i class="fa fa-edit"></i> Edit</button>
-                            <button ng-if="currentUser.Role.Id == 'r-admin' && user.Id != 'u-admin'" type="button" class="btn red-flamingo" ng-click="delete()"><i class="fa fa-remove"></i> Delete</button>
-                            <button type="button" class="btn btn-default" ng-click="back()">Back</button>
-                        </div>
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption font-red-sunglo">
+                        <i class="icon-share font-red-sunglo"></i>
+                        <span class="caption-subject bold uppercase"> Detail information</span>                        
                     </div>
                 </div>
-            </form>
+                <div class="portlet-body">
+                    <form name="userForm" class="form-horizontal" novalidate>
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Username</label>
+                                <div class="col-md-4">
+                                    <p class="form-control-static">{{user.Username}}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Email</label>
+                                <div class="col-md-4">
+                                    <p class="form-control-static">{{user.Email}}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Phone</label>
+                                <div class="col-md-4">
+                                    <p class="form-control-static">{{user.Phone}}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Role</label>
+                                <div class="col-md-4">
+                                    <p class="form-control-static">{{user.Role.Name}}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group " ng-if="user.Role.Id != 'r-admin'">
+                                <label class="col-md-3 control-label">House</label>
+                                <div class="col-md-4">
+                                    <p class="form-control-static">{{user.House.Name}}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group last">
+                                <label class="col-md-3 control-label">Status</label>
+                                <div class="col-md-4">
+                                    <p class="form-control-static"><span class="label" ng-class="{'label-success': user.Status == 'Verified', 'label-warning': user.Status == 'NotVerified', 'bg-grey-gallery': user.Status=='Disabled'}">{{user.Status}}</span></p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption font-red-sunglo">
+                        <i class="icon-share font-red-sunglo"></i>
+                        <span class="caption-subject bold uppercase"> Permissions</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <label><input type="checkbox" ng-model="isInherite" /> Inherite permissions from role</label>
+                    <div class="table-scrollable">
+                        <table class="table table-bordered table-hover table-striped table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Object Name</th>
+                                    <th class="permission-col">Read</th>
+                                    <th class="permission-col">Create</th>
+                                    <th class="permission-col">Edit</th>
+                                    <th class="permission-col">Delete</th>
+                                    <th class="permission-col">Full Control</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="obj in permissionObjects">
+                                    <td>{{obj}}</td>
+                                    <td class="permission-col">
+                                        <input type="checkbox" ng-disabled="isInherite" ng-model="permissionList[obj].Read"/>
+                                    </td>
+                                    <td class="permission-col">
+                                        <input type="checkbox" ng-disabled="isInherite" ng-model="permissionList[obj].Create"/>
+                                    </td>
+                                    <td class="permission-col">
+                                        <input type="checkbox" ng-disabled="isInherite" ng-model="permissionList[obj].Edit"/>
+                                    </td>
+                                    <td class="permission-col">
+                                        <input type="checkbox" ng-disabled="isInherite" ng-model="permissionList[obj].Delete"/>
+                                    </td>
+                                    <td class="permission-col">
+                                        <input type="checkbox" ng-disabled="isInherite" ng-model="permissionList[obj].FullControl"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-9 col-md-offset-3">
+                        <button class="btn blue" ng-click="save()">Save</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- END PAGE CONTENT-->

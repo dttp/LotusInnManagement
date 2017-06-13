@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.WebPages.Scope;
 using LotusInn.Management.Model;
 using LotusInn.Management.Services;
 
@@ -61,6 +62,25 @@ namespace LotusInn.Management.Web.ApiControllers
             {
                 UserService.DeleteUser(id);
                 return new HttpResponseMessage(HttpStatusCode.NoContent);
+            });
+        }
+
+        [AcceptVerbs("GET")]
+        public UserPermissions GetPermissions(string userId)
+        {
+            return Execute(session =>
+            {
+                return UserService.GetPermissions(userId);
+            });
+        }
+
+        [AcceptVerbs("POST")]
+        public HttpResponseMessage SetPermissions(string userId, UserPermissions permissions)
+        {
+            return Execute(session =>
+            {
+                UserService.SetPermissions(userId, permissions);
+                return Request.CreateResponse(HttpStatusCode.OK);
             });
         }
     }
