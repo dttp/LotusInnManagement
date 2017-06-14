@@ -1599,8 +1599,6 @@
     <Content Include="Views\MoneySource\Detail.cshtml" />
     <Content Include="Views\MoneySource\Index.cshtml" />
     <Content Include="Views\MoneySource\AddEdit.cshtml" />
-    <Content Include="Views\Permissionsets\Index.cshtml" />
-    <Content Include="Views\Permissionsets\Detail.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Role\Detail.cshtml" />
     <None Include="Web.Debug.config">

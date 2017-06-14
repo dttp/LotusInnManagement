@@ -43,11 +43,15 @@ module.controller('roleList', function($scope, $xhttp, $liModal, $uibModal) {
         });
     }
 
-	$scope.init = function() {
-	    $xhttp.get('/api/roles/getroles').then(function(response) {
-	        $scope.roles = response.data;
-	    });
-	}
+    $scope.init = function () {
+        $scope.initPermissions().then(function() {
+            $scope.checkAccessPermission(['Read'], 'Role');
+
+            $xhttp.get('/api/roles/getroles').then(function(response) {
+                $scope.roles = response.data;
+            });
+        });
+    }
 });
 
 module.controller('roleModalCtrl', function($scope, $uibModalInstance, role) {

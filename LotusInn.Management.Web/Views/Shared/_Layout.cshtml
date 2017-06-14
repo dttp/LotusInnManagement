@@ -131,7 +131,7 @@
                         <!-- END SIDEBAR TOGGLER BUTTON -->
                     </li>*@
 
-                    <li ng-repeat="item in sidebarMenu.Items"
+                    <li ng-repeat="item in sidebarMenu.Items | filter: {visible: true}"
                         ng-class="{'active': item.Selected, 'open': item.Opened, 'heading': item.Type == 'Heading', 'nav-item': item.Type != 'Heading'}">
                         <h3 class="upercase" ng-if="item.Type == 'Heading'">{{item.Name}}</h3>
                         <a href="javascript:;"

@@ -32,7 +32,9 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-primary" ng-click="create()"><i class="fa fa-plus" aria-hidden="true"></i> Create</button>
+                    <button type="button" class="btn btn-primary" ng-click="create()" ng-disabled="!hasPermission('Create', 'House')">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Create
+                    </button>
                 </div>
             </div>
             <div class="row">
@@ -65,17 +67,17 @@
                                             </td>
                                             <td>{{house.Address}}</td>
                                             <td>
-                                                <button class="btn btn-outline btn-xs blue-chambray" ng-click="manageRoomTypes(house)">
+                                                <button class="btn btn-outline btn-xs blue-chambray" ng-click="manageRoomTypes(house)" ng-disabled="!hasPermission('Edit', 'House')">
                                                     Room Types
                                                 </button>
-                                                <button class="btn btn-outline btn-xs blue-ebonyclay" ng-click="manageRooms(house)">
+                                                <button class="btn btn-outline btn-xs blue-ebonyclay" ng-click="manageRooms(house)" ng-disabled="!hasPermission('Edit', 'House')">
                                                     Rooms
                                                 </button>
-                                                <button class="btn btn-outline btn-xs blue-hoki" ng-click="edit(house)">
+                                                <button class="btn btn-outline btn-xs blue-hoki" ng-click="edit(house)" ng-disabled="!hasPermission('Edit', 'House')">
                                                     <i class="fa fa-edit"></i>
                                                     Edit
                                                 </button>
-                                                <button class="btn btn-outline btn-xs red-flamingo" ng-click="delete(house)">
+                                                <button class="btn btn-outline btn-xs red-flamingo" ng-click="delete(house)" ng-disabled="!hasPermission('Delete', 'House')">
                                                     <i class="fa fa-remove"></i>
                                                     Delete
                                                 </button>

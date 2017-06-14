@@ -35,28 +35,32 @@ module.controller('moneySourceAddEditCtrl', function($scope, $xhttp) {
         location.href = '/moneysource';
     }
 
-    $scope.init = function() {
-        var id = Utils.getParameterByName("id");
-        $scope.numberPattern = Utils.getNumberPattern();
-        if (id) {
-            $xhttp.get('/api/moneysource/getbyid?id=' + id).then(function(response) {
-                $scope.moneySource = response.data;
-            });
-        } else {
-            $scope.moneySource.House = {
-                Id: 'h-none',
-                Name: '--- None --- '
+    $scope.init = function () {
+        $scope.initPermissions().then(function() {
+            $scope.checkAccessPermission(['Create', 'Edit'], 'MoneySource');
+
+            var id = Utils.getParameterByName("id");
+            $scope.numberPattern = Utils.getNumberPattern();
+            if (id) {
+                $xhttp.get('/api/moneysource/getbyid?id=' + id).then(function (response) {
+                    $scope.moneySource = response.data;
+                });
+            } else {
+                $scope.moneySource.House = {
+                    Id: 'h-none',
+                    Name: '--- None --- '
+                }
             }
-        }
 
-        $xhttp.get('/api/houses/gethouses').then(function(response) {
-            $scope.houses = [];
-            $scope.houses.push({
-                Id: 'h-none',
-                Name: '--- None ---'
+            $xhttp.get('/api/houses/gethouses').then(function (response) {
+                $scope.houses = [];
+                $scope.houses.push({
+                    Id: 'h-none',
+                    Name: '--- None ---'
+                });
+
+                $scope.houses = $scope.houses.concat(response.data);
             });
-
-            $scope.houses = $scope.houses.concat(response.data);
         });
     }
 });

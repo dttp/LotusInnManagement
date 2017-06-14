@@ -45,23 +45,28 @@
             window.location.href = "/users";
         }
 
-        $scope.init = function() {
-            $xhttp.get('/api/houses/gethouses')
-                .then(function(response) {
+        $scope.init = function () {
+
+            $scope.initPermisisons().then(function() {
+                $scope.checkAccessPermission(['Create', 'Edit'], 'User');
+
+                $xhttp.get('/api/houses/gethouses')
+                .then(function (response) {
                     $scope.houses = response.data;
                 });
 
-            $xhttp.get('/api/roles/getroles')
-                .then(function(response) {
-                    $scope.roles = response.data;
-                });
-
-            var id = Utils.getParameterByName("id");
-            if (id && id.length > 0) {
-                $xhttp.get('/api/users/getuserbyid?id=' + id)
-                    .then(function(response) {
-                        $scope.user = response.data;
+                $xhttp.get('/api/roles/getroles')
+                    .then(function (response) {
+                        $scope.roles = response.data;
                     });
-            }
+
+                var id = Utils.getParameterByName("id");
+                if (id && id.length > 0) {
+                    $xhttp.get('/api/users/getuserbyid?id=' + id)
+                        .then(function (response) {
+                            $scope.user = response.data;
+                        });
+                }
+            });
         }
     });

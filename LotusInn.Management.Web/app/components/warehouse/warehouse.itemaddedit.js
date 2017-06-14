@@ -19,14 +19,17 @@ module.controller('warehouseItemAddEditCtrl', function($scope, $xhttp, alertSvc)
     }
 
     $scope.init = function () {
-        $scope.numberPattern = Utils.getPositiveNumberPattern();
-        var id = Utils.getParameterByName("id");        
-        if (id) {
-            $xhttp.get('/api/warehouse/getitem?id=' + id).then(function(response) {
-                $scope.whItem = response.data;
-            });
-        } else {
-            $scope.whItem.WarehouseId = Utils.getParameterByName("wid");
-        }
+        $scope.initPermissions().then(function() {
+            $scope.checkAccessPermission(['Edit'], 'Warehouse');
+            $scope.numberPattern = Utils.getPositiveNumberPattern();
+            var id = Utils.getParameterByName("id");
+            if (id) {
+                $xhttp.get('/api/warehouse/getitem?id=' + id).then(function (response) {
+                    $scope.whItem = response.data;
+                });
+            } else {
+                $scope.whItem.WarehouseId = Utils.getParameterByName("wid");
+            }
+        });        
     }
 });

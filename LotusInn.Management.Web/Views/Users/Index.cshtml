@@ -26,7 +26,9 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-primary" ng-click="create()"><i class="fa fa-plus" aria-hidden="true"></i> Create</button>
+                    <button type="button" class="btn btn-primary" ng-click="create()" ng-disabled="!hasPermission('Create', 'User')">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Create
+                    </button>
                 </div>
             </div>
             <div class="row">
@@ -67,15 +69,15 @@
                                             <td>{{user.Role.Name}}</td>
                                             <td><span ng-if="user.Status && user.Status.length > 0" class="label" ng-class="{'label-success': user.Status == 'Verified', 'label-warning': user.Status == 'NotVerified', 'bg-grey-gallery': user.Status=='Disabled'}">{{user.Status}}</span></td>
                                             <td>
-                                                <button ng-if="user.Id != 'admin'" title="Reset password" class="btn btn-outline btn-xs yellow-crusta" ng-click="resetPassword(user)">
+                                                <button ng-if="user.Id != 'admin'" title="Reset password" class="btn btn-outline btn-xs yellow-crusta" ng-click="resetPassword(user)" ng-disabled="!hasPermission('Edit', 'User')">
                                                     <i class="fa fa-refresh"></i>
                                                     Reset Password
                                                 </button>
-                                                <button ng-if="user.Id != 'admin'"title="Edit this user"class="btn btn-outline btn-xs blue-hoki" ng-click="edit(user)">
+                                                <button ng-if="user.Id != 'admin'"title="Edit this user"class="btn btn-outline btn-xs blue-hoki" ng-click="edit(user)" ng-disabled="!hasPermission('Edit', 'User')">
                                                     <i class="fa fa-edit"></i>
                                                     Edit
                                                 </button>
-                                                <button ng-if="user.Id != 'admin'" title="Delete this user" class="btn btn-outline btn-xs red-flamingo" ng-click="delete(user)">
+                                                <button ng-if="user.Id != 'admin'" title="Delete this user" class="btn btn-outline btn-xs red-flamingo" ng-click="delete(user)" ng-disabled="!hasPermission('Delete', 'User')">
                                                     <i class="fa fa-remove"></i>
                                                     Delete
                                                 </button>

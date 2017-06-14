@@ -16,19 +16,32 @@
             }
         }
         $scope.init = function () {
-            try {
-                $scope.currentUser = JSON.parse(Base64.decode(ipCookie("AuthId"))).User;
-            } catch (e) {                
-                window.location.href = "/login";
-            }
-
-            $http.get('/api/config/getsidebarmenu', {
-                headers: {
-                    'X-Login-Session': ipCookie("AuthId")
+            $scope.initPermissions().then(function() {
+                try {
+                    $scope.currentUser = JSON.parse(Base64.decode(ipCookie("AuthId"))).User;
+                } catch (e) {
+                    window.location.href = "/login";
                 }
-            }).then(function(response) {
-                $scope.sidebarMenu = response.data;
-            }, function(err) {
+
+                $http.get('/api/config/getsidebarmenu', {
+                    headers: {
+                        'X-Login-Session': ipCookie("AuthId")
+                    }
+                }).then(function (response) {
+                    var menu = response.data;
+                    _.forEach(menu.Items, function (item) {
+                        item.visible = true;
+                        if (item.PermissionObject !== '') {
+                            if ($scope.hasPermission('None', item.PermissionObject)) {
+                                item.visible = false;
+                            }
+                        }
+
+                    });
+
+                    $scope.sidebarMenu = menu;
+                }, function (err) {
+                });
             });
         }
 

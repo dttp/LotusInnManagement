@@ -29,9 +29,14 @@
                 });
         }
 
-        $scope.init = function() {
-            $xhttp.get('/api/users/getusers').then(function(response) {
-                $scope.users = response.data;
+        $scope.init = function () {
+            $scope.initPermissions().then(function () {
+                $scope.checkAccessPermission(['Read'], 'User');
+
+                $xhttp.get('/api/users/getusers').then(function (response) {
+                    $scope.users = response.data;
+                });
             });
+            
         }
     });

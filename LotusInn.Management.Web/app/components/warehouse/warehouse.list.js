@@ -50,12 +50,16 @@
                 });
         };
 
-        $scope.init = function() {
-            var url = '/api/warehouse/getall';
-            $xhttp.get(url)
-                .then(function(response) {
-                    $scope.warehouses = response.data;
-                });
+        $scope.init = function () {
+            $scope.initPermissions().then(function() {
+                $scope.checkAccessPermission(['Read'], 'Warehouse');
+
+                var url = '/api/warehouse/getall';
+                $xhttp.get(url)
+                    .then(function (response) {
+                        $scope.warehouses = response.data;
+                    });
+            });
         }
     })
     .controller('warehouseInfoModalCtrl', function($scope,$uibModalInstance, $xhttp, warehouse) {

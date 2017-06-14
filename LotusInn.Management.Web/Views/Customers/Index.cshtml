@@ -1,8 +1,5 @@
 ﻿<div ng-controller="customerList" ng-init="init()">
-    <!-- BEGIN PAGE HEADER-->
-    <h3 class="page-title">
-        Customers <small>manage customers for house</small>
-    </h3>
+<!-- BEGIN PAGE HEADER-->
     <div class="page-bar">
         <ul class="page-breadcrumb">
             <li>
@@ -15,6 +12,10 @@
             </li>
         </ul>
     </div>
+    <h3 class="page-title">
+        Customers <small>manage customers for house</small>
+    </h3>
+    
     <!-- END PAGE HEADER-->
     <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>

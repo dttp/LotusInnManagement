@@ -93,11 +93,15 @@ module.controller('moneySourceDetailCtrl', function($scope, $xhttp, $uibModal, $
             });
     }
 
-    $scope.init = function() {
-        var id = Utils.getParameterByName("id");
-        $xhttp.get('/api/moneysource/getbyid?id=' + id).then(function(response) {
-            $scope.moneySource = response.data;
-            $scope.refresh();
+    $scope.init = function () {
+        $scope.initPermissions().then(function() {
+            $scope.checkAccessPermission(['Read'], 'MoneySource');
+
+            var id = Utils.getParameterByName("id");
+            $xhttp.get('/api/moneysource/getbyid?id=' + id).then(function (response) {
+                $scope.moneySource = response.data;
+                $scope.refresh();
+            });
         });
     }
 });

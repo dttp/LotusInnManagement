@@ -17,14 +17,14 @@
     {
       "Id": "equipment",
       "Name": "Equipments",
-      "PermissionObject": "equipment",
+      "PermissionObject": "Equipment",
       "Url": "/equipment",
       "Icon": "icon-list",
     },
     {
       "Id": "customer",
       "Name": "Customer",
-      "PermissionObject": "customer",
+      "PermissionObject": "Order",
       "Url": "/customers",
       "Icon": "fa fa-users"
     },
@@ -33,36 +33,33 @@
       "Name": "Manage Users",
       "Url": "/users",
       "Icon": "icon-people",
+      "PermissionObject": "User",
     },
     {
       "Id": "role",
       "Name": "Roles",
       "Url": "/role",
-      "Icon": "icon-people"
+      "Icon": "icon-people",
+      "PermissionObject": "Role",
     },
-    {
-          "Id": "permissionsets",
-          "Name": "Permission Sets",
-          "Url": "/permissionsets",
-          "Icon": "icon-people"
-        },
     {
       "Id": "warehouse",
       "Name": "Warehouse Management",
       "Url": "/warehouse",
-      "Icon": "icon-list"
+      "Icon": "icon-list",
+      "PermissionObject": "Warehouse",
     },
     {
       "Id": "finance",
       "Name": "Money Sources",
-      "PermissionObject": "finance",
+      "PermissionObject": "MoneySource",
       "Url": "/moneysource",
       "Icon": "icon-wallet"
     },
     {
       "Id": "report",
       "Name": "Reports",
-      "PermissionObject": "report",
+      "PermissionObject": "Report",
       "Url": "/report",
       "Icon": "icon-graph"      
     },    

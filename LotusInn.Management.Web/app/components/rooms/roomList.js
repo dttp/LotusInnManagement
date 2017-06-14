@@ -28,10 +28,14 @@
         }
 
         $scope.init = function () {
-            var houseId = Utils.getParameterByName("houseid");
-            $xhttp.get('/api/houses/getbyid?id=' + houseId).then(function(response) {
-                $scope.house = response.data;
-                $scope.refreshRooms();
-            });
+            $scope.initPermissions().then(function() {
+                $scope.checkAccessPermission(['Edit'], 'House');
+
+                var houseId = Utils.getParameterByName("houseid");
+                $xhttp.get('/api/houses/getbyid?id=' + houseId).then(function (response) {
+                    $scope.house = response.data;
+                    $scope.refreshRooms();
+                });
+            });            
         }
     });

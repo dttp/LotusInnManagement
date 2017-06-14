@@ -37,17 +37,21 @@
             window.location.href = "/roomTypes?houseid=" + $scope.house.Id;
         }
 
-        $scope.init = function () {            
-            var id = Utils.getParameterByName('id');
-            $scope.roomType.HouseId = Utils.getParameterByName("houseid");
-            $xhttp.get('/api/houses/getbyid?id=' + $scope.roomType.HouseId).then(function(response) {
-                $scope.house = response.data;
-            });
+        $scope.init = function () {
+            $scope.initPermissions().then(function() {
+                $scope.checkAccessPermission(['Edit'], 'House');
 
-            if (id) {
-                $xhttp.get('/api/roomTypes/getbyid?id=' + id).then(function (response) {
-                    $scope.roomType = response.data;
+                var id = Utils.getParameterByName('id');
+                $scope.roomType.HouseId = Utils.getParameterByName("houseid");
+                $xhttp.get('/api/houses/getbyid?id=' + $scope.roomType.HouseId).then(function (response) {
+                    $scope.house = response.data;
                 });
-            } 
+
+                if (id) {
+                    $xhttp.get('/api/roomTypes/getbyid?id=' + id).then(function (response) {
+                        $scope.roomType = response.data;
+                    });
+                }
+            });
         }
     });

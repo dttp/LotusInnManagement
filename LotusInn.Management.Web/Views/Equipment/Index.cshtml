@@ -1,8 +1,4 @@
 ﻿<div ng-controller="equipmentList" ng-init="init()">
-    <!-- BEGIN PAGE HEADER-->
-    <h3 class="page-title">
-        Equipments 
-    </h3>
     <div class="page-bar">
         <ul class="page-breadcrumb">
             <li>
@@ -15,14 +11,19 @@
             </li>
         </ul>
     </div>
+    <!-- BEGIN PAGE HEADER-->
+    <h3 class="page-title">
+        Equipments
+    </h3>
+
     <!-- END PAGE HEADER-->
     <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
         <strong>{{item.title}}</strong> {{item.body}}
     </div>
     <!-- BEGIN PAGE CONTENT-->
-    <div class="row" >
-       
+    <div class="row">
+
         <script type="text/ng-template" id="copyList.html">
             <div class="modal-header">
                 <h3 class="modal-title">Copy Equipment List</h3>
@@ -56,11 +57,11 @@
                                 <label class="control-label" style="float: left; margin-left: 15px">Room</label>
                                 <div class="col-md-3">
                                     <select class="form-control" ng-options="room as room.RoomNumber for room in rooms track by room.Id" ng-model="selectedRoom" ng-change="refresh()">
-                                        
+
                                     </select>
                                 </div>
                             </div>
-                        </div>                        
+                        </div>
                     </form>
                 </div>
             </div>
@@ -77,40 +78,40 @@
                             <div class="table-scrollable">
                                 <table class="table table-bordered table-hover table-striped table-condensed">
                                     <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Category</th>
-                                        <th>Quantity</th>                                        
-                                        <th>Status</th>
-                                        <th>Price</th>
-                                        <th>Created Date</th>                                        
-                                        <th>Actions</th>
-                                    </tr>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Category</th>
+                                            <th>Quantity</th>
+                                            <th>Status</th>
+                                            <th>Price</th>
+                                            <th>Created Date</th>
+                                            <th>Actions</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <tr ng-show="equipments.length == 0">
-                                        <td colspan="7">
-                                            There are no items
-                                        </td>
-                                    </tr>
-                                    <tr ng-show="equipments.length > 0" ng-repeat="item in equipments">
-                                        <td>
-                                            {{item.Name}}
-                                        </td>
-                                        <td>{{item.Category}}</td>
-                                        <td>{{item.Quantity}}</td>
-                                        <td>{{item.Status}}</td>
-                                        <td>{{item.Price}} - {{item.Unit}}</td>
-                                        <td>{{item.CreatedDate | date : 'dd/MM/yyyy'}}</td>
-                                        <td>
-                                            <a href="javascript:;" class="btn btn-icon-only blue-hoki" ng-click="edit(item)">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a href="javascript:;" class="btn btn-icon-only red-flamingo" ng-click="delete(item)">
-                                                <i class="fa fa-remove"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
+                                        <tr ng-show="equipments.length == 0">
+                                            <td colspan="7">
+                                                There are no items
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="equipments.length > 0" ng-repeat="item in equipments">
+                                            <td>
+                                                {{item.Name}}
+                                            </td>
+                                            <td>{{item.Category}}</td>
+                                            <td>{{item.Quantity}}</td>
+                                            <td>{{item.Status}}</td>
+                                            <td>{{item.Price}} - {{item.Unit}}</td>
+                                            <td>{{item.CreatedDate | date : 'dd/MM/yyyy'}}</td>
+                                            <td>
+                                                <a href="javascript:;" class="btn btn-icon-only blue-hoki" ng-click="edit(item)">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a href="javascript:;" class="btn btn-icon-only red-flamingo" ng-click="delete(item)">
+                                                    <i class="fa fa-remove"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

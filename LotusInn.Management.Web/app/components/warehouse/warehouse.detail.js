@@ -62,8 +62,11 @@
         };
 
         $scope.init = function () {
-            $scope.refreshItems();
-            $scope.refreshActivities();
+            $scope.initPermissions().then(function() {
+                $scope.checkAccessPermission(['Read'], 'Warehouse');
+                $scope.refreshItems();
+                $scope.refreshActivities();
+            });
         }
 
     });

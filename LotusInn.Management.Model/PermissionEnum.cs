@@ -19,10 +19,12 @@ namespace LotusInn.Management.Model
     public enum PermissionObject
     {
         House,
+        Equipment,
         User,
         Role,
         Warehouse,
         MoneySource,
         Order,
+        Report
     }
 }

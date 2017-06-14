@@ -28,12 +28,16 @@
             window.location.href = "/houses";
         }
 
-        $scope.init = function () {            
-            var id = Utils.getParameterByName('id');
-            if (id) {
-                $xhttp.get('/api/houses/getbyid?id=' + id).then(function (response) {
-                    $scope.house = response.data;
-                });
-            } 
+        $scope.init = function () {
+            $scope.initPermissions().then(function () {
+                $scope.checkAccessPermission(['Create', 'Edit'], 'House');
+
+                var id = Utils.getParameterByName('id');
+                if (id) {
+                    $xhttp.get('/api/houses/getbyid?id=' + id).then(function (response) {
+                        $scope.house = response.data;
+                    });
+                }
+            });
         }
     });

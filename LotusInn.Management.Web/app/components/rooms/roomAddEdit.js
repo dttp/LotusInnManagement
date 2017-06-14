@@ -39,7 +39,7 @@
         }
 
         $scope.cancel = function() {
-            window.location.href = "/rooms";
+            window.location.href = "/rooms?houseId=" + $scope.house.Id;
         }
 
         $scope.init = function () {            

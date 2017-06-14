@@ -22,9 +22,13 @@ module.controller('moneysourceCtrl', function($scope, $xhttp, $liModal) {
             });
     }
 
-    $scope.init = function() {
-        $xhttp.get('/api/moneysource/getall').then(function(response) {
-            $scope.moneySources = response.data;
+    $scope.init = function () {
+        $scope.initPermissions().then(function() {
+            $scope.checkAccessPermission(['Read'], 'MoneySource');
+
+            $xhttp.get('/api/moneysource/getall').then(function (response) {
+                $scope.moneySources = response.data;
+            });
         });
     }
 

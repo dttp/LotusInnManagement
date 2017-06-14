@@ -28,9 +28,13 @@
                 });
         }
 
-        $scope.init = function() {
-            $xhttp.get('/api/houses/gethouses').then(function(response) {
-                $scope.houses = response.data;
-            });
+        $scope.init = function () {
+            $scope.initPermissions().then(function () {
+                $scope.checkAccessPermission(['Read'], 'House');
+
+                $xhttp.get('/api/houses/gethouses').then(function (response) {
+                    $scope.houses = response.data;
+                });
+            });            
         }
     });

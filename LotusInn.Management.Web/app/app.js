@@ -275,7 +275,7 @@ angular.module('lotusinn.app')
         }
     ]);
 
-angular.module('lotusinn.app').run(function ($rootScope, alertSvc) {
+angular.module('lotusinn.app').run(function ($rootScope, alertSvc, $xhttp, ipCookie, $q) {
 
     $rootScope.alertSvc = alertSvc;
     $rootScope.hasError = function (field, errorType) {
@@ -290,4 +290,56 @@ angular.module('lotusinn.app').run(function ($rootScope, alertSvc) {
                 return false;
         }
     }
+
+    $rootScope.userPermissions = [];
+
+    $rootScope.initialized = false;
+
+    $rootScope.initPermissions = function () {
+        var defer = $q.defer();
+        setTimeout(function() {
+            if ($rootScope.initialized) {
+                defer.resolve();
+            } else {
+                try {
+                    var currentUser = JSON.parse(Base64.decode(ipCookie("AuthId"))).User;
+                    $xhttp.get('/api/users/getpermissions?userid=' + currentUser.Id).then(function (response) {
+                        $rootScope.userPermissions = response.data;
+                        $rootScope.initialized = true;
+                        defer.resolve();
+                    });
+                } catch (e) {
+                    location.href = '/login';
+                    defer.reject();
+                }
+            }
+        }, 100);
+                
+        return defer.promise;
+    }
+
+    $rootScope.checkAccessPermission = function (permissions, objectType) {
+        var hasPermission = false;
+        _.forEach(permissions, function(p) {
+            if ($rootScope.hasPermission(p, objectType)) {
+                hasPermission = true;
+            }
+        });
+
+        if (!hasPermission)
+            location.href = '/error/forbidden';
+    }
+
+    $rootScope.hasPermission = function(permission, objectType) {
+        var perm = _.find($rootScope.userPermissions.Permissions, { Object: objectType });
+        if (perm) {
+            if (permission === 'None') return perm.Permission === 0;
+            if (permission === 'Read') return (perm.Permission & 1) === 1;
+            if (permission === 'Create') return (perm.Permission & 2) === 2;
+            if (permission === 'Edit') return (perm.Permission & 4) === 4;
+            if (permission === 'Delete') return (perm.Permission & 8) === 8;
+        }
+        return false;
+    };
+
 });

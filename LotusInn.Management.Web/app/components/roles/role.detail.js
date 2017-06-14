@@ -58,35 +58,39 @@ module.controller('roleDetailCtrl', function($scope, $xhttp) {
     }
 
     $scope.permissionList = {}
-    $scope.init = function() {
-        var id = Utils.getParameterByName("id");
-        $xhttp.get('/api/roles/getbyid?id=' + id).then(function(response) {
-            $scope.role = response.data;
-        });
+    $scope.init = function () {
+        $scope.initPermissions().then(function() {
+            $scope.checkAccessPermission(['Read'], 'Role');
 
-        _.forEach($scope.permissionObjects, function(obj) {
-            $scope.permissionList[obj] = {
-                Read: false,
-                Create: false,
-                Edit: false,
-                Delete: false,
-                FullControl: false
-            }
-        });
+            var id = Utils.getParameterByName("id");
+            $xhttp.get('/api/roles/getbyid?id=' + id).then(function (response) {
+                $scope.role = response.data;
+            });
 
-        startWatch();
-
-        $xhttp.get('/api/roles/getpermissions?roleId=' + id).then(function(response) {
-            var permissions = response.data;
-
-            _.forEach(permissions, function(item) {
-                $scope.permissionList[item.Object] = {
-                    Read: (item.Permission & 1) === 1,
-                    Create: (item.Permission & 2) === 2,
-                    Edit: (item.Permission & 4) === 4,
-                    Delete: (item.Permission & 8) === 8,
-                    FullControl: item.Permission === 15
+            _.forEach($scope.permissionObjects, function (obj) {
+                $scope.permissionList[obj] = {
+                    Read: false,
+                    Create: false,
+                    Edit: false,
+                    Delete: false,
+                    FullControl: false
                 }
+            });
+
+            startWatch();
+
+            $xhttp.get('/api/roles/getpermissions?roleId=' + id).then(function (response) {
+                var permissions = response.data;
+
+                _.forEach(permissions, function (item) {
+                    $scope.permissionList[item.Object] = {
+                        Read: (item.Permission & 1) === 1,
+                        Create: (item.Permission & 2) === 2,
+                        Edit: (item.Permission & 4) === 4,
+                        Delete: (item.Permission & 8) === 8,
+                        FullControl: item.Permission === 15
+                    }
+                });
             });
         });
     }

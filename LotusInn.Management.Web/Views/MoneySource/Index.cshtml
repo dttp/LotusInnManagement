@@ -28,7 +28,9 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-primary" ng-click="create()"><i class="fa fa-plus" aria-hidden="true"></i> Create</button>
+                    <button type="button" class="btn btn-primary" ng-click="create()" ng-disabled="!hasPermission('Create', 'MoneySource')">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Create
+                    </button>
                 </div>
             </div>
             <div class="row">
@@ -71,11 +73,11 @@
                                                 {{moneySource.BalanceVND}}
                                             </td>
                                             <td>
-                                                <button title="Edit this money source" class="btn btn-outline btn-xs blue-hoki" ng-click="edit(moneySource)">
+                                                <button title="Edit this money source" class="btn btn-outline btn-xs blue-hoki" ng-click="edit(moneySource)" ng-disabled="!hasPermission('Edit', 'MoneySource')">
                                                     <i class="fa fa-edit"></i>
                                                     Edit
                                                 </button>
-                                                <button title="Delete this money source" class="btn btn-outline btn-xs red-flamingo" ng-click="delete(moneySource)">
+                                                <button title="Delete this money source" class="btn btn-outline btn-xs red-flamingo" ng-click="delete(moneySource)" ng-disabled="!hasPermission('Delete', 'MoneySource')">
                                                     <i class="fa fa-remove"></i>
                                                     Delete
                                                 </button>
