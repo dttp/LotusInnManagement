@@ -178,6 +178,10 @@
     <Build Include="dbo\Stored Procedures\UserObjectPermissionDelete.sql" />
     <Build Include="dbo\Stored Procedures\UserObjectPermissionGetById.sql" />
     <Build Include="dbo\Stored Procedures\UserObjectPermissionGetByUserId.sql" />
+    <Build Include="dbo\Stored Procedures\UserObjectPermissionGetCustomObjectPermission.sql" />
+    <Build Include="dbo\Stored Procedures\RoleObjectPermissionGetCustomObjectPermissions.sql" />
+    <Build Include="dbo\Stored Procedures\RoleObjectPermissionGetByObjectId.sql" />
+    <Build Include="dbo\Stored Procedures\UserObjectPermissionGetByObjectId.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="dbo\Data\Script.PostDeployment1.sql" />

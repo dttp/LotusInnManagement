@@ -2,6 +2,7 @@
 (
 	[Id] NVARCHAR(15) NOT NULL PRIMARY KEY, 
     [RoleId] NVARCHAR(15) NOT NULL, 
-    [Object] NVARCHAR(50) NOT NULL, 
-    [Permission] INT NOT NULL
+    [ObjectType] NVARCHAR(50) NOT NULL, 
+    [Permission] INT NOT NULL, 
+    [ObjectId] NVARCHAR(15) NULL
 )

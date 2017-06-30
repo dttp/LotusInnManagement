@@ -1,0 +1,116 @@
+﻿<div ng-controller="moneySourcePermissionCtrl" ng-init="init()">
+    <!-- BEGIN PAGE HEADER-->
+
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="\">Dashboard</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="\moneysource">Money Sources</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <span>{{moneySource.Name}}</span>
+            </li>
+        </ul>
+    </div>
+
+    <h3 class="page-title">
+        {{moneySource.Name}} <small>manage access control for this moneysource</small>
+    </h3>
+    <!-- END PAGE HEADER-->
+    <div ng-repeat="item in alertSvc.alerts" class="alert alert-{{item.type}}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="alertSvc.remove(item)"></button>
+        <strong>{{item.title}}</strong> {{item.body}}
+    </div>
+<!-- BEGIN PAGE CONTENT-->
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn blue" ng-click="addRoleUser()">
+                Add
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-scrollable">
+                <table class="table table-bordered table-hover table-striped table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Role/User</th>
+                            <th class="permission-col">Read</th>
+                            <th class="permission-col">Create</th>
+                            <th class="permission-col">Edit</th>
+                            <th class="permission-col">Delete</th>
+                            <th class="permission-col">Full Control</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in permissionList">
+                            <td>
+                                {{item.name}}
+                                <span ng-show="item.isOwner">(Owner)</span>
+                            </td>
+                            <td class="permission-col">
+                                <input type="checkbox" ng-disabled="item.isOwner" ng-model="item.Read"  ng-change="onPermissionChanged(item, 'Read')"/>
+                            </td>
+                            <td class="permission-col">
+                                <input type="checkbox" ng-disabled="item.isOwner" ng-model="item.Create" ng-change="onPermissionChanged(item, 'Create')"/>
+                            </td>
+                            <td class="permission-col">
+                                <input type="checkbox" ng-disabled="item.isOwner" ng-model="item.Edit" ng-change="onPermissionChanged(item, 'Edit')"/>
+                            </td>
+                            <td class="permission-col">
+                                <input type="checkbox" ng-disabled="item.isOwner" ng-model="item.Delete" ng-change="onPermissionChanged(item, 'Delete')"/>
+                            </td>
+                            <td class="permission-col">
+                                <input type="checkbox" ng-disabled="item.isOwner" ng-model="item.FullControl" ng-change="onPermissionChanged(item, 'FullControl')"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-9 col-md-offset-3">
+                <button class="btn blue" ng-click="save()">Save</button>
+            </div>
+        </div>
+    </div>
+    <script type="text/ng-template" id="addRoleUserModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Select Role/User</h3>
+        </div>
+        <div class="modal-body">
+            <table class="table table-bordered table-hover table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in ownerList">
+                        <td style="width: 30px"><input type="checkbox" ng-model="item.checked"/></td>
+                        <td>
+                            {{item.name}}
+                        </td>
+                        <td>
+                            {{item.type}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn blue" type="button" ng-click="ok()">Ok</button>
+            <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+</div>
+
+@section AngularController{
+    <script src="~/app/components/moneySource/moneySource.permission.js"></script>
+}

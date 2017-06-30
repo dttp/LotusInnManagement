@@ -63,4 +63,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="UserId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="809451fa-4153-481f-8d5a-9e778e23bcd2" ChangeDateTime="06/15/2017 08:06:16">
+    <Property Name="ElementName" Value="[dbo].[UserObjectPermission].[Object]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[UserObjectPermission]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ObjectType" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d8a7495f-d3fc-43a4-932d-e47f51c2bd5a" ChangeDateTime="06/15/2017 08:22:40">
+    <Property Name="ElementName" Value="[dbo].[RoleObjectPermission].[Object]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[RoleObjectPermission]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ObjectType" />
+  </Operation>
 </Operations>

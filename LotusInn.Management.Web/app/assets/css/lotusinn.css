@@ -208,3 +208,14 @@ div[class*='icheckbox_'], div[class*='iradio_'] {
     width: 80px;
     text-align: center;
 }
+
+.owner-list {
+    border: 1px solid gainsboro;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.owner-list {
+    
+}

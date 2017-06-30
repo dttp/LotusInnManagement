@@ -126,7 +126,7 @@ namespace LotusInn.Management.Services
             var rolePermissionList = roleSvc.GetPermissions(user.Role.Id);
             var result = rolePermissionList.Select(item => new UserObjectPermission()
             {
-                Id = item.Id, Object = item.Object, User = user, Permission = item.Permission
+                Id = item.Id, ObjectType = item.ObjectType, User = user, Permission = item.Permission
             }).ToList();
 
             return new UserPermissions
@@ -135,7 +135,6 @@ namespace LotusInn.Management.Services
                 Permissions = result
             };
         }
-
         public static void SetPermissions(string userId, UserPermissions permissions)
         {
             var userObjectPermDA = new UserObjectPermissionDataAdapter();

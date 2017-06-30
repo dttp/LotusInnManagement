@@ -19,7 +19,7 @@ namespace LotusInn.Management.Web.ApiControllers
             return Execute(session =>
             {
                 var svc = new MoneySourceService();
-                return svc.GetAll();
+                return svc.GetAll(session.User);
             });
         }
 
@@ -111,6 +111,27 @@ namespace LotusInn.Management.Web.ApiControllers
                 var svc = new MoneySourceService();
                 svc.DeletePayment(id, null, null);
                 return Request.CreateResponse(HttpStatusCode.NoContent);
+            });
+        }
+
+        [AcceptVerbs("GET")]
+        public ObjectPermissions GetObjectPermissions(string moneySourceId)
+        {
+            return Execute(session =>
+            {
+                var svc = new MoneySourceService();
+                return svc.GetPermissions(moneySourceId);
+            });
+        }
+
+        [AcceptVerbs("POST")]
+        public HttpResponseMessage SetObjectPermissions(ObjectPermissions permissions)
+        {
+            return Execute(session =>
+            {
+                var svc = new MoneySourceService();
+                svc.SetPermission(permissions);
+                return Request.CreateResponse(HttpStatusCode.OK);
             });
         }
     }

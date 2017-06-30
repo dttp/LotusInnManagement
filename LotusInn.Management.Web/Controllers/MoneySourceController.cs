@@ -23,5 +23,10 @@ namespace LotusInn.Management.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult Permission()
+        {
+            return View();
+        }
     }
 }

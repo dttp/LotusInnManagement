@@ -57,6 +57,7 @@
     <Compile Include="MailInfo.cs" />
     <Compile Include="MoneySource.cs" />
     <Compile Include="Notification.cs" />
+    <Compile Include="ObjectPermissions.cs" />
     <Compile Include="PaginationResult.cs" />
     <Compile Include="PaymentCycle.cs" />
     <Compile Include="PaymentRecord.cs" />

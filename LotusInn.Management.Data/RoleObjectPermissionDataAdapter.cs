@@ -18,6 +18,8 @@ namespace LotusInn.Management.Data
         private const string SP_ROLE_OBJECT_PERMISSION_DELETE = "RoleObjectPermissionDelete";
         private const string SP_ROLE_OBJECT_PERMISSION_GETBYID = "RoleObjectPermissionGetById";
         private const string SP_ROLE_OBJECT_PERMISSION_GETBYROLEID = "RoleObjectPermissionGetByRoleId";
+        private const string SP_ROLE_OBJECT_PERMISSION_GETCUSTOMOBJECTPERMISSIONS = "RoleObjectPermissionGetCustomObjectPermissions";
+        private const string SP_ROLE_OBJECT_PERMISSION_GETBYOBJECTID = "RoleObjectPermissionGetByObjectId";
         public RoleObjectPermission Insert(RoleObjectPermission @object)
         {
             @object.Id = IdHelper.Generate();
@@ -25,7 +27,8 @@ namespace LotusInn.Management.Data
             {
                 new SqlParameter("@id", @object.Id),
                 new SqlParameter("@roleId", @object.Role.Id),
-                new SqlParameter("@object", @object.Object),
+                new SqlParameter("@objectType", @object.ObjectType),
+                new SqlParameter("@objectId", @object.ObjectId),
                 new SqlParameter("@permission", (int) @object.Permission),
             };
             SqlHelper.ExecuteNonQuery(SP_ROLE_OBJECT_PERMISSION_INSERT, param);    
@@ -38,7 +41,8 @@ namespace LotusInn.Management.Data
             {
                 new SqlParameter("@id", @object.Id),
                 new SqlParameter("@roleId", @object.Role.Id),
-                new SqlParameter("@object", @object.Object),
+                new SqlParameter("@objectType", @object.ObjectType),
+                new SqlParameter("@objectId", @object.ObjectId),
                 new SqlParameter("@permission", (int) @object.Permission),
             };
             SqlHelper.ExecuteNonQuery(SP_ROLE_OBJECT_PERMISSION_UPDATE, param);
@@ -70,6 +74,25 @@ namespace LotusInn.Management.Data
                 new SqlParameter("@roleId", roleId),
             };
             return SqlHelper.ExecuteReader(SP_ROLE_OBJECT_PERMISSION_GETBYROLEID, param, Read);
+        }
+
+        public List<RoleObjectPermission> GetCustomObjectPermissions(string roleId, string objectType)
+        {
+            var param = new[]
+            {
+                new SqlParameter("@roleId", roleId),
+                new SqlParameter("@objectType", objectType),
+            };
+            return SqlHelper.ExecuteReader(SP_ROLE_OBJECT_PERMISSION_GETCUSTOMOBJECTPERMISSIONS, param, Read);
+        }
+
+        public List<RoleObjectPermission> GetByObjectId(string objectId)
+        {
+            var param = new[]
+            {
+                new SqlParameter("@objectId", objectId),
+            };
+            return SqlHelper.ExecuteReader(SP_ROLE_OBJECT_PERMISSION_GETBYOBJECTID, param, Read);
         } 
 
         private List<RoleObjectPermission> Read(IDataReader reader)
@@ -85,7 +108,8 @@ namespace LotusInn.Management.Data
                     {
                         Id = reader["RoleId"].ToString()
                     },
-                    Object = reader["Object"].ToString(),
+                    ObjectType = reader["ObjectType"].ToString(),
+                    ObjectId = reader["ObjectId"]?.ToString(),
                     Permission = (PermissionEnum) Convert.ToInt32(reader["Permission"])
                 };
                 item.Role = roleDA.GetById(item.Role.Id);

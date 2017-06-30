@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace LotusInn.Management.Model
 {
-    public class UserObjectPermission
+    public class ObjectPermissions
     {
-        public string Id { get; set; }
-        public User User { get; set; }
         public string ObjectType { get; set; }
         public string ObjectId { get; set; }
-        public PermissionEnum Permission { get; set; }
+        public List<RoleObjectPermission> RolesPermissions { get; set; }
+        public List<UserObjectPermission> UsersPermissions { get; set; }
     }
 }

@@ -2,4 +2,4 @@
 	@userId nvarchar(15)
 AS
 	SELECT * FROM UserObjectPermission
-	WHERE UserId = @userId
+	WHERE UserId = @userId AND ObjectId IS NULL

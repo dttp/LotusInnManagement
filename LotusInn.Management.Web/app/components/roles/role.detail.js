@@ -24,7 +24,7 @@ module.controller('roleDetailCtrl', function($scope, $xhttp) {
                 Role: {
                     Id: $scope.role.Id
                 },
-                Object: obj,
+                ObjectType: obj,
                 Permission: p
             };
             list.push(item);
@@ -83,7 +83,7 @@ module.controller('roleDetailCtrl', function($scope, $xhttp) {
                 var permissions = response.data;
 
                 _.forEach(permissions, function (item) {
-                    $scope.permissionList[item.Object] = {
+                    $scope.permissionList[item.ObjectType] = {
                         Read: (item.Permission & 1) === 1,
                         Create: (item.Permission & 2) === 2,
                         Edit: (item.Permission & 4) === 4,

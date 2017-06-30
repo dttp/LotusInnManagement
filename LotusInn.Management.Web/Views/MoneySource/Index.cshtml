@@ -50,7 +50,7 @@
                                             <th>House</th>
                                             <th>Balance USD</th>
                                             <th>Balance VND</th>
-                                            <th style="width: 200px">Actions</th>
+                                            <th style="width: 300px">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -73,6 +73,11 @@
                                                 {{moneySource.BalanceVND}}
                                             </td>
                                             <td>
+                                                <button title="Manage permission for this money source" class="btn btn-outline btn-xs blue-hoki" ng-click="managePermissions(moneySource)" ng-disabled="!hasPermission('Edit', 'MoneySource')">
+                                                    <i class="fa fa-edit"></i>
+                                                    Permissions
+                                                </button>
+
                                                 <button title="Edit this money source" class="btn btn-outline btn-xs blue-hoki" ng-click="edit(moneySource)" ng-disabled="!hasPermission('Edit', 'MoneySource')">
                                                     <i class="fa fa-edit"></i>
                                                     Edit

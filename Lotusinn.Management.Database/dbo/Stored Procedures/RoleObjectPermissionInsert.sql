@@ -1,8 +1,9 @@
 ﻿CREATE PROCEDURE [dbo].[RoleObjectPermissionInsert]
 	@id nvarchar(15),
 	@roleId nvarchar(15),
-	@object nvarchar(50),
+	@objectType nvarchar(50),
+	@objectId nvarchar(15) = NULL,
 	@permission int
 AS
-	INSERT INTO RoleObjectPermission(Id, RoleId, Object, Permission)
-	VALUES (@id, @roleId, @object, @permission)
+	INSERT INTO RoleObjectPermission(Id, RoleId, ObjectType, Permission, ObjectId)
+	VALUES (@id, @roleId, @objectType, @permission, @objectid)

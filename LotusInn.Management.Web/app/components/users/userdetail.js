@@ -47,7 +47,7 @@
                     User: {
                         Id: $scope.user.Id
                     },
-                    Object: obj,
+                    ObjectType: obj,
                     Permission: p
                 };
                 list.push(item);
@@ -123,7 +123,7 @@
                     $scope.isInherite = permissions.InheriteFromRole;
 
                     _.forEach(permissions.Permissions, function (item) {
-                        $scope.permissionList[item.Object] = {
+                        $scope.permissionList[item.ObjectType] = {
                             Read: (item.Permission & 1) === 1,
                             Create: (item.Permission & 2) === 2,
                             Edit: (item.Permission & 4) === 4,

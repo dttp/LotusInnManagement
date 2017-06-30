@@ -1469,6 +1469,7 @@
     <Content Include="app\components\moneySource\moneySource.addedit.js" />
     <Content Include="app\components\moneySource\moneySource.detail.js" />
     <Content Include="app\components\moneySource\moneySource.list.js" />
+    <Content Include="app\components\moneySource\moneySource.permission.js" />
     <Content Include="app\components\orders\orderCheckout.js" />
     <Content Include="app\components\orders\orderAddedit.js" />
     <Content Include="app\components\orders\orders.receipt.js" />
@@ -1601,6 +1602,7 @@
     <Content Include="Views\MoneySource\AddEdit.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Role\Detail.cshtml" />
+    <Content Include="Views\MoneySource\Permission.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

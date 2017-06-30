@@ -219,10 +219,16 @@ angular.module('lotusinn.app.moneysource.detail', [
     'ui.bootstrap'
 ]);
 
+angular.module('lotusinn.app.moneysource.permission', [
+    'lotusinn.app.services',
+    'ui.bootstrap'
+]);
+
 angular.module('lotusinn.app.moneysource', [
     'lotusinn.app.moneysource.list',
     'lotusinn.app.moneysource.addedit',
-    'lotusinn.app.moneysource.detail'
+    'lotusinn.app.moneysource.detail',
+    'lotusinn.app.moneysource.permission'
 ]);
 /*--------------------- ROLE MODULES ---------------------*/
 angular.module('lotusinn.app.role.list', [
@@ -331,7 +337,7 @@ angular.module('lotusinn.app').run(function ($rootScope, alertSvc, $xhttp, ipCoo
     }
 
     $rootScope.hasPermission = function(permission, objectType) {
-        var perm = _.find($rootScope.userPermissions.Permissions, { Object: objectType });
+        var perm = _.find($rootScope.userPermissions.Permissions, { ObjectType: objectType });
         if (perm) {
             if (permission === 'None') return perm.Permission === 0;
             if (permission === 'Read') return (perm.Permission & 1) === 1;

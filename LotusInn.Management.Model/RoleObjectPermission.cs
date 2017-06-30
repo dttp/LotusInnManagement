@@ -10,7 +10,8 @@ namespace LotusInn.Management.Model
     {
         public string Id { get; set; }
         public Role Role { get; set; }
-        public string Object { get; set; }
+        public string ObjectType { get; set; }
         public PermissionEnum Permission { get; set; }
+        public string ObjectId { get; set; }
     }
 }

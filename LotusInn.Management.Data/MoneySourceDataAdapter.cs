@@ -65,9 +65,13 @@ namespace LotusInn.Management.Data
             return SqlHelper.ExecuteReader(SP_MONEYSOURCE_GETBYID, param, reader => Read(reader).FirstOrDefault());
         }
 
-        public List<MoneySource> GetAll()
+        public List<MoneySource> GetAll(string userId)
         {
-            return SqlHelper.ExecuteReader(SP_MONEYSOURCE_GETALL, null, Read);
+            var param = new[]
+            {
+                new SqlParameter("@userId", userId),
+            };
+            return SqlHelper.ExecuteReader(SP_MONEYSOURCE_GETALL, param, Read);
         } 
 
         private SqlParameter[] CreateParams(MoneySource moneySource)

@@ -22,6 +22,10 @@ module.controller('moneysourceCtrl', function($scope, $xhttp, $liModal) {
             });
     }
 
+    $scope.managePermissions = function(source) {
+        location.href = '/moneysource/permission?id=' + source.Id;
+    }
+
     $scope.init = function () {
         $scope.initPermissions().then(function() {
             $scope.checkAccessPermission(['Read'], 'MoneySource');

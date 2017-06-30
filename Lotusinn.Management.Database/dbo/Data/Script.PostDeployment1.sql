@@ -21,39 +21,39 @@ BEGIN
 			VALUES ('admin', 'admin@lotusinn.vn', '', 'd9VudzcDjFxnIo3s82tdLF7MTwgU4XfmDUVGuQw', 'super-admin', 'Verified', 'admin')
 END
 
-IF ((SELECT COUNT(1) FROM RoleObjectPermission WHERE RoleId='super-admin' AND [Object] = 'House') = 0)
+IF ((SELECT COUNT(1) FROM RoleObjectPermission WHERE RoleId='super-admin' AND [ObjectType] = 'House') = 0)
 BEGIN
-	INSERT INTO RoleObjectPermission(Id, RoleId, Object, Permission)
-	VALUES ('1', 'super-admin', 'House', 15)
+	INSERT INTO RoleObjectPermission(Id, RoleId, ObjectType, ObjectId, Permission)
+	VALUES ('1', 'super-admin', 'House', NULL, 15)
 END
 
-IF ((SELECT COUNT(1) FROM RoleObjectPermission WHERE RoleId='super-admin' AND [Object] = 'User') = 0)
+IF ((SELECT COUNT(1) FROM RoleObjectPermission WHERE RoleId='super-admin' AND [ObjectType] = 'User') = 0)
 BEGIN
-	INSERT INTO RoleObjectPermission(Id, RoleId, Object, Permission)
-	VALUES ('2', 'super-admin', 'User', 15)
+	INSERT INTO RoleObjectPermission(Id, RoleId, ObjectType, ObjectId, Permission)
+	VALUES ('2', 'super-admin', 'User', NULL, 15)
 END
 
-IF ((SELECT COUNT(1) FROM RoleObjectPermission WHERE RoleId='super-admin' AND [Object] = 'Role') = 0)
+IF ((SELECT COUNT(1) FROM RoleObjectPermission WHERE RoleId='super-admin' AND [ObjectType] = 'Role') = 0)
 BEGIN
-	INSERT INTO RoleObjectPermission(Id, RoleId, Object, Permission)
-	VALUES ('3', 'super-admin', 'Role', 15)
+	INSERT INTO RoleObjectPermission(Id, RoleId, ObjectType, ObjectId, Permission)
+	VALUES ('3', 'super-admin', 'Role', NULL, 15)
 END
 
-IF ((SELECT COUNT(1) FROM RoleObjectPermission WHERE RoleId='super-admin' AND [Object] = 'Warehouse') = 0)
+IF ((SELECT COUNT(1) FROM RoleObjectPermission WHERE RoleId='super-admin' AND [ObjectType] = 'Warehouse') = 0)
 BEGIN
-	INSERT INTO RoleObjectPermission(Id, RoleId, Object, Permission)
-	VALUES ('4', 'super-admin', 'Warehouse', 15)
+	INSERT INTO RoleObjectPermission(Id, RoleId, ObjectType, ObjectId, Permission)
+	VALUES ('4', 'super-admin', 'Warehouse', NULL, 15)
 END
 
 
-IF ((SELECT COUNT(1) FROM RoleObjectPermission WHERE RoleId='super-admin' AND [Object] = 'MoneySource') = 0)
+IF ((SELECT COUNT(1) FROM RoleObjectPermission WHERE RoleId='super-admin' AND [ObjectType] = 'MoneySource') = 0)
 BEGIN
-	INSERT INTO RoleObjectPermission(Id, RoleId, Object, Permission)
-	VALUES ('5', 'super-admin', 'MoneySource', 15)
+	INSERT INTO RoleObjectPermission(Id, RoleId, ObjectType, ObjectId, Permission)
+	VALUES ('5', 'super-admin', 'MoneySource', NULL, 15)
 END
 
-IF ((SELECT COUNT(1) FROM RoleObjectPermission WHERE RoleId='super-admin' AND [Object] = 'Order') = 0)
+IF ((SELECT COUNT(1) FROM RoleObjectPermission WHERE RoleId='super-admin' AND [ObjectType] = 'Order') = 0)
 BEGIN
-	INSERT INTO RoleObjectPermission(Id, RoleId, Object, Permission)
-	VALUES ('6', 'super-admin', 'Order', 15)
+	INSERT INTO RoleObjectPermission(Id, RoleId, ObjectType, ObjectId, Permission)
+	VALUES ('6', 'super-admin', 'Order', NULL, 15)
 END

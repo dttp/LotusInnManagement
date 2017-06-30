@@ -1,4 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[RoleObjectPermissionGetByRoleId]
 	@roleId nvarchar(15)
 AS
-	SELECT * FROM RoleObjectPermission WHERE RoleId = @roleId
+	SELECT * FROM RoleObjectPermission 
+	WHERE RoleId = @roleId AND ObjectId IS NULL

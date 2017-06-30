@@ -13,11 +13,13 @@ namespace LotusInn.Management.Data
 {
     public class UserObjectPermissionDataAdapter: IObjectDataAdapter<UserObjectPermission>
     {
-        private const string SP_User_OBJECT_PERMISSION_INSERT = "UserObjectPermissionInsert";
-        private const string SP_User_OBJECT_PERMISSION_UPDATE = "UserObjectPermissionUpdate";
-        private const string SP_User_OBJECT_PERMISSION_DELETE = "UserObjectPermissionDelete";
-        private const string SP_User_OBJECT_PERMISSION_GETBYID = "UserObjectPermissionGetById";
+        private const string SP_USER_OBJECT_PERMISSION_INSERT = "UserObjectPermissionInsert";
+        private const string SP_USER_OBJECT_PERMISSION_UPDATE = "UserObjectPermissionUpdate";
+        private const string SP_USER_OBJECT_PERMISSION_DELETE = "UserObjectPermissionDelete";
+        private const string SP_USER_OBJECT_PERMISSION_GETBYID = "UserObjectPermissionGetById";
         private const string SP_USER_OBJECT_PERMISSION_GETBY_USER_ID = "UserObjectPermissionGetByUserId";
+        private const string SP_USER_OBJECT_PERMISSION_GETCUSTOMOBJECTPERMISSION = "UserObjectPermissionGetCustomObjectPermission";
+        private const string SP_USER_OBJECT_PERMISSION_GETBYOBJECTID = "UserObjectPermissionGetByObjectId";
         public UserObjectPermission Insert(UserObjectPermission @object)
         {
             @object.Id = IdHelper.Generate();
@@ -25,10 +27,11 @@ namespace LotusInn.Management.Data
             {
                 new SqlParameter("@id", @object.Id),
                 new SqlParameter("@userId", @object.User.Id),
-                new SqlParameter("@object", @object.Object),
+                new SqlParameter("@objectType", @object.ObjectType),
+                new SqlParameter("@objectId", @object.ObjectId),
                 new SqlParameter("@permission", (int) @object.Permission),
             };
-            SqlHelper.ExecuteNonQuery(SP_User_OBJECT_PERMISSION_INSERT, param);    
+            SqlHelper.ExecuteNonQuery(SP_USER_OBJECT_PERMISSION_INSERT, param);    
             return @object;
         }
 
@@ -38,10 +41,11 @@ namespace LotusInn.Management.Data
             {
                 new SqlParameter("@id", @object.Id),
                 new SqlParameter("@userId", @object.User.Id),
-                new SqlParameter("@object", @object.Object),
+                new SqlParameter("@objectType", @object.ObjectType),
+                new SqlParameter("@objectId", @object.ObjectId),
                 new SqlParameter("@permission", (int) @object.Permission),
             };
-            SqlHelper.ExecuteNonQuery(SP_User_OBJECT_PERMISSION_UPDATE, param);
+            SqlHelper.ExecuteNonQuery(SP_USER_OBJECT_PERMISSION_UPDATE, param);
         }
 
         public void Delete(string id)
@@ -50,7 +54,7 @@ namespace LotusInn.Management.Data
             {
                 new SqlParameter("@id", id),
             };
-            SqlHelper.ExecuteNonQuery(SP_User_OBJECT_PERMISSION_DELETE, param);
+            SqlHelper.ExecuteNonQuery(SP_USER_OBJECT_PERMISSION_DELETE, param);
 
         }
 
@@ -60,7 +64,7 @@ namespace LotusInn.Management.Data
             {
                 new SqlParameter("@id", id),
             };
-            return SqlHelper.ExecuteReader(SP_User_OBJECT_PERMISSION_GETBYID, param, Read).FirstOrDefault();
+            return SqlHelper.ExecuteReader(SP_USER_OBJECT_PERMISSION_GETBYID, param, Read).FirstOrDefault();
         }
 
         public List<UserObjectPermission> GetByUserId(string userId)
@@ -70,12 +74,31 @@ namespace LotusInn.Management.Data
                 new SqlParameter("@userId", userId),
             };
             return SqlHelper.ExecuteReader(SP_USER_OBJECT_PERMISSION_GETBY_USER_ID, param, Read);
-        } 
+        }
+
+        public List<UserObjectPermission> GetCustomObjectPermissions(string userId, string objectType)
+        {
+            var param = new[]
+               {
+                new SqlParameter("@userId", userId),
+                new SqlParameter("@objectType", objectType),
+            };
+            return SqlHelper.ExecuteReader(SP_USER_OBJECT_PERMISSION_GETCUSTOMOBJECTPERMISSION, param, Read);
+        }
+
+        public List<UserObjectPermission> GetByObjectId(string objectId)
+        {
+            var param = new[]
+               {
+                new SqlParameter("@objectId", objectId),
+            };
+            return SqlHelper.ExecuteReader(SP_USER_OBJECT_PERMISSION_GETBYOBJECTID, param, Read);
+        }
 
         private List<UserObjectPermission> Read(IDataReader reader)
         {
             var list = new List<UserObjectPermission>();
-            var userDA = new UserDataAdapter();
+            var userDa = new UserDataAdapter();
             while (reader.Read())
             {
                 var item = new UserObjectPermission
@@ -85,10 +108,11 @@ namespace LotusInn.Management.Data
                     {
                         Id = reader["UserId"].ToString()
                     },
-                    Object = reader["Object"].ToString(),
+                    ObjectType = reader["ObjectType"].ToString(),
+                    ObjectId = reader["ObjectId"]?.ToString(),
                     Permission = (PermissionEnum) Convert.ToInt32(reader["Permission"])
                 };
-                item.User = userDA.GetById(item.User.Id);
+                item.User = userDa.GetById(item.User.Id);
                 list.Add(item);
             }
             return list;

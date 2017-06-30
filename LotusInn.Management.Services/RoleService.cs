@@ -48,7 +48,7 @@ namespace LotusInn.Management.Services
             var currentList = _roleObjPermDataAdapter.GetByRoleId(roleId);
             foreach (var item in permissionsList)
             {
-                var curItem = currentList.Find(c => c.Object.Equals(item.Object));
+                var curItem = currentList.Find(c => c.ObjectType.Equals(item.ObjectType));
                 if (curItem != null && curItem.Permission != item.Permission)
                 {
                     curItem.Permission = item.Permission;
